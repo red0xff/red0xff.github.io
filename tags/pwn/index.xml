@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pwn on Redouane</title>
+    <link>/tags/pwn/</link>
+    <description>Recent content in pwn on Redouane</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Apr 2019 09:27:58 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>When exploit mitigations are disabled on modern systems</title>
+      <link>/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</link>
+      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
+      
+      <guid>/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
+      <description>While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.  This post is more like a writeup, demonstrating an exploit that can be adapted to work on other vulnerable programs compiled with the same compiler, also, it does not require knowledge of the version of the Windows DLLs in use, or the virtual addresses where they are loaded.</description>
+    </item>
+    
+    <item>
+      <title>HackINI 2018 : Some Writeups</title>
+      <link>/posts/hackini18/</link>
+      <pubDate>Mon, 12 Feb 2018 00:00:00 +0200</pubDate>
+      
+      <guid>/posts/hackini18/</guid>
+      <description>The Event HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.
+
+The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks.</description>
+    </item>
+    
+  </channel>
+</rss>

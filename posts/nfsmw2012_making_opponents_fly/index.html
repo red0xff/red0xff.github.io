@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>NFSMW2012 : making opponents fly :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
+
+In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
+We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that indicates its height), we must keep in mind that the z axis might be inverted (ie."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/posts/nfsmw2012_making_opponents_fly/" />
+
+<link rel="stylesheet" href="/assets/reminder.css" />
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="NFSMW2012 : making opponents fly :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
+<meta name="twitter:description" content="This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
+
+In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
+We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that indicates its height), we must keep in mind that the z axis might be inverted (ie." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="Redouane" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="NFSMW2012 : making opponents fly :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
+<meta property="og:description" content="This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
+
+In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
+We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that indicates its height), we must keep in mind that the z axis might be inverted (ie." />
+<meta property="og:url" content="/posts/nfsmw2012_making_opponents_fly/" />
+<meta property="og:site_name" content="NFSMW2012 : making opponents fly" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2018-01-20 00:00:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Redouane&#39;s Blog
+  </div>
+</a>
+<div id="typingcode" class="hidden"></div>
+<div id="fences"></div>
+
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/">Posts</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+      
+        <li><a href="/">Posts</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/nfsmw2012_making_opponents_fly/">NFSMW2012 : making opponents fly</a></h1>
+  <div class="post-meta">
+    <span class="post-date">
+      2018-01-20
+    </span>
+    
+    <span class="post-author">::
+      Redouane
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/gamehacking/">gamehacking</a>&nbsp;
+    
+    #<a href="/tags/cheat-engine/">cheat engine</a>&nbsp;
+    
+    #<a href="/tags/reverse-engineering/">reverse engineering</a>&nbsp;
+    
+    #<a href="/tags/assembly/">assembly</a>&nbsp;
+    
+    #<a href="/tags/gaming/">gaming</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  <div class="post-content">
+    <p>This is a gamehacking tutorial targeting <code>Need for Speed Most Wanted 2012</code>.</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/gameplay.png"><img src="/img/nfsmw2012_making_opponents_fly/gameplay.png" alt="Gameplay" /></a></p>
+
+<p>In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by <code>20m</code> to the sky (and by opponents I mean both cops and race opponents), lets start :D</p>
+
+<p>We&rsquo;ll start by searching for the <code>z</code> coordinate of our car (a value that indicates its height), we must keep in mind that the <code>z</code> axis might be inverted (ie. when our height increases, <code>z</code> might increase or decrease)</p>
+
+<ul>
+<li><p>This value has two possible types : Float and Double (because it&rsquo;s a real number)</p></li>
+
+<li><p>There are two possible cases :</p>
+
+<ul>
+<li>Getting more height increases <code>z</code></li>
+<li>It decreases <code>z</code></li>
+</ul></li>
+</ul>
+
+<p>So there will be a total of <code>4</code> cases, we can use different tabs to speed up the process, but we&rsquo;ll start with the most likely (Float type, because FPU arithmetic is faster on single floats, game programmers like to use it for coordinates and values that are involved in lots of calculations)
+Each time, we will start by scanning for an unknown initial value (because we don&rsquo;t know the initial <code>z</code> value).
+Lets start with float, increasing value when we get more height:</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/unknown_initial_value.png"><img src="/img/nfsmw2012_making_opponents_fly/unknown_initial_value.png" alt="209,290,240 results" /></a></p>
+
+<p><code>209,290,240</code> results, that&rsquo;s a lot! lets advance a little and rescan for decreased values, it will remove all the values that didn&rsquo;t decrease when we lost height.</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/next1.png"><img src="/img/nfsmw2012_making_opponents_fly/next1.png" alt="2,516,010 results" /></a></p>
+
+<p><code>2,516,010</code> results, <code>99%</code> of the first scan results are already filtered out, let&rsquo;s keep filtering, let&rsquo;s get back up, and rescan for increased value, then rescan for unchanged values without moving (the <code>z</code> value shouldn&rsquo;t change if we stand in-place, we will rescan for unchanged while the game is paused)</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/next2.png"><img src="/img/nfsmw2012_making_opponents_fly/next2.png" alt="584,104 results" /></a></p>
+
+<p><code>584,104</code> results
+Let&rsquo;s drive to another place, of course <code>z</code> will change (changes that it will stay the same are very very low), so we scan for changed value (we don&rsquo;t know if it increased or decreased).</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/standing.png"><img src="/img/nfsmw2012_making_opponents_fly/standing.png" alt="431,126 results" /></a></p>
+
+<p><code>431,126</code> results
+We keep filtering this way, using the increased, decreased, changed, unchanged scan types, and we end up with <code>337</code> results</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/337.png"><img src="/img/nfsmw2012_making_opponents_fly/337.png" alt="337 results" /></a></p>
+
+<p>Now that all the results look <more or less> related to the <code>z</code> coordinate of our car, let&rsquo;s start trying them one-by-one, each time, we incease the value, and we see if there is any change in the game, if there is none, we revert back our changes.
+We select all the results, then click the red arrow next to the scan results, and we start testing them one by one.</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/found_z.png"><img src="/img/nfsmw2012_making_opponents_fly/found_z.png" alt="z coordinate found" /></a></p>
+
+<p>We found it, address = <code>0AEA88B4</code> (it will change each time you restart the game/sometimes when you crash your car, or change it, because of Dynamic memory Allocation)</p>
+
+<p>(Small note : coordinates are most of the time on the same structure, we found the address of the <code>z</code> coordinate of our car, we can easily find the other coordinates, the gravity that affects it, the rotation angles, the speed vector etc.)</p>
+
+<p>Now that we found the address of our <code>z</code> coordinate, we will try to find out what accesses it (by putting an <code>on access</code> breakpoint on it), we will rightclick that entry, and choose <code>Find out what accesses this address</code></p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/read_breakpoint.png"><img src="/img/nfsmw2012_making_opponents_fly/read_breakpoint.png" alt="onread breakpoint" /></a></p>
+
+<p>There are a dozen instructions, most of them will probably access other variables (coordinates of other objects I guess), we will first try to find one instruction that only accesses this address, no others, to do that, we will add all the results to our codelist, then, we will test them one by one : select, then to find out what addresses they access, and check if there is only our car&rsquo;s structure (testing can take time, we must be sure)</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/accesses_only_mine.png"><img src="/img/nfsmw2012_making_opponents_fly/accesses_only_mine.png" alt="Code accessing only my car coordinates" /></a></p>
+
+<p>Awesome, not only we found some code that accesses only the height of our car, but it also executes very often (it executes even when the game is paused), to keep track of our height (and avoing scanning for it in the future), we will do this:
+- Inject some code using the found instruction as an injection point (remplace the instruction with a <code>jmp</code> to a codecave of ours, run our code there, run original code then return to where we left.
+- Our code will just save the address of the height of our car somewhere where we will find it easily (register a symbol), actually, instead of saving the height address, we will save the base address of the structure (<code>height address - 0x34</code>, which is the content of the <code>ecx</code> register)
+The code will be simple, this will do:</p>
+
+<pre><code class="language-nasm">[enable]
+alloc(log_player,1024)
+label(player_car) // player_car+30={x,z,y}
+registersymbol(player_car)
+label(returnlog)
+log_player:
+mov [player_car], ecx // save base of structure in the address player_car
+db 0f 28 41 30 0f 5c 44 24 60 // ORIGINAL CODE THAT WE PATCHED WITH A JMP
+jmp returnlog  // return to where we left
+player_car:
+dd 0   // initialize the content of player_car with 0
+&quot;NFS13.exe&quot;+4F7C65:
+jmp log_player // jump to our allocated memory
+db 90 90 90 90 // FILL WITH NOPS
+returnlog:
+[disable]
+dealloc(log_player)
+&quot;NFS13.exe&quot;+4F7C65:
+db 0f 28 41 30 0f 5c 44 24 60
+unregistersymbol(player_car)
+</code></pre>
+
+<p>When the box on the left of the script will be ticked, the code in <code>[enable]</code> will run, creating a symbol player_car that points to the address of the coordinates of our car, and when unticked, it will restore the original code.
+We delete all the addresses from our address list, and we add that script (<code>CTRL+ALT+A</code>, paste the script, <code>File-&gt;Assign to current cheat table</code>)</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/log_player_car.png"><img src="/img/nfsmw2012_making_opponents_fly/log_player_car.png" alt="Log Player Car" /></a></p>
+
+<p>We activate the script by ticking its box in the address list, then we click <code>add address manually</code>, we select Pointer, we enter <code>player_car</code> (it&rsquo;s the symbol that we registered, Cheat Engine will resolve it), and we set the offset to <code>0x34</code> (our height is at offset <code>0x34</code> in our structure)</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/pointer.png"><img src="/img/nfsmw2012_making_opponents_fly/pointer.png" alt="Pointer" /></a></p>
+
+<p>Bingo, we got a pointer to our car height, we will never have to scan for it again.</p>
+
+<p>We can even assign a hotkey that will increase the height of our car by a constant (rightclick on it <code>-&gt; Set/Change Hotkeys</code>).</p>
+
+<p>Now we will try to find some code that accesses the structures of the opponents (cops and race opponents), if we find some code that does not access our car&rsquo;s structure, it will be better (code injection would not affect our car), but such a code isn&rsquo;t required, any code that accesses our targeted opponents structures will do.</p>
+
+<p>What to do now? two solutions are possible:
+- To try to find a difference between the structure of our car and the other structures using the structure dissector (find a field that indicates that it&rsquo;s the player&rsquo;s car for example), then in our injected code, check the content of that field and if it&rsquo;s our car, don&rsquo;t do anything, otherwise increase <code>z</code> by a given height.</p>
+
+<ul>
+<li>In the injected code, to compare the base address of the structure with the one that we saved when we logged the base address of our player car (<code>player_car</code> symbol), if it&rsquo;s equal, then it&rsquo;s our car, otherwise it&rsquo;s an opponent.</li>
+</ul>
+
+<p>I chose the second option, because the first one is not guaranteed to work.</p>
+
+<p>Next step : find some code that accesses the cars that we want to affect (cops and race opponents), we will:
+- find the height address of an opponents car by finding out what some of these instructions access.
+- find out what accesses the height of the opponents car, and check the results one by one.</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/shared_code.png"><img src="/img/nfsmw2012_making_opponents_fly/shared_code.png" alt="Shared Code" /></a></p>
+
+<p>The code at address <code>&quot;NFS13.exe&quot;+5903E6</code> looks perfect, as shown in the picture, three of the results are the base addresses of the cops cars, and the fourth one is the one of my car, we also tested it on race opponents, and it accessed them.</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/disassembly.png"><img src="/img/nfsmw2012_making_opponents_fly/disassembly.png" alt="Disassembly" /></a></p>
+
+<p>Looking at that code, there are other advantages:
+- The <code>jmp</code> to our codecave will take <code>5</code> bytes, so we will need to add <code>3</code> nops, and the patched instructions are not position-dependent like relative <code>jmps</code> etc.
+- <code>ecx</code> and <code>edx</code> are overwritten just after that instruction, so we are free to use them in our code (without the need to <code>push</code>/<code>pop</code> them)</p>
+
+<ul>
+<li><p>Our code will run for <code>5ms</code> each time a hotkey is pressed (I chose <code>E</code>), increasing the height of each car by <code>20m</code>, and adding it to an array, in order to keep track of it, let&rsquo;s write some pseudocode that will help us writing the final thing in assembly</p></li>
+
+<li><p>The hotkey will just set <code>activated</code> to <code>1</code></p></li>
+</ul>
+
+<pre><code class="language-clike">[OUR VARIABLES]
+activated = 0; // if set to 1, the cheat will run for 5ms
+
+start_time = 0;
+player_car; // base address of our car structure
+carscount = 0;
+cars[] // An array, almost a page of free memory, empty initially
+[CODE THAT WILL RUN ON EACH CAR IN SIGHT (cops, race opponents, our car)]
+if (activated == 1)
+{
+    time = getTickCount(); // get current process time in ms
+    if (start_time == 0)
+        start_time = time;
+    if (time - start_time &lt;= 5)
+    {
+        // still active
+        if (player_car != base_of_structure) // player_car is the base of the structure of our car
+        {
+            // it's an opponent's car
+            found = 0
+            for each car in cars
+                if (car == base_of_structure) found = 1 // search for base_of_structure in the cars array
+            if (found == 0)
+            {
+                // not found in cars array, it means that it's the first time we encounter that car
+                base_of_structure.z += 20 // increase height by 20m
+                cars[carscount] = base_of_structure // add it to cars array, to avoid increasing the height more than once on a 5ms interval
+                carscount += 1
+            }
+        }
+    }
+    else
+    {
+        // more than 5 ms have passed, clean the cars array and set activated to 0
+        activated = 0
+        start_time = 0
+        for i = 0 to carscount
+            car[i] = 0
+        carscount = 0
+    }
+}
+</code></pre>
+
+<p>By using meaningful label names, string instructions with prefixes (<code>repne scasd</code>, <code>rep stosd</code>), our code has remained short and readable.
+ Full code here</p>
+
+<pre><code class="language-nasm">[enable]
+assert(player_car,**)
+alloc(forall,1024)
+label(start_time)
+label(amount)
+label(alreadystarted)
+label(clean_and_skip)
+label(carscount)
+label(returnforall)
+label(activated)
+registersymbol(activated)
+forall:
+cmp byte ptr[activated], 0
+jz skip
+// ITS ACTIVATED
+push edi
+push eax
+call GetTickCount
+mov ecx, [start_time]
+test ecx, ecx
+jnz alreadystarted
+mov [start_time], eax
+alreadystarted:
+    sub eax,[start_time]
+    cmp eax, 5
+    pop eax
+    jle stillactive
+    // No longer active, desactivate the cheat
+    mov byte ptr[activated], 0
+    mov [start_time], 0
+    //CLEAN ARRAY
+    mov ecx, [carscount]
+    lea edi, [cars]
+    push eax
+    xor eax, eax
+    rep stosd
+    mov [carscount],0
+    pop eax
+    jmp clean_and_skip
+stillactive:
+    mov edi,[player_car]
+    cmp edi, eax
+    jz clean_and_skip
+    lea edi, [cars]
+    // SEARCH FOR eax IN cars ARRAY
+    mov ecx, [carscount]
+    repne scasd
+    jz clean_and_skip
+    //NOT FOUND IN ARRAY, AND NOT MY CAR
+    mov [edi], eax // INSERT IN ARRAY
+    inc [carscount]
+    // MAKE IT FLY
+    fld [eax+34]
+    fadd [amount]
+    fstp [eax+34]
+
+clean_and_skip:
+pop edi
+skip:
+db 0f 28 40 30 8b 44 24 04
+jmp returnforall
+
+activated:
+db 0
+start_time:
+dd 0
+amount:
+dd (float)20.0
+carscount:
+dd 0
+cars:
+&quot;NFS13.exe&quot;+5903E6:
+jmp forall
+db 90 90 90
+returnforall:
+[disable]
+dealloc(forall)
+&quot;NFS13.exe&quot;+5903E6:
+db 0f 28 40 30 8b 44 24 04
+unregistersymbol(activated)
+</code></pre>
+
+<p>In its <code>[disable]</code> section, we will just dealloc our allocated memory, and we&rsquo;ll restore the original code, now we&rsquo;ll add the script to our cheat table.
+In order to activate the script, we need to set <code>activated</code> to <code>1</code>, this small Lua script will create the hotkey <code>E</code>, that when clicked, sets <code>activated</code> to <code>1</code></p>
+
+<pre><code class="language-lua">copsfly = createHotkey(function()
+  return writeBytes('activated', 1)
+end, VK_E)
+</code></pre>
+
+<p>We will save it on our cheat table (<code>table -&gt; Show Cheat Table Lua Script</code>).
+Let&rsquo;s test it, and with different cars (to ensure that our cheat always works).</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/flying_cops.png"><img src="/img/nfsmw2012_making_opponents_fly/flying_cops.png" alt="Flying Cops" /></a></p>
+
+<p>Cool, I can make cops fly :p
+On race opponents :</p>
+
+<p><a href="/img/nfsmw2012_making_opponents_fly/flying_opponents.png"><img src="/img/nfsmw2012_making_opponents_fly/flying_opponents.png" alt="Flying Opponents" /></a></p>
+
+<p>It works!</p>
+
+<p>(Note : addresses might differ on different game versions, I am using Black Box Repack version)</p>
+
+<p>I hope you&rsquo;ve enjoyed the tutorial</p>
+
+<p>Stay tuned for more!</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      <span class="button previous">
+        <a href="/posts/hackini18/">
+          <span class="button__icon">←</span>
+          <span class="button__text">HackINI 2018 : Some Writeups</span>
+        </a>
+      </span>
+      
+      
+      <span class="button next">
+        <a href="/posts/himayatic17_rev400/">
+          <span class="button__text">Himayatic 2017 - Rev400 Writeup</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "red0xff" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Proudly hosted on Github</span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+<script src="/assets/reminder.js"></script>
+<script src="/assets/codetyper.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

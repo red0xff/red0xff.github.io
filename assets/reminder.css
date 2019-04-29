@@ -1,0 +1,19 @@
+.reminder {
+  color: #444;
+  cursor: pointer;
+  //padding: 18px;
+  //width: 25%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 35px;
+}
+
+.reminder-active, .reminder:hover {
+  background-color: #212924;
+}
+.reminder-content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+}

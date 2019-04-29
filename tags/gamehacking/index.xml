@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gamehacking on Redouane</title>
+    <link>/tags/gamehacking/</link>
+    <description>Recent content in gamehacking on Redouane</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Jan 2018 00:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/gamehacking/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>NFSMW2012 : making opponents fly</title>
+      <link>/posts/nfsmw2012_making_opponents_fly/</link>
+      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
+      
+      <guid>/posts/nfsmw2012_making_opponents_fly/</guid>
+      <description>This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
+
+In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
+We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that indicates its height), we must keep in mind that the z axis might be inverted (ie.</description>
+    </item>
+    
+  </channel>
+</rss>
