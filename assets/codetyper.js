@@ -194,7 +194,7 @@ function getRandomInt(min, max) {
 }
 
 var code_line = getRandomInt(0, code.length-1); // index of line
-code_line = code.length - 6;
+
 function write_newline()
 {
 	if (lines_written == DIV_MAX_LINES)
@@ -268,10 +268,7 @@ function type_code()
 		if (color_open && line_char < code[code_line].length && code[code_line].charAt(line_char) === '}')
 		{
 			if (!is_atomic)
-			{
 				div.innerHTML = div.innerHTML.replace(new RegExp(htmlescape(code[code_line].slice(color_open_ind, line_char)).replace(/[\(\)]/g, (c) => "\\"+c ) + '$'), (x) => { return '<span class="register">' + x + '</span>' });
-			
-			}
 			line_char++;
 			color_open = false;
 			is_atomic = false;
