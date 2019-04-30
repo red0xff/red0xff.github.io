@@ -92,12 +92,12 @@ code = [
 "cvtsi2sd \\reg{xmm0},\\reg{ecx}",
 "subsd \\reg{xmm4},\\reg{xmm0}",
 "movaps \\reg{xmm1},\\reg{xmm4}",
-"movsd ss:[\\reg{rsp}+\\num{A8}],\\reg{xmm4}",
-"mov \\reg{rax},ss:[\\reg{rsp}+\\num{A8}]",
+"movsd \\reg{ss}:[\\reg{rsp}+\\num{A8}],\\reg{xmm4}",
+"mov \\reg{rax},\\reg{ss}:[\\reg{rsp}+\\num{A8}]",
 "mulsd \\reg{xmm1},\\reg{xmm4}",
 "and \\reg{rax},\\num{FFFFFFFFF8000000}",
-"mov ss:[\\reg{rsp}+\\num{A8}],\\reg{rax}",
-"movsd \\reg{xmm6},ss:[\\reg{rsp}+\\num{A8}]",
+"mov \\reg{ss}:[\\reg{rsp}+\\num{A8}],\\reg{rax}",
+"movsd \\reg{xmm6},\\reg{ss}:[\\reg{rsp}+\\num{A8}]",
 "movsxd \\reg{rax},\\reg{ecx}",
 "lea \\reg{rcx},\\reg{ds}:[\\num{7FFA63AC0000}]",
 "movaps \\reg{xmm7},\\reg{xmm1}",
@@ -155,7 +155,7 @@ code = [
 "fstp \\reg{ds}:[\\reg{r12}],\\reg{st(0)}",
 "mov \\reg{ds}:[\\reg{r13}],\\num{4}",
 "jmp \\num{7FF6565130E7}",
-"nop cs:[\\reg{rax}+\\reg{rax}],\\reg{ax}",
+"nop \\reg{cs}:[\\reg{rax}+\\reg{rax}],\\reg{ax}",
 "fld \\reg{st(0)},\\reg{ds}:[\\num{7FF65651FF80}]",
 "fstp \\reg{ds}:[\\reg{r12}],\\reg{st(0)}",
 ];
@@ -194,7 +194,7 @@ function getRandomInt(min, max) {
 }
 
 var code_line = getRandomInt(0, code.length-1); // index of line
-
+code_line = code.length - 6;
 function write_newline()
 {
 	if (lines_written == DIV_MAX_LINES)
@@ -227,6 +227,7 @@ function type_code()
 	var slc = code[code_line].slice(line_char, -1);
 	if (/^\\reg\{/.test(slc))
 	{
+		console.log("[+] opening : slc = " + slc);
 		if (color_open) throw 'Color tag already open';
 		color_open = true;
 		is_atomic = false;
@@ -267,7 +268,10 @@ function type_code()
 		if (color_open && line_char < code[code_line].length && code[code_line].charAt(line_char) === '}')
 		{
 			if (!is_atomic)
-				div.innerHTML = div.innerHTML.replace(new RegExp(htmlescape(code[code_line].slice(color_open_ind, line_char)) + '$'), (x) => { return '<span class="register">' + x + '</span>' });
+			{
+				div.innerHTML = div.innerHTML.replace(new RegExp(htmlescape(code[code_line].slice(color_open_ind, line_char)).replace(/[\(\)]/g, (c) => "\\"+c ) + '$'), (x) => { return '<span class="register">' + x + '</span>' });
+			
+			}
 			line_char++;
 			color_open = false;
 			is_atomic = false;
