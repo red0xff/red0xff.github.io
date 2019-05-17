@@ -161,7 +161,7 @@ The challenges of the CTF competition are mostly easy-medium, this post will con
 
 <p>HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.</p>
 
-<p><a href="/img/hackini18/hackini.jpg"><img src="/img/hackini18/hackini.jpg" alt="HackINI 2018" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109427/hackini18/hackini_bkfimc.jpg"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109427/hackini18/hackini_bkfimc.jpg" alt="HackINI 2018" /></a></p>
 
 <p>The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks.</p>
 
@@ -171,33 +171,33 @@ The challenges of the CTF competition are mostly easy-medium, this post will con
 
 <p>We are given a program that prompts us for a combination of keypresses.</p>
 
-<p><a href="/img/hackini18/locked.png"><img src="/img/hackini18/locked.png" alt="Locked" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109430/hackini18/locked_gkbiqz.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109430/hackini18/locked_gkbiqz.png" alt="Locked" /></a></p>
 
 <p>When we select a wrong combination of keys and press check, it displays <code>Wrong password</code>, and if we do it
 three times, the program exits</p>
 
-<p><a href="/img/hackini18/wrong_password.png"><img src="/img/hackini18/wrong_password.png" alt="Wrong Password" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109402/hackini18/wrong_password_ffmejv.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109402/hackini18/wrong_password_ffmejv.png" alt="Wrong Password" /></a></p>
 
 <p>Let&rsquo;s start reversing! first, let&rsquo;s identify the file, we could use Detect it Easy, or any other file identifier</p>
 
-<p><a href="/img/hackini18/die.png"><img src="/img/hackini18/die.png" alt="Detect it Easy" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109413/hackini18/die_azvvnl.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109413/hackini18/die_azvvnl.png" alt="Detect it Easy" /></a></p>
 
 <p>Looks like it&rsquo;s a .NET program, let&rsquo;s decompile it to check its code (I&rsquo;ll use <code>dnSpy</code>, a free .NET decompiler).</p>
 
-<p><a href="/img/hackini18/check_click.png"><img src="/img/hackini18/check_click.png" alt="Main check" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109409/hackini18/check_click_fr7bri.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109409/hackini18/check_click_fr7bri.png" alt="Main check" /></a></p>
 
 <p>Hmm, this function is called when we press the Check button, we understand that this.key must equal to <code>-1500809143</code>, also, by following the <code>extractFlag</code> method, we find that it uses our input to print the flag, so patching won&rsquo;t be possible.
 Let&rsquo;s find out where <code>this.key</code> is modified</p>
 
-<p><a href="/img/hackini18/key_list.png"><img src="/img/hackini18/key_list.png" alt="Key List" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109430/hackini18/key_list_i8ugfy.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109430/hackini18/key_list_i8ugfy.png" alt="Key List" /></a></p>
 
 <p><code>this.key</code> is initialized with <code>49153</code>, remember <code>this.key_list</code></p>
 
-<p><a href="/img/hackini18/xor_key.png"><img src="/img/hackini18/xor_key.png" alt="xor_key" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109406/hackini18/xor_key_fnrsca.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109406/hackini18/xor_key_fnrsca.png" alt="xor_key" /></a></p>
 
 <p><code>this.key</code> is also changed inside the function <code>xor_key</code></p>
 
-<p><a href="/img/hackini18/button_clicks.png"><img src="/img/hackini18/button_clicks.png" alt="button_clicks" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109418/hackini18/button_clicks_vzrdpp.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109418/hackini18/button_clicks_vzrdpp.png" alt="button_clicks" /></a></p>
 
 <p>And <code>xor_key</code> is called when we toggle the buttons, here is a mapping of the buttons that we press with the indexes of the items that <code>this.key</code> will be xored with.</p>
 
@@ -348,53 +348,53 @@ gets
 
 <p>First, we download the challenge file, and we try to run it locally</p>
 
-<p><a href="/img/hackini18/execution.png"><img src="/img/hackini18/execution.png" alt="execution" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109432/hackini18/execution_bklbc2.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109432/hackini18/execution_bklbc2.png" alt="execution" /></a></p>
 
 <p>it displays the name of the user, and then prompts for the number of points, if we enter a number greater than <code>5</code>, it displays : <code>&quot;Bad input : 10 : Maximum number of points is 5&quot;</code>, otherwise, it reads the coordinates of points, and displays the point that is the furthest from the origin <code>(0, 0)</code></p>
 
-<p><a href="/img/hackini18/result_execution.png"><img src="/img/hackini18/result_execution.png" alt="result of execution" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109402/hackini18/result_execution_rlcdli.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109402/hackini18/result_execution_rlcdli.png" alt="result of execution" /></a></p>
 
 <p>Let&rsquo;s reverse-engineer it to understand how it works (we use <code>radare2</code>)</p>
 
-<p><a href="/img/hackini18/number_of_points.png"><img src="/img/hackini18/number_of_points.png" alt="number of points" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109399/hackini18/number_of_points_ji4oe4.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109399/hackini18/number_of_points_ji4oe4.png" alt="number of points" /></a></p>
 
 <p>our input is first converted to int (using <code>atoi</code>), then the result is compared with <code>5</code>, notice the <code>jle</code> instruction, if our input <code>x &lt;= 5</code> then it prompts for the points, otherwise it quits directly (<code>exit(1)</code>)`</p>
 
-<p><a href="/img/hackini18/main_loop.png"><img src="/img/hackini18/main_loop.png" alt="main loop" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109395/hackini18/main_loop_obyxbe.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109395/hackini18/main_loop_obyxbe.png" alt="main loop" /></a></p>
 
 <p>Let&rsquo;s suppose that our input is <code>&lt;= 5</code> (otherwise the program would quit immediately), we find another loop, for <code>i = 0</code> and while it&rsquo;s below x (i is <code>local_4h</code> in the picture, <code>local_8h</code> is equal to x), it executes what is in the loop, the jump on the right just breaks out of the loop</p>
 
-<p><a href="/img/hackini18/parse_input.png"><img src="/img/hackini18/parse_input.png" alt="parse input" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109397/hackini18/parse_input_se5iw9.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109397/hackini18/parse_input_se5iw9.png" alt="parse input" /></a></p>
 
 <p>What it does inside the loop: it reads input and saves it in a variable (<code>obj.temp</code>), checks if it&rsquo;s empty (just a newline), if it is, it directly increments the loop counter and goes back to the loop check, otherwise, it compares the input with <code>&quot;stop&quot;</code>, if it&rsquo;s equal, it breaks out of the loop, otherwise, it splits the string to two space-separated integers with strtok, and converts each of them to unsigned long int (<code>strtoul</code>), then it saves them on the stack (we suppose that it&rsquo;s an array of points)</p>
 
 <p>Notice that <code>jb</code> (jump if below) is not the same as <code>jl</code> (jump if less), <code>jb</code> takes into account unsigned comparison (that is, it considers that the previous comparison took two unsigned values), while <code>jl</code> does signed comparison, the differences appear for example when we compare two values that are not of the same sign, <code>-1</code> is less than <code>0</code> (signed comparison), but <code>-1</code> is far above 0 (when unsigned, <code>-1 = 2**32-1</code> because it&rsquo;s a 32bit integer), so if we put a negative value in x, the jump (jb) will always be taken (as an unsigned int, <code>-1=2**32-1</code>), what about the first condition? it just checks if <code>x &lt;= 5</code>, so a negative value will also be accepted, let&rsquo;s try to enter -1</p>
 
-<p><a href="/img/hackini18/minus_one.png"><img src="/img/hackini18/minus_one.png" alt="minus one" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109393/hackini18/minus_one_nv1mjb.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109393/hackini18/minus_one_nv1mjb.png" alt="minus one" /></a></p>
 
 <p>We can enter as many points as we want (we can enter more than <code>5</code>), we can send an empty string to increment the array index without overwriting the data it points to, and we can enter stop to stop entering points (break out of the loop), let&rsquo;s try to enter a dozen of points, then quit</p>
 
-<p><a href="/img/hackini18/segfault.png"><img src="/img/hackini18/segfault.png" alt="segfault" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109401/hackini18/segfault_tjgcxm.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109401/hackini18/segfault_tjgcxm.png" alt="segfault" /></a></p>
 
 <p>after entering some points with large coordinates (12370169555883773389 = <code>0xababababcdcdcdcd</code>), we get a segmentation fault, let&rsquo;s investigate with <code>gdb</code></p>
 
-<p><a href="/img/hackini18/debugging_segfault.png"><img src="/img/hackini18/debugging_segfault.png" alt="debugging the segfault" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109415/hackini18/debugging_segfault_rok51v.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109415/hackini18/debugging_segfault_rok51v.png" alt="debugging the segfault" /></a></p>
 
 <p>we entered &ldquo;12297829382473034410 13527612320720337851&rdquo; (equal to <code>0xaaaaaaaaaaaaaaaa 0xbbbbbbbbbbbbbbbb</code>), then &ldquo;1229782938247303441 2459565876494606882&rdquo; (equal to <code>0x1111111111111111 0x1111111111111111</code>), then &ldquo;17155035695406767581 17155035695406767581&rdquo; (equal to <code>0xee12ee12dddddddd 0xee12ee12dddddddd</code>), as you see, after being converted to long numbers, the coordinates are stored on the stack (in our case, starting from address <code>0x7ffd48ead5b0</code>), as we know, the addresses where the current function will return is also stored on the stack, in our case, it is : &ldquo;<code>0136| 0x7ffd48ead638 --&gt; 0x4012f6 (&lt;__libc_start_main+742&gt;)</code>&rdquo;.</p>
 
 <p>Our exploit scenario : send a negative number of points, then send some junk points (or just newlines, remember that when we send a newline, the program does not modify the stack, but it still increments the index of the next point in the stack), looking at the stack, we find out that if we send <code>9</code> points, the second coordinate of the nineth point will overwrite the return address, so the program will try to return to whatever we give it there.</p>
 
-<p><a href="/img/hackini18/checksec.png"><img src="/img/hackini18/checksec.png" alt="checksec" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109410/hackini18/checksec_maakg9.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109410/hackini18/checksec_maakg9.png" alt="checksec" /></a></p>
 
 <p>The executable has some protections enabled, and <code>ASLR</code> is probably enabled, the stack is not executable, so we can&rsquo;t return to the stack to execute code on it, but remember that the program first prints the name of the user who ran it, it calls a function whoami, which does <code>system(&quot;whoami&quot;)</code>, so we can return to system, now we need a pointer to <code>&quot;/bin/sh&quot;</code> or the abosolute path of any other
 shell to pass to <code>system</code></p>
 
-<p><a href="/img/hackini18/fgets.png"><img src="/img/hackini18/fgets.png" alt="fgets" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109431/hackini18/fgets_xvxg71.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109431/hackini18/fgets_xvxg71.png" alt="fgets" /></a></p>
 
 <p>The buffer where our input containing the point coordinates is stored before being processed is in the <code>.bss</code> section (not the stack), remember that it&rsquo;s referenced by radare2 as <code>obj.temp</code>, its address is 0x69ee00 (we can find it with gdb by putting a breakpoint on the call to gets, or from radare2, or even with the nm command), and <code>PiE</code> is disabled, so if we send a string in that buffer, we can know its address in advance (it&rsquo;s not affected by <code>ASLR</code>), notice that when entering points, the program checks the first four characters of it against the string <code>&quot;stop&quot;</code>, so if we send <code>&quot;stop/bin/sh&quot;</code> it will still break out of the loop, and we will have a pointer to <code>&quot;/bin/sh&quot;</code> at <code>0x69ee00+4</code> (first four characters are <code>&quot;stop&quot;</code>), now we will need to
 put the pointer to <code>&quot;/bin/sh&quot;</code> in <code>rdi</code> (the argument to system)</p>
 
-<p><a href="/img/hackini18/gadget.png"><img src="/img/hackini18/gadget.png" alt="gadget" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109422/hackini18/gadget_jyzc3t.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109422/hackini18/gadget_jyzc3t.png" alt="gadget" /></a></p>
 
 <p>We found a gadget that does exactly that, pop rdi ; ret will pop a value from the stack into the rdi register, then it will return, putting everything together we get the following attack scenario:
 - Send a negative number of points
@@ -424,11 +424,11 @@ p.send('stop/bin/sh\x00\n')
 p.interactive()
 </code></pre>
 
-<p><a href="/img/hackini18/local.png"><img src="/img/hackini18/local.png" alt="local exploit" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109434/hackini18/local_u1eajz.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109434/hackini18/local_u1eajz.png" alt="local exploit" /></a></p>
 
 <p>The exploit works well locally (I get a shell), let&rsquo;s try it on the server now, I&rsquo;ll just remplace <code>p = process(...)</code> with <code>p = remote(IP, port)</code> in the script</p>
 
-<p><a href="/img/hackini18/remote.png"><img src="/img/hackini18/remote.png" alt="remote exploit" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109403/hackini18/remote_m9eohe.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109403/hackini18/remote_m9eohe.png" alt="remote exploit" /></a></p>
 
 <p>Works well, I get a shell, I am john, and I can read the content of flag.txt</p>
 

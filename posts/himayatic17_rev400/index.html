@@ -166,28 +166,28 @@ Download link : <a href="https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQ
 <p>Let&rsquo;s start :)
 First, we notice that it&rsquo;s a .NET crackme, it asks for a serial, and displays <code>&quot;Wrong Serial ... !!!&quot;</code> when we enter a random one.</p>
 
-<p><a href="/img/himayatic17_rev400/wrong_serial.png"><img src="/img/himayatic17_rev400/wrong_serial.png" alt="Wrong Serial" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109597/himayatic17_rev400/wrong_serial_amajtp.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109597/himayatic17_rev400/wrong_serial_amajtp.png" alt="Wrong Serial" /></a></p>
 
 <p>We open it in a .NET decompiler (I used <code>dnSpy</code>, which is a fork of <code>ILSpy</code>), and we immediately locate this function :</p>
 
-<p><a href="/img/himayatic17_rev400/obfuscated.png"><img src="/img/himayatic17_rev400/obfuscated.png" alt="Obfuscated" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109597/himayatic17_rev400/obfuscated_ir2vqf.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109597/himayatic17_rev400/obfuscated_ir2vqf.png" alt="Obfuscated" /></a></p>
 
 <p>The code looks obfuscated, we follow the <code>N</code> and <code>M</code> functions in the namespace <code>A</code>, and we find this:</p>
 
-<p><a href="/img/himayatic17_rev400/cryptoobfuscator.png"><img src="/img/himayatic17_rev400/cryptoobfuscator.png" alt="CryptoObfuscator" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109592/himayatic17_rev400/cryptoobfuscator_dckoxz.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109592/himayatic17_rev400/cryptoobfuscator_dckoxz.png" alt="CryptoObfuscator" /></a></p>
 
 <p>Looks like they used <code>CryptoObfuscator</code> to obfuscate the code, we&rsquo;ll use the popular .NET deobfuscator <a href="https://github.com/0xd4d/de4dot">de4dot</a> to clean the executable.</p>
 
-<p><a href="/img/himayatic17_rev400/de4dot.png"><img src="/img/himayatic17_rev400/de4dot.png" alt="de4dot" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109580/himayatic17_rev400/de4dot_m4uxpr.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109580/himayatic17_rev400/de4dot_m4uxpr.png" alt="de4dot" /></a></p>
 
 <p>We open the cleaned executable in <code>dnSpy</code>, the obfuscation is gone!</p>
 
-<p><a href="/img/himayatic17_rev400/deobfuscated.png"><img src="/img/himayatic17_rev400/deobfuscated.png" alt="deobfuscated" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109589/himayatic17_rev400/deobfuscated_bqpjzj.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109589/himayatic17_rev400/deobfuscated_bqpjzj.png" alt="deobfuscated" /></a></p>
 
 <p>But it&rsquo;s a wrong flag, if it were the real flag, the else part would display <code>&quot;Wrong Serial ... !!!&quot;</code> and not <code>&quot;Illusion ... !!&quot;</code> (of course, we still try it, who knows :p).
 We don&rsquo;t find anything interesting in the <code>Form</code> class, so we try debugging in <code>x64dbg</code>, we notice that when we open the program with <code>x64dbg</code>, it spawns itself in a new process and then exits from the main process, we breakpoint on <code>CreateProcessA</code> and <code>CreateProcessW</code>, just to ensure that we are correct, and yes, we hit the breakpoint on <code>CreateProcessW</code>, I did not notice the <code>CREATE_SUSPENDED</code> state in <code>dwCreationFlags</code>, I immediately went back to the decompiler, to find out where it spawns the new process, and what it does exactly.</p>
 
-<p><a href="/img/himayatic17_rev400/createprocessw.png"><img src="/img/himayatic17_rev400/createprocessw.png" alt="CreateProcessW" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109599/himayatic17_rev400/createprocessw_tbtofd.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109599/himayatic17_rev400/createprocessw_tbtofd.png" alt="CreateProcessW" /></a></p>
 
 <p>We suspect that it uses the <code>RunPE</code> technique, which in short works like this:
 - It spawns itself as a new process in suspended state
@@ -198,7 +198,7 @@ We don&rsquo;t find anything interesting in the <code>Form</code> class, so we t
 
 <p>We go back to <code>dnSpy</code>, and we find out that we were correct, the code is in the <code>Skins</code> class.</p>
 
-<p><a href="/img/himayatic17_rev400/runpe.png"><img src="/img/himayatic17_rev400/runpe.png" alt="RunPE" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109615/himayatic17_rev400/runpe_fzwxiw.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109615/himayatic17_rev400/runpe_fzwxiw.png" alt="RunPE" /></a></p>
 
 <p>Now, to analyze the code in the new process, we have two possiblities:
 - dump it while it&rsquo;s running
@@ -206,37 +206,37 @@ We don&rsquo;t find anything interesting in the <code>Form</code> class, so we t
 
 <p>Let&rsquo;s follow the first option, I used <a href="http://split-code.com/processdump.html">pd (process dump)</a> to dump the process and all its DLLs while it was running, this way I got the final exe.</p>
 
-<p><a href="/img/himayatic17_rev400/procdump.png"><img src="/img/himayatic17_rev400/procdump.png" alt="process dump" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109608/himayatic17_rev400/procdump_nonkkb.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109608/himayatic17_rev400/procdump_nonkkb.png" alt="process dump" /></a></p>
 
 <p>The new exe looks a lot like the original one.</p>
 
-<p><a href="/img/himayatic17_rev400/more_fake_flags.png"><img src="/img/himayatic17_rev400/more_fake_flags.png" alt="more fake flags" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109609/himayatic17_rev400/more_fake_flags_iookp8.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109609/himayatic17_rev400/more_fake_flags_iookp8.png" alt="more fake flags" /></a></p>
 
 <p>More fake flags :p.</p>
 
 <p>after more investigation, we find this function :</p>
 
-<p><a href="/img/himayatic17_rev400/loaddll.png"><img src="/img/himayatic17_rev400/loaddll.png" alt="load dll" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109595/himayatic17_rev400/loaddll_wew2xr.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109595/himayatic17_rev400/loaddll_wew2xr.png" alt="load dll" /></a></p>
 
 <p>It Loads another Base64-encoded assembly, we look for <code>T1.Text</code> to <code>T4.Text</code>, they are initialized in the <code>InitializeComponent</code> method in <code>FZero</code> class, all this way:
 <code>this.T1.Text = componentResourceManager.GetString(&quot;T1.Text&quot;);</code>
 We find the strings in the resources</p>
 
-<p><a href="/img/himayatic17_rev400/base64.png"><img src="/img/himayatic17_rev400/base64.png" alt="base64" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109591/himayatic17_rev400/base64_zqczfy.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109591/himayatic17_rev400/base64_zqczfy.png" alt="base64" /></a></p>
 
 <p>We concatenate them, decode as <code>base64</code>, and save output as a file, it&rsquo;s a DLL.</p>
 
-<p><a href="/img/himayatic17_rev400/decode_dll.png"><img src="/img/himayatic17_rev400/decode_dll.png" alt="decode dll" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109588/himayatic17_rev400/decode_dll_zwyb0c.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109588/himayatic17_rev400/decode_dll_zwyb0c.png" alt="decode dll" /></a></p>
 
 <p>We load it in <code>dnSpy</code>, and this time, we find the real check :</p>
 
-<p><a href="/img/himayatic17_rev400/real_code.png"><img src="/img/himayatic17_rev400/real_code.png" alt="real code" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109615/himayatic17_rev400/real_code_acrdxu.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109615/himayatic17_rev400/real_code_acrdxu.png" alt="real code" /></a></p>
 
 <p>the method <code>V</code> calls the method <code>E</code> to encrypt the user input, then it calls the method <code>VR</code> to check if it&rsquo;s correct, <code>VR</code> compares a fixed, twice-<code>base64</code>-encoded string (stored encoded once in ressources) with the encrypted and twice-encoded user input, then it calls <code>DS</code> if the check succeeds, we find <code>&quot;Wrong Serial ... !!|Yeah,, you did it :)'&quot;</code> in the resources.</p>
 
 <p>the method <code>E</code> (which encrypts) looks like this:</p>
 
-<p><a href="/img/himayatic17_rev400/encrypt.png"><img src="/img/himayatic17_rev400/encrypt.png" alt="encryption" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109595/himayatic17_rev400/encrypt_e1pwlo.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109595/himayatic17_rev400/encrypt_e1pwlo.png" alt="encryption" /></a></p>
 
 <p>It concatenates the second argument with <code>&quot;Himayatic_0xC001&quot;</code>, then hashes the result using <code>md5</code>, then it initializes a buffer of <code>32</code> characters, then it copies the <code>md5</code> hash to a buffer starting at index <code>0</code> (copies <code>16</code> characters), then copies the same <code>md5</code> hash to the same buffer starting at index <code>15</code> (copies <code>16</code> characters), so it overwrites the last character of the first copy, then it uses the buffer as the key to encrypt the first function parameter, it encrypts it using <code>AES</code> in <code>ECB</code> mode, then encodes it using <code>base64</code>.</p>
 
@@ -245,7 +245,7 @@ We find the strings in the resources</p>
 <p>We find it in <code>FZero_Load</code> : <code>this.o = RuntimeHelpers.GetObjectValue(this.Himayatic.getSkin());</code>
 We look for references to <code>this.o</code>, and we find this :</p>
 
-<p><a href="/img/himayatic17_rev400/real_check.png"><img src="/img/himayatic17_rev400/real_check.png" alt="real check" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109608/himayatic17_rev400/real_check_d7vsvn.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109608/himayatic17_rev400/real_check_d7vsvn.png" alt="real check" /></a></p>
 
 <p>It&rsquo;s pretty straightforward to understand this code, it&rsquo;s calling the method <code>V</code>, something like this : <code>V( this.FL__.Text, this.Name, true)</code></p>
 
@@ -277,7 +277,7 @@ ensure
 end
 </code></pre>
 
-<p><a href="/img/himayatic17_rev400/we_did_it.png"><img src="/img/himayatic17_rev400/we_did_it.png" alt="congrats" /></a></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109587/himayatic17_rev400/we_did_it_ahceyx.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109587/himayatic17_rev400/we_did_it_ahceyx.png" alt="congrats" /></a></p>
 
 <p><code>Himayatic{*1LLu510N__W17h0u7_C4rD5*}</code>
 Really nice challenge.</p>
