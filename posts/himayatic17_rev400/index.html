@@ -257,22 +257,22 @@ We look for references to <code>this.o</code>, and we find this :</p>
 require'openssl';
 require'digest';
 begin
-	enc = Base64.decode64 &quot;FQUFl/85WMFJp5XXfJX5Xykt8WhTPcy1MD0/0+SqEsj/IdMrolb3Haaq9yiZvcuH&quot;;
-	e = OpenSSL::Cipher::AES.new(256,:ECB)
-	e.decrypt; # initialize it for decryption
-	md5 = Digest::MD5.digest(&quot;FZero&quot; + &quot;Himayatic_0xC001&quot;);
-	key = &quot;\x00&quot; * 32;
-	key[0,16] = md5;
-	key[15, 16] = md5;
-	e.key = key;	
-	puts (e.update(enc)+e.final); # should output the flag
+    enc = Base64.decode64 &quot;FQUFl/85WMFJp5XXfJX5Xykt8WhTPcy1MD0/0+SqEsj/IdMrolb3Haaq9yiZvcuH&quot;;
+    e = OpenSSL::Cipher::AES.new(256,:ECB)
+    e.decrypt; # initialize it for decryption
+    md5 = Digest::MD5.digest(&quot;FZero&quot; + &quot;Himayatic_0xC001&quot;);
+    key = &quot;\x00&quot; * 32;
+    key[0,16] = md5;
+    key[15, 16] = md5;
+    e.key = key;    
+    puts (e.update(enc)+e.final); # should output the flag
 rescue Exception =&gt; e
-	# show the exception
+    # show the exception
     p e;
     p e.message;
     p e.backtrace
 ensure
-	# wait before exiting
+    # wait before exiting
     gets
 end
 </code></pre>
