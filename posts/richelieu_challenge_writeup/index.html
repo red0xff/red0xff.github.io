@@ -406,12 +406,12 @@ print( extracted_data )
 
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077810/richelieu_challenge_writeup/o939224nifq43mqnfv5u.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077810/richelieu_challenge_writeup/o939224nifq43mqnfv5u.png" alt="img17" /></a></p>
 
-<p>after that, the serial check is straightforward.</p>
+<p>after that, the serial check is straightforward:</p>
 
 <ul>
 <li>There is a <code>buffer</code> at <code>0x004898c0</code>.</li>
-<li>the code checks if <code>input[0] ^ 0x33 == buffer[0]</code></li>
-<li>for each index <code>i</code> in the range <code>[1 .. 29]</code>, the code is checking if <code>buffer[i] ^ input[i] == buffer[i+1]</code></li>
+<li>the code checks if <code>input[0] ^ 0x33 == buffer[0]</code>.</li>
+<li>for each index <code>i</code> in the range <code>[1 .. 29]</code>, the code is checking if <code>buffer[i] ^ input[i] == buffer[i+1]</code>.</li>
 </ul>
 
 <p>The following script retrieves the serial.</p>
