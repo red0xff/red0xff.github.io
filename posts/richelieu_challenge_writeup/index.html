@@ -384,7 +384,7 @@ print( extracted_data )
 
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077687/richelieu_challenge_writeup/achmket1adxvuo1elcua.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077687/richelieu_challenge_writeup/achmket1adxvuo1elcua.png" alt="img14" /></a></p>
 
-<p>The file we extracted is a <code>statically-linked</code> executable that prompts for a password, using readelf, we can see that its entrypoint is at <code>0x447f10</code> (we will first put a breakpoint on it), let&rsquo;s try to find out how it checks our input.</p>
+<p>The file we extracted is a <code>statically-linked</code> executable that prompts for a password, using <code>readelf</code>, we can see that its entrypoint is at <code>0x447f10</code> (we will first put a breakpoint on it), let&rsquo;s try to find out how it checks our input.</p>
 
 <p>If we reverse-engineer it, we will find that it&rsquo;s doing very common code unpacking operations : <code>mmap</code>ping a memory page that has <code>RWX</code> protections for example, but we don&rsquo;t need to understand how it&rsquo;s unpacking itself, we only care about how it checks our input, for that, let&rsquo;s use <code>gdb</code>, put a hardware on-access breakpoint on the first byte of our input using the <code>awatch</code> command, and check where it&rsquo;s accessed.</p>
 
@@ -394,18 +394,25 @@ print( extracted_data )
 
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077754/richelieu_challenge_writeup/yj1drktmt0fpllbs5hqt.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077754/richelieu_challenge_writeup/yj1drktmt0fpllbs5hqt.png" alt="img16" /></a></p>
 
-<p>There is an interesting pattern here, the code above checks the length of our input, if you did not understand it right away, here is an explaination:
-- initialize <code>rcx</code> with <code>-1</code>.
-- keep searching (scanning) for the <code>NULL</code> byte on our input, and decrement <code>rcx</code> on each non <code>NULL</code> byte (also decrement it once when you find the <code>NULL</code> byte, and stop scanning).
-- check if <code>rcx == -32</code>, <code>0xffffffffffffffe0</code> is the binary representation of the number <code>-32</code>.
-This means, the code is simply checking if <code>length(input) == 30</code></p>
+<p>There is an interesting pattern here, the code above checks the length of our input, if you did not understand it right away, here is an explaination:</p>
+
+<ul>
+<li>initialize <code>rcx</code> with <code>-1</code>.</li>
+<li>keep searching (scanning) for the <code>NULL</code> byte on our input, and decrement <code>rcx</code> on each non <code>NULL</code> byte (also decrement it once when you find the <code>NULL</code> byte, and stop scanning).</li>
+<li>check if <code>rcx == -32</code>, <code>0xffffffffffffffe0</code> is the binary representation of the number <code>-32</code>.</li>
+</ul>
+
+<p>This means, the code is simply checking if <code>length(input) == 30</code></p>
 
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077810/richelieu_challenge_writeup/o939224nifq43mqnfv5u.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077810/richelieu_challenge_writeup/o939224nifq43mqnfv5u.png" alt="img17" /></a></p>
 
-<p>after that, the serial check is straightforward.
-- There is a <code>buffer</code> at <code>0x004898c0</code>.
-- the code checks if <code>input[0] ^ 0x33 == buffer[0]</code>
-- for each index <code>i</code> in the range <code>[1 .. 29]</code>, the code is checking if <code>buffer[i] ^ input[i] == buffer[i+1]</code></p>
+<p>after that, the serial check is straightforward.</p>
+
+<ul>
+<li>There is a <code>buffer</code> at <code>0x004898c0</code>.</li>
+<li>the code checks if <code>input[0] ^ 0x33 == buffer[0]</code></li>
+<li>for each index <code>i</code> in the range <code>[1 .. 29]</code>, the code is checking if <code>buffer[i] ^ input[i] == buffer[i+1]</code></li>
+</ul>
 
 <p>The following script retrieves the serial.</p>
 
