@@ -391,7 +391,7 @@ shell to pass to <code>system</code></p>
 
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109431/hackini18/fgets_xvxg71.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109431/hackini18/fgets_xvxg71.png" alt="fgets" /></a></p>
 
-<p>The buffer where our input containing the point coordinates is stored before being processed is in the <code>.bss</code> section (not the stack), remember that it&rsquo;s referenced by radare2 as <code>obj.temp</code>, its address is 0x69ee00 (we can find it with gdb by putting a breakpoint on the call to gets, or from radare2, or even with the nm command), and <code>PiE</code> is disabled, so if we send a string in that buffer, we can know its address in advance (it&rsquo;s not affected by <code>ASLR</code>), notice that when entering points, the program checks the first four characters of it against the string <code>&quot;stop&quot;</code>, so if we send <code>&quot;stop/bin/sh&quot;</code> it will still break out of the loop, and we will have a pointer to <code>&quot;/bin/sh&quot;</code> at <code>0x69ee00+4</code> (first four characters are <code>&quot;stop&quot;</code>), now we will need to
+<p>The buffer where our input containing the point coordinates is stored before being processed is in the <code>.bss</code> section (not the stack), remember that it&rsquo;s referenced by radare2 as <code>obj.temp</code>, its address is <code>0x69ee00</code> (we can find it with gdb by putting a breakpoint on the call to gets, or from radare2, or even with the nm command), and <code>PiE</code> is disabled, so if we send a string in that buffer, we can know its address in advance (it&rsquo;s not affected by <code>ASLR</code>), notice that when entering points, the program checks the first four characters of it against the string <code>&quot;stop&quot;</code>, so if we send <code>&quot;stop/bin/sh&quot;</code> it will still break out of the loop, and we will have a pointer to <code>&quot;/bin/sh&quot;</code> at <code>0x69ee00+4</code> (first four characters are <code>&quot;stop&quot;</code>), now we will need to
 put the pointer to <code>&quot;/bin/sh&quot;</code> in <code>rdi</code> (the argument to system)</p>
 
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109422/hackini18/gadget_jyzc3t.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109422/hackini18/gadget_jyzc3t.png" alt="gadget" /></a></p>
@@ -411,7 +411,7 @@ p.send('-1\n') # -1 points
 
 # fill the buffer (or just leave its content as it is)
 for i in range(8):
-    p.send('\n')
+	p.send('\n')
 
 pop_rdi_ret = 0x4005a6 # pop rdi; ret
 temp = 0x69ee00 # address of obj.temp (in the .bss section)

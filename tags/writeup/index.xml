@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>writeup on Redouane</title>
+    <title>Writeup on Redouane</title>
     <link>/tags/writeup/</link>
-    <description>Recent content in writeup on Redouane</description>
+    <description>Recent content in Writeup on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Feb 2018 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 14 Jun 2019 14:55:32 +0200</lastBuildDate>
     
 	<atom:link href="/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Writeup of the Richelieu challenge</title>
+      <link>/posts/richelieu_challenge_writeup/</link>
+      <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
+      
+      <guid>/posts/richelieu_challenge_writeup/</guid>
+      <description>Table of Contents  The Challenge The Solution  Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free()  Conclusion  The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution.</description>
+    </item>
     
     <item>
       <title>HackINI 2018 : Some Writeups</title>

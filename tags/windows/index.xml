@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>windows on Redouane</title>
+    <title>Windows on Redouane</title>
     <link>/tags/windows/</link>
-    <description>Recent content in windows on Redouane</description>
+    <description>Recent content in Windows on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 24 Apr 2019 09:27:58 +0200</lastBuildDate>
@@ -17,7 +17,7 @@
       <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
       
       <guid>/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
-      <description>While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.  This post is more like a writeup, demonstrating an exploit that can be adapted to work on other vulnerable programs compiled with the same compiler, also, it does not require knowledge of the version of the Windows DLLs in use, or the virtual addresses where they are loaded.</description>
+      <description>Table of Contents  Introduction Prerequisites: Vulnerable program: Vulnerability Analysis of the executable Exploitation  Initial plan Searching for ROP gadgets in the application Implementing the exploit  Part1 - Initial Buffer overflow, stack pivoting Part2 - VirtualProtect the main module to ERW, scanf on ERW memory, and jump to it: Part3 - Final shellcode Putting it all together   Conclusion  Introduction While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.</description>
     </item>
     
     <item>

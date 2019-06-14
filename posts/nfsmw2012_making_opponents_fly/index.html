@@ -358,38 +358,38 @@ test ecx, ecx
 jnz alreadystarted
 mov [start_time], eax
 alreadystarted:
-    sub eax,[start_time]
-    cmp eax, 5
-    pop eax
-    jle stillactive
-    // No longer active, desactivate the cheat
-    mov byte ptr[activated], 0
-    mov [start_time], 0
-    //CLEAN ARRAY
-    mov ecx, [carscount]
-    lea edi, [cars]
-    push eax
-    xor eax, eax
-    rep stosd
-    mov [carscount],0
-    pop eax
-    jmp clean_and_skip
+	sub eax,[start_time]
+	cmp eax, 5
+	pop eax
+	jle stillactive
+	// No longer active, desactivate the cheat
+	mov byte ptr[activated], 0
+	mov [start_time], 0
+	//CLEAN ARRAY
+	mov ecx, [carscount]
+	lea edi, [cars]
+	push eax
+	xor eax, eax
+	rep stosd
+	mov [carscount],0
+	pop eax
+	jmp clean_and_skip
 stillactive:
-    mov edi,[player_car]
-    cmp edi, eax
-    jz clean_and_skip
-    lea edi, [cars]
-    // SEARCH FOR eax IN cars ARRAY
-    mov ecx, [carscount]
-    repne scasd
-    jz clean_and_skip
-    //NOT FOUND IN ARRAY, AND NOT MY CAR
-    mov [edi], eax // INSERT IN ARRAY
-    inc [carscount]
-    // MAKE IT FLY
-    fld [eax+34]
-    fadd [amount]
-    fstp [eax+34]
+	mov edi,[player_car]
+	cmp edi, eax
+	jz clean_and_skip
+	lea edi, [cars]
+	// SEARCH FOR eax IN cars ARRAY
+	mov ecx, [carscount]
+	repne scasd
+	jz clean_and_skip
+	//NOT FOUND IN ARRAY, AND NOT MY CAR
+	mov [edi], eax // INSERT IN ARRAY
+	inc [carscount]
+	// MAKE IT FLY
+	fld [eax+34]
+	fadd [amount]
+	fstp [eax+34]
 
 clean_and_skip:
 pop edi
