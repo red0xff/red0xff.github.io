@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Windows on Redouane</title>
-    <link>/tags/windows/</link>
+    <link>https://red0xff.github.io/tags/windows/</link>
     <description>Recent content in Windows on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 24 Apr 2019 09:27:58 +0200</lastBuildDate>
     
-	<atom:link href="/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://red0xff.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>When exploit mitigations are disabled on modern systems</title>
-      <link>/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</link>
+      <link>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</link>
       <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
       
-      <guid>/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
+      <guid>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
       <description>Table of Contents  Introduction Prerequisites: Vulnerable program: Vulnerability Analysis of the executable Exploitation  Initial plan Searching for ROP gadgets in the application Implementing the exploit  Part1 - Initial Buffer overflow, stack pivoting Part2 - VirtualProtect the main module to ERW, scanf on ERW memory, and jump to it: Part3 - Final shellcode Putting it all together   Conclusion  Introduction While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.</description>
     </item>
     
     <item>
       <title>Himayatic 2017 - Rev400 Writeup</title>
-      <link>/posts/himayatic17_rev400/</link>
+      <link>https://red0xff.github.io/posts/himayatic17_rev400/</link>
       <pubDate>Sun, 05 Nov 2017 00:00:00 +0200</pubDate>
       
-      <guid>/posts/himayatic17_rev400/</guid>
+      <guid>https://red0xff.github.io/posts/himayatic17_rev400/</guid>
       <description>Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
 Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
 

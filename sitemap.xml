@@ -3,156 +3,161 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/posts/richelieu_challenge_writeup/</loc>
+    <loc>https://red0xff.github.io/search/</loc>
+    <lastmod>2019-08-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/posts/richelieu_challenge_writeup/</loc>
     <lastmod>2019-06-14T14:55:32+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</loc>
+    <loc>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/about/</loc>
+    <loc>https://red0xff.github.io/about/</loc>
     <lastmod>2019-01-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/posts/hackini18/</loc>
+    <loc>https://red0xff.github.io/posts/hackini18/</loc>
     <lastmod>2018-02-12T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/posts/nfsmw2012_making_opponents_fly/</loc>
+    <loc>https://red0xff.github.io/posts/nfsmw2012_making_opponents_fly/</loc>
     <lastmod>2018-01-20T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/posts/himayatic17_rev400/</loc>
+    <loc>https://red0xff.github.io/posts/himayatic17_rev400/</loc>
     <lastmod>2017-11-05T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/assembly/</loc>
+    <loc>https://red0xff.github.io/tags/assembly/</loc>
     <lastmod>2018-01-20T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/buffer-overflow/</loc>
+    <loc>https://red0xff.github.io/tags/buffer-overflow/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://red0xff.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/cheat-engine/</loc>
+    <loc>https://red0xff.github.io/tags/cheat-engine/</loc>
     <lastmod>2018-01-20T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/cryptography/</loc>
+    <loc>https://red0xff.github.io/tags/cryptography/</loc>
     <lastmod>2019-06-14T14:55:32+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/event/</loc>
+    <loc>https://red0xff.github.io/tags/event/</loc>
     <lastmod>2018-02-12T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/exploit/</loc>
+    <loc>https://red0xff.github.io/tags/exploit/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/gamehacking/</loc>
+    <loc>https://red0xff.github.io/tags/gamehacking/</loc>
     <lastmod>2018-01-20T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/gaming/</loc>
+    <loc>https://red0xff.github.io/tags/gaming/</loc>
     <lastmod>2018-01-20T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/posts/</loc>
+    <loc>https://red0xff.github.io/posts/</loc>
     <lastmod>2019-06-14T14:55:32+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/pwn/</loc>
+    <loc>https://red0xff.github.io/tags/pwn/</loc>
     <lastmod>2019-06-14T14:55:32+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/</loc>
+    <loc>https://red0xff.github.io/</loc>
+    <lastmod>2019-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/tags/reverse/</loc>
     <lastmod>2019-06-14T14:55:32+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/reverse/</loc>
-    <lastmod>2019-06-14T14:55:32+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/reverse-engineering/</loc>
+    <loc>https://red0xff.github.io/tags/reverse-engineering/</loc>
     <lastmod>2018-01-20T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/reversing/</loc>
+    <loc>https://red0xff.github.io/tags/reversing/</loc>
     <lastmod>2018-02-12T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/security/</loc>
+    <loc>https://red0xff.github.io/tags/security/</loc>
     <lastmod>2019-06-14T14:55:32+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/security/</loc>
+    <loc>https://red0xff.github.io/categories/security/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/steganography/</loc>
+    <loc>https://red0xff.github.io/tags/steganography/</loc>
     <lastmod>2019-06-14T14:55:32+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://red0xff.github.io/tags/</loc>
     <lastmod>2018-01-20T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/windows/</loc>
+    <loc>https://red0xff.github.io/tags/windows/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/writeup/</loc>
+    <loc>https://red0xff.github.io/tags/writeup/</loc>
     <lastmod>2019-06-14T14:55:32+02:00</lastmod>
     <priority>0</priority>
   </url>

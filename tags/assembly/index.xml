@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Assembly on Redouane</title>
-    <link>/tags/assembly/</link>
+    <link>https://red0xff.github.io/tags/assembly/</link>
     <description>Recent content in Assembly on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 20 Jan 2018 00:00:00 +0200</lastBuildDate>
     
-	<atom:link href="/tags/assembly/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://red0xff.github.io/tags/assembly/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>NFSMW2012 : making opponents fly</title>
-      <link>/posts/nfsmw2012_making_opponents_fly/</link>
+      <link>https://red0xff.github.io/posts/nfsmw2012_making_opponents_fly/</link>
       <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
       
-      <guid>/posts/nfsmw2012_making_opponents_fly/</guid>
+      <guid>https://red0xff.github.io/posts/nfsmw2012_making_opponents_fly/</guid>
       <description>This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
 
 In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
@@ -25,10 +25,10 @@ We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that
     
     <item>
       <title>Himayatic 2017 - Rev400 Writeup</title>
-      <link>/posts/himayatic17_rev400/</link>
+      <link>https://red0xff.github.io/posts/himayatic17_rev400/</link>
       <pubDate>Sun, 05 Nov 2017 00:00:00 +0200</pubDate>
       
-      <guid>/posts/himayatic17_rev400/</guid>
+      <guid>https://red0xff.github.io/posts/himayatic17_rev400/</guid>
       <description>Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
 Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
 

@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Redouane</title>
-    <link>/posts/</link>
+    <link>https://red0xff.github.io/posts/</link>
     <description>Recent content in Posts on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 14 Jun 2019 14:55:32 +0200</lastBuildDate>
     
-	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://red0xff.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Writeup of the Richelieu challenge</title>
-      <link>/posts/richelieu_challenge_writeup/</link>
+      <link>https://red0xff.github.io/posts/richelieu_challenge_writeup/</link>
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
       
-      <guid>/posts/richelieu_challenge_writeup/</guid>
+      <guid>https://red0xff.github.io/posts/richelieu_challenge_writeup/</guid>
       <description>Table of Contents  The Challenge The Solution  Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free()  Conclusion  The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution.</description>
     </item>
     
     <item>
       <title>When exploit mitigations are disabled on modern systems</title>
-      <link>/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</link>
+      <link>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</link>
       <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
       
-      <guid>/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
+      <guid>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
       <description>Table of Contents  Introduction Prerequisites: Vulnerable program: Vulnerability Analysis of the executable Exploitation  Initial plan Searching for ROP gadgets in the application Implementing the exploit  Part1 - Initial Buffer overflow, stack pivoting Part2 - VirtualProtect the main module to ERW, scanf on ERW memory, and jump to it: Part3 - Final shellcode Putting it all together   Conclusion  Introduction While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.</description>
     </item>
     
     <item>
       <title>HackINI 2018 : Some Writeups</title>
-      <link>/posts/hackini18/</link>
+      <link>https://red0xff.github.io/posts/hackini18/</link>
       <pubDate>Mon, 12 Feb 2018 00:00:00 +0200</pubDate>
       
-      <guid>/posts/hackini18/</guid>
+      <guid>https://red0xff.github.io/posts/hackini18/</guid>
       <description>The Event HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.
 
 The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks.</description>
@@ -42,10 +42,10 @@ The challenges of the CTF competition are mostly easy-medium, this post will con
     
     <item>
       <title>NFSMW2012 : making opponents fly</title>
-      <link>/posts/nfsmw2012_making_opponents_fly/</link>
+      <link>https://red0xff.github.io/posts/nfsmw2012_making_opponents_fly/</link>
       <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
       
-      <guid>/posts/nfsmw2012_making_opponents_fly/</guid>
+      <guid>https://red0xff.github.io/posts/nfsmw2012_making_opponents_fly/</guid>
       <description>This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
 
 In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
@@ -54,10 +54,10 @@ We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that
     
     <item>
       <title>Himayatic 2017 - Rev400 Writeup</title>
-      <link>/posts/himayatic17_rev400/</link>
+      <link>https://red0xff.github.io/posts/himayatic17_rev400/</link>
       <pubDate>Sun, 05 Nov 2017 00:00:00 +0200</pubDate>
       
-      <guid>/posts/himayatic17_rev400/</guid>
+      <guid>https://red0xff.github.io/posts/himayatic17_rev400/</guid>
       <description>Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
 Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
 
