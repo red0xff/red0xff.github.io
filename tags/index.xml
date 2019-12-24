@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Redouane</title>
@@ -6,40 +6,13 @@
     <description>Recent content in Tags on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Jan 2018 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 14 Jun 2019 14:55:32 +0200</lastBuildDate>
     
 	<atom:link href="https://red0xff.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Assembly</title>
-      <link>https://red0xff.github.io/tags/assembly/</link>
-      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/assembly/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Buffer Overflow</title>
-      <link>https://red0xff.github.io/tags/buffer-overflow/</link>
-      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/buffer-overflow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cheat Engine</title>
-      <link>https://red0xff.github.io/tags/cheat-engine/</link>
-      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/cheat-engine/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cryptography</title>
+      <title>cryptography</title>
       <link>https://red0xff.github.io/tags/cryptography/</link>
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
       
@@ -48,43 +21,7 @@
     </item>
     
     <item>
-      <title>Event</title>
-      <link>https://red0xff.github.io/tags/event/</link>
-      <pubDate>Mon, 12 Feb 2018 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/event/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Exploit</title>
-      <link>https://red0xff.github.io/tags/exploit/</link>
-      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/exploit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gamehacking</title>
-      <link>https://red0xff.github.io/tags/gamehacking/</link>
-      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/gamehacking/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gaming</title>
-      <link>https://red0xff.github.io/tags/gaming/</link>
-      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/gaming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pwn</title>
+      <title>pwn</title>
       <link>https://red0xff.github.io/tags/pwn/</link>
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
       
@@ -93,7 +30,7 @@
     </item>
     
     <item>
-      <title>Reverse</title>
+      <title>reverse</title>
       <link>https://red0xff.github.io/tags/reverse/</link>
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
       
@@ -102,25 +39,7 @@
     </item>
     
     <item>
-      <title>Reverse Engineering</title>
-      <link>https://red0xff.github.io/tags/reverse-engineering/</link>
-      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/reverse-engineering/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Reversing</title>
-      <link>https://red0xff.github.io/tags/reversing/</link>
-      <pubDate>Mon, 12 Feb 2018 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/tags/reversing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Security</title>
+      <title>security</title>
       <link>https://red0xff.github.io/tags/security/</link>
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
       
@@ -129,7 +48,7 @@
     </item>
     
     <item>
-      <title>Steganography</title>
+      <title>steganography</title>
       <link>https://red0xff.github.io/tags/steganography/</link>
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
       
@@ -138,7 +57,34 @@
     </item>
     
     <item>
-      <title>Windows</title>
+      <title>writeup</title>
+      <link>https://red0xff.github.io/tags/writeup/</link>
+      <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/writeup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>buffer overflow</title>
+      <link>https://red0xff.github.io/tags/buffer-overflow/</link>
+      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/buffer-overflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>exploit</title>
+      <link>https://red0xff.github.io/tags/exploit/</link>
+      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/exploit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>windows</title>
       <link>https://red0xff.github.io/tags/windows/</link>
       <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
       
@@ -147,11 +93,65 @@
     </item>
     
     <item>
-      <title>Writeup</title>
-      <link>https://red0xff.github.io/tags/writeup/</link>
-      <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
+      <title>event</title>
+      <link>https://red0xff.github.io/tags/event/</link>
+      <pubDate>Mon, 12 Feb 2018 00:00:00 +0200</pubDate>
       
-      <guid>https://red0xff.github.io/tags/writeup/</guid>
+      <guid>https://red0xff.github.io/tags/event/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reversing</title>
+      <link>https://red0xff.github.io/tags/reversing/</link>
+      <pubDate>Mon, 12 Feb 2018 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/reversing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>assembly</title>
+      <link>https://red0xff.github.io/tags/assembly/</link>
+      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/assembly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cheat engine</title>
+      <link>https://red0xff.github.io/tags/cheat-engine/</link>
+      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/cheat-engine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gamehacking</title>
+      <link>https://red0xff.github.io/tags/gamehacking/</link>
+      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/gamehacking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gaming</title>
+      <link>https://red0xff.github.io/tags/gaming/</link>
+      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/gaming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reverse engineering</title>
+      <link>https://red0xff.github.io/tags/reverse-engineering/</link>
+      <pubDate>Sat, 20 Jan 2018 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/tags/reverse-engineering/</guid>
       <description></description>
     </item>
     

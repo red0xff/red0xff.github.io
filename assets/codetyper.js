@@ -227,7 +227,7 @@ function type_code()
 	var slc = code[code_line].slice(line_char, -1);
 	if (/^\\reg\{/.test(slc))
 	{
-		console.log("[+] opening : slc = " + slc);
+		//console.log("[+] opening : slc = " + slc);
 		if (color_open) throw 'Color tag already open';
 		color_open = true;
 		is_atomic = false;
