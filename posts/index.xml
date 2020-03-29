@@ -29,7 +29,7 @@
       <description>This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
 
 In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
-We&#39;ll start by searching for the z coordinate of our car (a value that indicates its height), we must keep in mind that the z axis might be inverted (ie.</description>
+We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that indicates its height), we must keep in mind that the z axis might be inverted (ie.</description>
     </item>
     
   </channel>

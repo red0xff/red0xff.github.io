@@ -6,8 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Hello, today I&#39;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
-Let&#39;s start :) First, we notice that it&#39;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
+<meta name="description" content="Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
+Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
 
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :"/>
 <meta name="keywords" content=""/>
@@ -34,8 +34,8 @@ We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Himayatic 2017 - Rev400 Writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
-<meta name="twitter:description" content="Hello, today I&#39;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
-Let&#39;s start :) First, we notice that it&#39;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
+<meta name="twitter:description" content="Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
+Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
 
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :" />
 <meta name="twitter:site" content="https://red0xff.github.io/" />
@@ -46,8 +46,8 @@ We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Himayatic 2017 - Rev400 Writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
-<meta property="og:description" content="Hello, today I&#39;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
-Let&#39;s start :) First, we notice that it&#39;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
+<meta property="og:description" content="Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
+Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
 
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :" />
 <meta property="og:url" content="https://red0xff.github.io/writeups/himayatic17_rev400/" />
@@ -154,7 +154,6 @@ We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we
     </span>
     
   </div>
-  <p> TOCHECK : writeups</p>
   
   <span class="post-tags">
     
@@ -176,21 +175,21 @@ We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we
   
 
   <div class="post-content">
-    <p>Hello, today I'll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017.
+    <p>Hello, today I&rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017.
 Download link : <a href="https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8">https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8</a></p>
-<p>Let's start :)
-First, we notice that it's a .NET crackme, it asks for a serial, and displays <code>&quot;Wrong Serial ... !!!&quot;</code> when we enter a random one.</p>
+<p>Let&rsquo;s start :)
+First, we notice that it&rsquo;s a .NET crackme, it asks for a serial, and displays <code>&quot;Wrong Serial ... !!!&quot;</code> when we enter a random one.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109597/himayatic17_rev400/wrong_serial_amajtp.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109597/himayatic17_rev400/wrong_serial_amajtp.png" alt="Wrong Serial"></a></p>
 <p>We open it in a .NET decompiler (I used <code>dnSpy</code>, which is a fork of <code>ILSpy</code>), and we immediately locate this function :</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109597/himayatic17_rev400/obfuscated_ir2vqf.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109597/himayatic17_rev400/obfuscated_ir2vqf.png" alt="Obfuscated"></a></p>
 <p>The code looks obfuscated, we follow the <code>N</code> and <code>M</code> functions in the namespace <code>A</code>, and we find this:</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109592/himayatic17_rev400/cryptoobfuscator_dckoxz.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109592/himayatic17_rev400/cryptoobfuscator_dckoxz.png" alt="CryptoObfuscator"></a></p>
-<p>Looks like they used <code>CryptoObfuscator</code> to obfuscate the code, we'll use the popular .NET deobfuscator <a href="https://github.com/0xd4d/de4dot">de4dot</a> to clean the executable.</p>
+<p>Looks like they used <code>CryptoObfuscator</code> to obfuscate the code, we&rsquo;ll use the popular .NET deobfuscator <a href="https://github.com/0xd4d/de4dot">de4dot</a> to clean the executable.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109580/himayatic17_rev400/de4dot_m4uxpr.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109580/himayatic17_rev400/de4dot_m4uxpr.png" alt="de4dot"></a></p>
 <p>We open the cleaned executable in <code>dnSpy</code>, the obfuscation is gone!</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109589/himayatic17_rev400/deobfuscated_bqpjzj.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109589/himayatic17_rev400/deobfuscated_bqpjzj.png" alt="deobfuscated"></a></p>
-<p>But it's a wrong flag, if it were the real flag, the else part would display <code>&quot;Wrong Serial ... !!!&quot;</code> and not <code>&quot;Illusion ... !!&quot;</code> (of course, we still try it, who knows :p).
-We don't find anything interesting in the <code>Form</code> class, so we try debugging in <code>x64dbg</code>, we notice that when we open the program with <code>x64dbg</code>, it spawns itself in a new process and then exits from the main process, we breakpoint on <code>CreateProcessA</code> and <code>CreateProcessW</code>, just to ensure that we are correct, and yes, we hit the breakpoint on <code>CreateProcessW</code>, I did not notice the <code>CREATE_SUSPENDED</code> state in <code>dwCreationFlags</code>, I immediately went back to the decompiler, to find out where it spawns the new process, and what it does exactly.</p>
+<p>But it&rsquo;s a wrong flag, if it were the real flag, the else part would display <code>&quot;Wrong Serial ... !!!&quot;</code> and not <code>&quot;Illusion ... !!&quot;</code> (of course, we still try it, who knows :p).
+We don&rsquo;t find anything interesting in the <code>Form</code> class, so we try debugging in <code>x64dbg</code>, we notice that when we open the program with <code>x64dbg</code>, it spawns itself in a new process and then exits from the main process, we breakpoint on <code>CreateProcessA</code> and <code>CreateProcessW</code>, just to ensure that we are correct, and yes, we hit the breakpoint on <code>CreateProcessW</code>, I did not notice the <code>CREATE_SUSPENDED</code> state in <code>dwCreationFlags</code>, I immediately went back to the decompiler, to find out where it spawns the new process, and what it does exactly.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109599/himayatic17_rev400/createprocessw_tbtofd.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109599/himayatic17_rev400/createprocessw_tbtofd.png" alt="CreateProcessW"></a></p>
 <p>We suspect that it uses the <code>RunPE</code> technique, which in short works like this:</p>
 <ul>
@@ -204,10 +203,10 @@ We don't find anything interesting in the <code>Form</code> class, so we try deb
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109615/himayatic17_rev400/runpe_fzwxiw.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109615/himayatic17_rev400/runpe_fzwxiw.png" alt="RunPE"></a></p>
 <p>Now, to analyze the code in the new process, we have two possiblities:</p>
 <ul>
-<li>dump it while it's running</li>
+<li>dump it while it&rsquo;s running</li>
 <li>hook the API that writes to the new process, and intercept the data written</li>
 </ul>
-<p>Let's follow the first option, I used <a href="http://split-code.com/processdump.html">pd (process dump)</a> to dump the process and all its DLLs while it was running, this way I got the final exe.</p>
+<p>Let&rsquo;s follow the first option, I used <a href="http://split-code.com/processdump.html">pd (process dump)</a> to dump the process and all its DLLs while it was running, this way I got the final exe.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109608/himayatic17_rev400/procdump_nonkkb.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109608/himayatic17_rev400/procdump_nonkkb.png" alt="process dump"></a></p>
 <p>The new exe looks a lot like the original one.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109609/himayatic17_rev400/more_fake_flags_iookp8.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109609/himayatic17_rev400/more_fake_flags_iookp8.png" alt="more fake flags"></a></p>
@@ -218,11 +217,11 @@ We don't find anything interesting in the <code>Form</code> class, so we try deb
 <code>this.T1.Text = componentResourceManager.GetString(&quot;T1.Text&quot;);</code>
 We find the strings in the resources</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109591/himayatic17_rev400/base64_zqczfy.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109591/himayatic17_rev400/base64_zqczfy.png" alt="base64"></a></p>
-<p>We concatenate them, decode as <code>base64</code>, and save output as a file, it's a DLL.</p>
+<p>We concatenate them, decode as <code>base64</code>, and save output as a file, it&rsquo;s a DLL.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109588/himayatic17_rev400/decode_dll_zwyb0c.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109588/himayatic17_rev400/decode_dll_zwyb0c.png" alt="decode dll"></a></p>
 <p>We load it in <code>dnSpy</code>, and this time, we find the real check :</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109615/himayatic17_rev400/real_code_acrdxu.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109615/himayatic17_rev400/real_code_acrdxu.png" alt="real code"></a></p>
-<p>the method <code>V</code> calls the method <code>E</code> to encrypt the user input, then it calls the method <code>VR</code> to check if it's correct, <code>VR</code> compares a fixed, twice-<code>base64</code>-encoded string (stored encoded once in ressources) with the encrypted and twice-encoded user input, then it calls <code>DS</code> if the check succeeds, we find <code>&quot;Wrong Serial ... !!|Yeah,, you did it :)'&quot;</code> in the resources.</p>
+<p>the method <code>V</code> calls the method <code>E</code> to encrypt the user input, then it calls the method <code>VR</code> to check if it&rsquo;s correct, <code>VR</code> compares a fixed, twice-<code>base64</code>-encoded string (stored encoded once in ressources) with the encrypted and twice-encoded user input, then it calls <code>DS</code> if the check succeeds, we find <code>&quot;Wrong Serial ... !!|Yeah,, you did it :)'&quot;</code> in the resources.</p>
 <p>the method <code>E</code> (which encrypts) looks like this:</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109595/himayatic17_rev400/encrypt_e1pwlo.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109595/himayatic17_rev400/encrypt_e1pwlo.png" alt="encryption"></a></p>
 <p>It concatenates the second argument with <code>&quot;Himayatic_0xC001&quot;</code>, then hashes the result using <code>md5</code>, then it initializes a buffer of <code>32</code> characters, then it copies the <code>md5</code> hash to a buffer starting at index <code>0</code> (copies <code>16</code> characters), then copies the same <code>md5</code> hash to the same buffer starting at index <code>15</code> (copies <code>16</code> characters), so it overwrites the last character of the first copy, then it uses the buffer as the key to encrypt the first function parameter, it encrypts it using <code>AES</code> in <code>ECB</code> mode, then encodes it using <code>base64</code>.</p>
@@ -230,23 +229,23 @@ We find the strings in the resources</p>
 <p>We find it in <code>FZero_Load</code> : <code>this.o = RuntimeHelpers.GetObjectValue(this.Himayatic.getSkin());</code>
 We look for references to <code>this.o</code>, and we find this :</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109608/himayatic17_rev400/real_check_d7vsvn.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109608/himayatic17_rev400/real_check_d7vsvn.png" alt="real check"></a></p>
-<p>It's pretty straightforward to understand this code, it's calling the method <code>V</code>, something like this : <code>V( this.FL__.Text, this.Name, true)</code></p>
+<p>It&rsquo;s pretty straightforward to understand this code, it&rsquo;s calling the method <code>V</code>, something like this : <code>V( this.FL__.Text, this.Name, true)</code></p>
 <p><code>this.FL__.Text</code> is the user input, <code>this.Name</code> can be found in <code>FZero</code> class ( <code>this.Name = &quot;FZero&quot;;</code> ).</p>
-<p>After that, it's pretty simple to get the flag, just a simple Ruby script:</p>
+<p>After that, it&rsquo;s pretty simple to get the flag, just a simple Ruby script:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">require<span style="color:#e6db74">&#39;base64&#39;</span>;
 require<span style="color:#e6db74">&#39;openssl&#39;</span>;
 require<span style="color:#e6db74">&#39;digest&#39;</span>;
 <span style="color:#66d9ef">begin</span>
-	enc <span style="color:#f92672">=</span> <span style="color:#66d9ef">Base64</span><span style="color:#f92672">.</span>decode64 <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FQUFl/85WMFJp5XXfJX5Xykt8WhTPcy1MD0/0+SqEsj/IdMrolb3Haaq9yiZvcuH</span><span style="color:#e6db74">&#34;</span>;
-	e <span style="color:#f92672">=</span> <span style="color:#66d9ef">OpenSSL</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Cipher</span><span style="color:#f92672">::</span><span style="color:#66d9ef">AES</span><span style="color:#f92672">.</span>new(<span style="color:#ae81ff">256</span><span style="color:#f92672"></span>,<span style="color:#e6db74">:ECB</span>)
+	enc <span style="color:#f92672">=</span> <span style="color:#66d9ef">Base64</span><span style="color:#f92672">.</span>decode64 <span style="color:#e6db74">&#34;FQUFl/85WMFJp5XXfJX5Xykt8WhTPcy1MD0/0+SqEsj/IdMrolb3Haaq9yiZvcuH&#34;</span>;
+	e <span style="color:#f92672">=</span> <span style="color:#66d9ef">OpenSSL</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Cipher</span><span style="color:#f92672">::</span><span style="color:#66d9ef">AES</span><span style="color:#f92672">.</span>new(<span style="color:#ae81ff">256</span>,<span style="color:#e6db74">:ECB</span>)
 	e<span style="color:#f92672">.</span>decrypt; <span style="color:#75715e"># initialize it for decryption</span>
-	md5 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Digest</span><span style="color:#f92672">::</span><span style="color:#66d9ef">MD5</span><span style="color:#f92672">.</span>digest(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FZero</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Himayatic_0xC001</span><span style="color:#e6db74">&#34;</span>);
-	key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">32</span><span style="color:#f92672"></span>;
-	key<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672"></span>,<span style="color:#ae81ff">16</span><span style="color:#f92672"></span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> md5;
-	key<span style="color:#f92672">[</span><span style="color:#ae81ff">15</span><span style="color:#f92672"></span>, <span style="color:#ae81ff">16</span><span style="color:#f92672"></span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> md5;
+	md5 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Digest</span><span style="color:#f92672">::</span><span style="color:#66d9ef">MD5</span><span style="color:#f92672">.</span>digest(<span style="color:#e6db74">&#34;FZero&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;Himayatic_0xC001&#34;</span>);
+	key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">32</span>;
+	key<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">16</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> md5;
+	key<span style="color:#f92672">[</span><span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> md5;
 	e<span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> key;	
 	puts (e<span style="color:#f92672">.</span>update(enc)<span style="color:#f92672">+</span>e<span style="color:#f92672">.</span>final); <span style="color:#75715e"># should output the flag</span>
-<span style="color:#66d9ef">rescue</span> <span style="color:#66d9ef">Exception</span> <span style="color:#f92672">=</span><span style="color:#f92672">&gt;</span> e
+<span style="color:#66d9ef">rescue</span> <span style="color:#66d9ef">Exception</span> <span style="color:#f92672">=&gt;</span> e
 	<span style="color:#75715e"># show the exception</span>
     p e;
     p e<span style="color:#f92672">.</span>message;
@@ -311,7 +310,7 @@ Really nice challenge.</p>
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
         <span>:: Proudly hosted on Github</span>
       </div>
     

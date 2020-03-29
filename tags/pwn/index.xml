@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Redouane&#39;s Blog</title>
+      <link>https://red0xff.github.io/</link>
+      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/</guid>
+      <description>Welcome to my personal blog, it&amp;rsquo;s still under construction, but you can already check out some of my posts and writeups.</description>
+    </item>
+    
+    <item>
       <title>When exploit mitigations are disabled on modern systems</title>
       <link>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</link>
       <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>

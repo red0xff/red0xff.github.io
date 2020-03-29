@@ -6,10 +6,19 @@
     <description>Recent content in writeup on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Jun 2019 14:55:32 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://red0xff.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>VolgaCTF 2020 Qualifier - F-Hash writeup</title>
+      <link>https://red0xff.github.io/writeups/volgactf_fhash/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/writeups/volgactf_fhash/</guid>
+      <description>Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description.</description>
+    </item>
     
     <item>
       <title>Writeup of the Richelieu challenge</title>
@@ -37,8 +46,8 @@ The challenges of the CTF competition are mostly easy-medium, this post will con
       <pubDate>Sun, 05 Nov 2017 00:00:00 +0200</pubDate>
       
       <guid>https://red0xff.github.io/writeups/himayatic17_rev400/</guid>
-      <description>Hello, today I&#39;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
-Let&#39;s start :) First, we notice that it&#39;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
+      <description>Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
+Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
 
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :</description>
     </item>

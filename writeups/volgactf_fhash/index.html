@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>VolgaCTF 2020 Qualifier - F-Hash writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://red0xff.github.io/writeups/volgactf_fhash/" />
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/reminder.css" />
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://red0xff.github.io/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://red0xff.github.io/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="https://red0xff.github.io/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="VolgaCTF 2020 Qualifier - F-Hash writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
+<meta name="twitter:description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description." />
+<meta name="twitter:site" content="https://red0xff.github.io/" />
+<meta name="twitter:creator" content="Redouane" />
+<meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433521/volgactf_fhash/djxhzaiagxyms0sakpld.png">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="VolgaCTF 2020 Qualifier - F-Hash writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
+<meta property="og:description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description." />
+<meta property="og:url" content="https://red0xff.github.io/writeups/volgactf_fhash/" />
+<meta property="og:site_name" content="VolgaCTF 2020 Qualifier - F-Hash writeup" />
+<meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433521/volgactf_fhash/djxhzaiagxyms0sakpld.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2020-03-28 00:00:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Redouane&#39;s Blog
+  </div>
+</a>
+<div id="typingcode" class="hidden"></div>
+<div id="fences"></div>
+
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/posts/">Posts</a></li>
+        
+      
+        
+          <li><a href="/search/">Search</a></li>
+        
+      
+        
+          <li><a href="/writeups/">Writeups</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+      
+        <li><a href="/posts/">Posts</a></li>
+      
+    
+      
+        <li><a href="/search/">Search</a></li>
+      
+    
+      
+        <li><a href="/writeups/">Writeups</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://red0xff.github.io/writeups/volgactf_fhash/">VolgaCTF 2020 Qualifier - F-Hash writeup</a></h1>
+  <div class="post-meta">
+    <span class="post-date">
+      2020-03-28
+    </span>
+    
+    <span class="post-author">::
+      Redouane
+    </span>
+    
+  </div>
+  
+  <span class="post-tags">
+    
+    #<a href="https://red0xff.github.io/tags/security/">security</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/writeup/">writeup</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/reversing/">reversing</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433521/volgactf_fhash/djxhzaiagxyms0sakpld.png" class="post-cover" />
+  
+
+  <div class="post-content">
+    <h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#2899245ece0617ff86d6db5902b5cab9">The Challenge</a></li>
+<li><a href="#95c39e2ab870bf998cf1d66b0d6959a7">Initial recon</a></li>
+<li><a href="#45796aaa6eae15616eed86008f007daf">Algorithm Optimization</a>
+<ol>
+<li><a href="#abe1efe83279413dcbf2d0b933a29931">Dynamic programming (the Bottom-up approach)</a></li>
+<li><a href="#8c7b55145cc8cb16a997af420332bbe2">Memoization (Top-down approach)</a></li>
+</ol>
+</li>
+<li><a href="#49b21ad0d38942f635877e7bbc5d7a1e">Solution</a>
+<ol>
+<li><a href="#75a8ea85d4a76f85b24e9bc93e357189">Allocating memory for our memoization code, and for our <code>results</code> array</a></li>
+<li><a href="#2da9b68b5c1a05efcead94df646dba5f">How we will add code at the beginning and end of <code>recursive_fun</code></a></li>
+<li><a href="#637c6935efbe125a2b90c6f85abd6b9c">First shellcode: checking if the result is already computed at the beginning of the function</a></li>
+<li><a href="#a1acbce8016a7013e94ce3abbe09f975">Second shellcode: cache results at the end of the function</a></li>
+<li><a href="#cfef532a396bdc54755011b61fd56a37">How to assemble shellcodes</a></li>
+<li><a href="#55271f51722d6aaee751925be22bf2d3">Other things to keep in mind</a></li>
+<li><a href="#6acb76aa304fcff925cebfc5ac2534de">Final gdb script that automates solving it (using the peda <code>patch</code> command)</a></li>
+</ol>
+</li>
+</ol>
+<h1 id="span-id2899245ece0617ff86d6db5902b5cab9the-challengespan"><span id='2899245ece0617ff86d6db5902b5cab9'>The Challenge</span></h1>
+<p>We are given a binary file, and a short challenge description.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433509/volgactf_fhash/g3ae98gbm1c8nhxn7qwr.png" alt="challenge_description"></p>
+<p>The given file is a 64bit ELF executable.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433509/volgactf_fhash/akvswslzhs63li1opxew.png" alt="checksec"></p>
+<h1 id="span-id95c39e2ab870bf998cf1d66b0d6959a7initial-reconspan"><span id='95c39e2ab870bf998cf1d66b0d6959a7'>Initial recon</span></h1>
+<p>as the challenge description states that the binary is not working, we expect it to have corrupt headers, or to segfault because of a programming error.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433506/volgactf_fhash/brlxh9twhekdzjwqwd62.png" alt="running"></p>
+<p>We run it, and nothing happends, it just keeps running</p>
+<p>Let&rsquo;s do a first check with a reverse-engineering framework, let&rsquo;s check with Ghidra. (note: this is a quick solution, how I solved it with a minimum effort, and no, I did not reverse-engineer all of it).</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433509/volgactf_fhash/apedzeinmo77qiegyy1v.png" alt="ghidra_pseudocode"></p>
+<p>Just by looking at the pseudocode of the main function, generated by Ghidra, we can tell that this was probably written in <code>C++</code>, and that it should print <code>VolgaCTF{...}</code> (you can see how line 140 looks like <code>std::cout</code>, and should print to stdout).</p>
+<p>The program is probably stuck before reaching this point, in order to find out, we will run it with a debugger, interrupt its execution (hitting <code>CTRL+C</code>), get which part of the code it&rsquo;s executing, and try to find out why it&rsquo;s stuck.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433513/volgactf_fhash/jm1zles06hs6x5dxggms.png" alt="debugging_stuck_program"></p>
+<p>Since the program is compiled with <code>PiE</code> enabled (ie: it&rsquo;s position-independent), we must substract the address from where the binary is loaded in memory (found in <code>/proc/&lt;pid&gt;/maps</code>, or viewable via the <code>vmmap</code> peda command), to get the offset to one address inside the region of code where the program is stuck, we find the offset <code>0x12ad</code>.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433511/volgactf_fhash/cqdum6uonwmm11a5yewg.png" alt="PRF_1"></p>
+<p>Nothing that could loop forever here, it looks like a cryptographic function, we will name it <code>PRF_1</code> (for Pseudo Random Function), let&rsquo;s find XREFS to this function (where it is called from).</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433514/volgactf_fhash/subx0hrt7ewhfi47kvii.png" alt="PRF_1_XREFS"></p>
+<p>It&rsquo;s called in 3 places, from the same function, let&rsquo;s check that function.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433519/volgactf_fhash/fafdp6gsah12ag5m5ufk.png" alt="recursive_fun_first_view"></p>
+<p>We already see something odd, inside the else statement, the function <code>FUN_001013b0</code> calls itself, once with <code>param_2 - 1</code> and once with <code>param_2 - 2</code>, maybe it&rsquo;s an unoptimized recursive call that is taking forever to finish?</p>
+<p>Let&rsquo;s call <code>FUN_001013b0</code> <code>recursive_fun</code>, and find out where it&rsquo;s called from (using XREFS)</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433511/volgactf_fhash/uvqvgtrzowy9h726yadq.png" alt="recursive_fun_XREFS"></p>
+<p>Ignore the first two calls, they are the recursive ones, it&rsquo;s only called from <code>FUN_001014e0</code>.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433517/volgactf_fhash/xjyvgun5w0mkr3uxlb6a.png" alt="call_to_recursive_fun"></p>
+<p>Let&rsquo;s put a breakpoint here, check if it gets hit (or if the binary hangs before reaching it), if it&rsquo;s hit, we will step over, and check if this function is the culpit.
+<code>b *0x0000555555554000+0x177c</code></p>
+<p>(note: the base address of the binary should change randomly on each run (because of <code>PiE</code>), but gdb disables randomization by default, <code>disable-randomization</code> is <code>ON</code>)</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433518/volgactf_fhash/qvdq5nxt70fokxmqksmw.png" alt="breakpoint_call_recursive_fun"></p>
+<p>The breakpoint is hit, and we see the arguments passed to the function:</p>
+<pre><code>Guessed arguments:
+arg[0]: 0x7fffffffddc0 --&gt; 0x0 
+arg[1]: 0x100 
+arg[2]: 0x6369757120656854 ('The quic')
+arg[3]: 0x206e776f7262206b ('k brown ')
+</code></pre><p>When we enter <code>nexti</code> to step over the call, the program doesn&rsquo;t respond, this means, this function is probably where it&rsquo;s stuck.</p>
+<p>Let&rsquo;s check <code>recursive_fun</code> more carefully. the second argument looks like an integer, let&rsquo;s name it <code>i</code>, third and fourth ones look like <code>unsigned long long</code>s, let&rsquo;s name them <code>x</code> and <code>y</code>, and the first one looks like a buffer, let&rsquo;s name it <code>buf</code>.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433517/volgactf_fhash/tbdebgk4kgoxaxlpot35.png" alt="recursive_fun_body"></p>
+<p>This gives a high-level view of the function, not all of this pseudocode is accurate through, but we can already see that the function behaves like this (in pseudocode):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">recursive_fun</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">*</span> buf, <span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> x, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> y)
+{
+	<span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
+		rdx:rax <span style="color:#f92672">=</span> PRF_1(x,y)
+		buf[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> rax; buf[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> rdx; buf[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>
+		rdx:rax <span style="color:#f92672">=</span> PRF_1(x,y)
+		buf[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> rax; buf[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> rdx; buf[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+	<span style="color:#66d9ef">else</span>
+		<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> a[<span style="color:#ae81ff">3</span>];
+		<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> b[<span style="color:#ae81ff">3</span>];
+		recursive_fun(a, i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, x, y)
+		recursive_fun(b, i<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, x, y)
+		rdx:rax <span style="color:#f92672">=</span> PRF_1(x <span style="color:#f92672">^</span> b[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">+</span> a[<span style="color:#ae81ff">3</span>], y)
+		
+		<span style="color:#f92672">&lt;</span> RUN OTHER CODE <span style="color:#f92672">&gt;</span>
+		
+		buf[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> rax; buf[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> rdx; buf[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> r13;
+	end
+}
+</code></pre></div><p>The missing code reads data from a global array, and does some computations based on what the call to <code>PRF_1</code>, the global array data, and what the recursive calls returned.</p>
+<h1 id="span-id45796aaa6eae15616eed86008f007dafalgorithm-optimizationspan"><span id='45796aaa6eae15616eed86008f007daf'>Algorithm Optimization</span></h1>
+<p>The question is : how can we compute recursive_fun efficiently?</p>
+<p>We see that in recursive calls, only the value of <code>i</code> changes, the function looks like a (complicated) variant of the fibonacci function, we have a recurrent relation of the form:</p>
+<pre><code>recursive_fun(1) = const_A
+recursive_fun(2) = const_B
+recursive_fun(i) = f(recursive_fun(i-1), recursive_fun(i-2))
+</code></pre><p>for fixed <code>x</code>,<code>y</code> values, some constants <code>const_A</code>, <code>const_B</code>, and a function <code>f</code> that can be computed in polynomial time.</p>
+<p>The inefficience of this implementation stems from the fact that the function has overlapping subproblems, and the recursive implementation wastes time recomputing them again and again, consider for example, a call to recursive_fun with <code>i=6</code></p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433521/volgactf_fhash/djxhzaiagxyms0sakpld.png" alt="call_tree"></p>
+<p>to compute <code>recursive_fun(6)</code>, it&rsquo;s necessary to compute <code>recursive_fun(5)</code> once, <code>recursive_fun(4)</code> twice, <code>recursive_fun(3)</code> three times, <code>recursive_fun(2)</code> 5 times, and <code>recursive_fun(1)</code> three times, as the value of <code>i</code> gets larger, we get a combinatorial explosion, the number of computations quickly gets out of hands.
+To efficiently compute values of <code>recursive_fun</code>, we have two possible solutions:</p>
+<h2 id="span-idabe1efe83279413dcbf2d0b933a29931dynamic-programming-the-bottom-up-approachspan"><span id='abe1efe83279413dcbf2d0b933a29931'>Dynamic programming (the Bottom-up approach)</span></h2>
+<p>Maintain an array <code>dp</code> where <code>dp[i] = recursive_fun(i)</code>, initially empty.</p>
+<pre><code>dp[1] = recursive_fun(1)
+dp[2] = recursive_fun(2)
+for i from 3 to 0x100
+	dp[i] = f(dp[i-1], dp[i-2])
+done
+</code></pre><p>at the end, computing values of <code>recursive_fun</code> becomes as trivial as reading from the array.</p>
+<h2 id="span-id8c7b55145cc8cb16a997af420332bbe2memoization-top-down-approachspan"><span id='8c7b55145cc8cb16a997af420332bbe2'>Memoization (Top-down approach)</span></h2>
+<p>maintain an array <code>results</code>, initially empty.</p>
+<p>Modify the function <code>recursive_fun</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> ull;
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">recursive_fun</span>(ull<span style="color:#f92672">*</span> buffer, <span style="color:#66d9ef">int</span> i, ull x, ull y)
+{
+	<span style="color:#66d9ef">if</span> (results[i] is set)
+		copy results[i] to buffer <span style="color:#75715e">// already computed, just return it
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">else</span>
+		<span style="color:#f92672">&lt;</span> CODE FROM THE ORIGINAL recursive_fun, THAT COMPUTES THE RESULT IN buffer <span style="color:#f92672">&gt;</span>
+		copy buffer to results[i]; <span style="color:#75715e">// store it, so that future calls with the same i will return the cached one
+</span><span style="color:#75715e"></span>	end
+}
+</code></pre></div><p>It&rsquo;s efficient because the solution of each subproblem is computed once, and stored, subsequent calls will read it from the array (and thus preventing the creation of a larger call tree).</p>
+<h1 id="span-id49b21ad0d38942f635877e7bbc5d7a1esolutionspan"><span id='49b21ad0d38942f635877e7bbc5d7a1e'>Solution</span></h1>
+<p>The solution most people will think of, is to reimplement the function using one of the techniques above, in a separate program, and get what it should return, at first, that&rsquo;s what I was doing, but then, I got a better idea (and more guaranteed to work without hard-to-debug problems), what if I added memoization code to the already-compiled function? it&rsquo;s just code added at the beginning (to check if it was already computed), and at the end (to cache the result).</p>
+<p>The advantages of doing this is:</p>
+<ul>
+<li>I don&rsquo;t need to know exactly how <code>recursive_fun</code> works, how the <code>f</code> function works exactly.</li>
+<li>It is more guaranteed to work from the first time, without debugging.</li>
+</ul>
+<p>So, let&rsquo;s start :D</p>
+<h2 id="span-id75a8ea85d4a76f85b24e9bc93e357189allocating-memory-for-our-memoization-code-and-for-our-results-arrayspan"><span id='75a8ea85d4a76f85b24e9bc93e357189'>Allocating memory for our memoization code, and for our <code>results</code> array</span></h2>
+<p>We will do everything inside a gdb debugging session, as it disables randomization, and supports scripting.</p>
+<p>First, we allocate 1024 bytes for our memoization code, we make the allocation at a fixed address (<code>0x10000</code>), and with executable protections (as it&rsquo;s for our injected code).</p>
+<pre><code>set $cave1 = mmap(0x10000, 0x400, 7, 0x32, -1, 0)
+</code></pre><p>for the results array, since <code>recursive_fun</code> returns three <code>unsigned long long</code>s, each element of it will contain 4 fields : the first three are as returned by <code>recursive_fun</code>, the fourth one, when 1 marks the element as existent, when 0 marks it as free.
+That is 32 bytes for each entry of it, we will allocate it with:</p>
+<pre><code>set $results = mmap(0x20000, 0x101*32, 3, 0x32, -1, 0)
+</code></pre><p>(0x101 elements, so that <code>$results[0x100]</code> is bound, and is what the function computes).
+Since we need two codecaves: one for the memoization code running at the beginning of the function, and one at the end, we will set:</p>
+<pre><code>set $cave2 = $cave1+0x200
+</code></pre><p>0x200 bytes is largely enough.</p>
+<h2 id="span-id2da9b68b5c1a05efcead94df646dba5fhow-we-will-add-code-at-the-beginning-and-end-of-recursive_funspan"><span id='2da9b68b5c1a05efcead94df646dba5f'>How we will add code at the beginning and end of <code>recursive_fun</code></span></h2>
+<p>In order to insert code at a certain line in the function, we will:</p>
+<ol>
+<li>overwrite that line with a <code>jmp</code> to our code (and nops if necessary, to keep code valid)</li>
+<li>at the end of our code, run the original code that was at that line, and was overwritten</li>
+<li><code>jmp</code> back to where we left, right after the overwritten bytes</li>
+</ol>
+<p>We will number each shellcode, as well as the address where it will be written.</p>
+<p>Since our <code>$cave1</code> is at <code>0x10000</code>, we will patch the beginning of <code>recursive_fun</code>:</p>
+<ol>
+<li>at address <code>0x5555555553b0</code> with:</li>
+</ol>
+<pre><code>mov rax,0x10000
+jmp rax
+</code></pre><p>this takes 7 bytes, and overwrites the instructions</p>
+<pre><code>push r14
+push r13
+mov r14, rcx
+</code></pre><p>So we need to run them at the end of our code at <code>$cave1</code> (if we are returning to execute the function, otherwise, if the result is cached, we can return straight away from the function).</p>
+<h2 id="span-id637c6935efbe125a2b90c6f85abd6b9cfirst-shellcode-checking-if-the-result-is-already-computed-at-the-beginning-of-the-functionspan"><span id='637c6935efbe125a2b90c6f85abd6b9c'>First shellcode: checking if the result is already computed at the beginning of the function</span></h2>
+<pre><code>	if results[i][3] == 1
+		buf[0] = results[i][0]
+		buf[1] = results[i][1]
+		buf[2] = results[i][2]
+		return;
+	else
+		&lt; GET BACK TO THE FUNCTION, AND LET IT COMPUTE THE SOLUTION &gt;
+	end
+</code></pre><p>So, if the result is already computed, it will not even execute the code inside recursive_fun.</p>
+<ol start="2">
+<li>code in <code>$cave1</code>:</li>
+</ol>
+<pre><code>mov rax,0x20000 ; address of results
+push rsi
+shl rsi, 5
+add rax,rsi     ; rax = &amp;results[i]
+cmp byte[rax+24],1 ; check if the 4rd field is 1
+je cached
+pop rsi       ; not in the array, just do what was going to be done at the beginning of the function, and continue from there
+push r14
+push r13
+mov r14, rcx
+mov rax, 0x5555555553b7
+jmp rax
+cached:
+mov rsi, [rax]    ; already computed, copy the computed values in buf, and return
+mov [rdi], rsi
+mov rsi, [rax+8]
+mov [rdi+8], rsi
+mov rsi, [rax+16]
+mov [rdi+16], rsi
+pop rsi
+ret
+</code></pre><p><code>shl rsi, 5</code> multiplies i by 32 (size of an element of results), and <code>0x20000+i*32</code> is the address where the array element should be.</p>
+<h2 id="span-ida1acbce8016a7013e94ce3abbe09f975second-shellcode-cache-results-at-the-end-of-the-functionspan"><span id='a1acbce8016a7013e94ce3abbe09f975'>Second shellcode: cache results at the end of the function</span></h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	results[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> buf[<span style="color:#ae81ff">0</span>]
+	results[i][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> buf[<span style="color:#ae81ff">1</span>]
+	results[i][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> buf[<span style="color:#ae81ff">2</span>]
+	results[i][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><p>The problem we find when trying to do it in assembly is that we don&rsquo;t find a way to access <code>i</code> at the end of the function, remember, it was a function argument, passed in the <code>rsi</code> register, and copied into <code>rbx</code>, but both had their values changed inside the function (and maybe recursive calls), so, how do we get it?</p>
+<p>We can&rsquo;t make the shellcode in <code>$cave1</code> store it in a register, otherwise, recursive calls would change it, it needs to be stocked in the storage of the function executing (one if its local variables for example), but one that is never changed.</p>
+<p>For this, I got a pretty clever idea, as the index needs to be saved in the stackframe of the function (as one if its local variables that is never changed inside the function for example), so that recursive calls don&rsquo;t change it, and I noticed the function is protected with a stack canary, why not save the index instead of the canary? :p</p>
+<p>The stack smashing protector (also called stack canary) is a random value that is saved on the stack at the beginning of the function, and checked for changes when the function is about to return, to detect buffer overflows, we are pretty sure that no code will change it after it&rsquo;s set.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585435448/volgactf_fhash/m0a2fx8phqv2f2hf6okv.png" alt="recursive_fun_prologue"></p>
+<ol start="3">
+<li>The canary is saved at <code>[rsp+0x48]</code>, we will just replace <code>mov [rsp+0x48], rax</code> at address <code>0x5555555553d1</code> with :</li>
+</ol>
+<pre><code>mov [rsp+0x48], rsi
+</code></pre><p>at that instruction to make it store <code>i</code> instead.</p>
+<p>The end of the function (where it returns) looks like this: it checks if the canary has changed, if yes, probably calls __stack_chk_fail or abort, otherwise, cleans the stack and returns.</p>
+<p>after the first instruction, <code>i</code> will be in <code>rdx</code>, So, for our shellcode, we will use <code>rdx</code> as an index.</p>
+<ol start="4">
+<li>at <code>$cave2</code>:</li>
+</ol>
+<pre><code>mov rax, 0x20000
+shl rdx, 5
+add rax, rdx
+mov rdx, [rbp]
+mov [rax], rdx
+mov rdx, [rbp+8]
+mov [rax+8], rdx
+mov rdx, [rbp+16]
+mov [rax+16], rdx
+mov byte[rax+24], 1
+mov rax, rbp
+add rsp, 0x50
+pop rbx
+pop rbp
+pop r12
+pop r13
+pop r14
+ret
+</code></pre><p>Note: I added the code at the end of the function in <code>$cave2</code>, in order to return directly from there to the caller of <code>recursive_fun</code>.</p>
+<p>Finally, the <code>jmp</code> to <code>$cave2</code> should be done right after the <code>stack canary</code> is read (at the end of the function, to cache the result, <code>rbp = buf</code> in this case).</p>
+<ol start="5">
+<li>At <code>0x0000555555555406</code></li>
+</ol>
+<pre><code>mov rax, 0x10200
+jmp rax
+db 0x90,0x90
+</code></pre><p><code>0x10200</code> is the address of <code>$cave2</code>, I added 2 nop instructions to keep my patch to the size of an instruction, but since I am not returning from <code>$cave2</code>, that&rsquo;s optional.</p>
+<p>Everything is ready.</p>
+<h2 id="span-idcfef532a396bdc54755011b61fd56a37how-to-assemble-shellcodesspan"><span id='cfef532a396bdc54755011b61fd56a37'>How to assemble shellcodes</span></h2>
+<p>It&rsquo;s very simple to assemble shellcodes, using <code>rasm2</code>, like:</p>
+<pre><code>cat |rasm2 -ax86.nasm -b64 -f- &lt;&lt;EOF
+mov rax, 0x10000
+jmp rax
+EOF
+</code></pre><h2 id="span-id55271f51722d6aaee751925be22bf2d3other-things-to-keep-in-mindspan"><span id='55271f51722d6aaee751925be22bf2d3'>Other things to keep in mind</span></h2>
+<p>It turns out that <code>recursive_fun</code> is called multiple times from the same address with different <code>x</code> and <code>y</code> values, and <code>i = 0x100</code>, it&rsquo;s necessary to clear the <code>results</code> array between two successive calls, otherwise, it will be using previously cached values that are wrong.
+We will clear it with</p>
+<pre><code>p (void*)memset($results, 0, 0x101*32)
+</code></pre><h2 id="span-id6acb76aa304fcff925cebfc5ac2534definal-gdb-script-that-automates-solving-it-using-the-peda-patch-commandspan"><span id='6acb76aa304fcff925cebfc5ac2534de'>Final gdb script that automates solving it (using the peda <code>patch</code> command)</span></h2>
+<p>I&rsquo;ve numbered each shellcode, as well as the address where it should be (see on the top).
+The patch command writes the results of assembing the shellcodes (returned by <code>nasm</code>, which is used by <code>rasm2</code>), into the target addresses.</p>
+<p>In total, <code>recursive_fun</code> is called five times.</p>
+<pre><code>b *0x000055555555577c
+r
+set $cave1 = mmap(0x10000, 0x400, 7, 0x32, -1, 0)
+set $cave2 = $cave1 + 0x200
+set $results = mmap(0x20000, 0x101*32, 3, 0x32, -1, 0)
+
+printf &quot;cave1 at %p\ncave2 at %p\nresults at %p\n&quot;, $cave1, $cave2, $results
+patch 0x5555555553b0 &quot;\xb8\x00\x00\x01\x00\xff\xe0&quot;
+patch 0x0000555555555406 &quot;\xb8\x00\x02\x01\x00\xff\xe0\x90\x90&quot;
+patch 0x5555555553d1 &quot;\x48\x89\x74\x24\x48&quot;
+patch $cave1 &quot;\xb8\x00\x00\x02\x00\x56\x48\xc1\xe6\x05\x48\x01\xf0\x80\x78\x18\x01\x0f\x84\x14\x00\x00\x00\x5e\x41\x56\x41\x55\x49\x89\xce\x48\xb8\xb7\x53\x55\x55\x55\x55\x00\x00\xff\xe0\x48\x8b\x30\x48\x89\x37\x48\x8b\x70\x08\x48\x89\x77\x08\x48\x8b\x70\x10\x48\x89\x77\x10\x5e\xc3&quot;
+patch $cave2 &quot;\xb8\x00\x00\x02\x00\x48\xc1\xe2\x05\x48\x01\xd0\x48\x8b\x55\x00\x48\x89\x10\x48\x8b\x55\x08\x48\x89\x50\x08\x48\x8b\x55\x10\x48\x89\x50\x10\xc6\x40\x18\x01\x48\x89\xe8\x48\x83\xc4\x50\x5b\x5d\x41\x5c\x41\x5d\x41\x5e\xc3&quot;
+
+set $i = 0
+while $i &lt; 4
+	p (int)memset($results, 0, 0x101*32)
+	c
+	set $i=$i+1
+end
+</code></pre><p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585434647/volgactf_fhash/zgkwy3kyyklr9o0frk6a.png" alt="final_img"></p>
+<p><code>VolgaCTF{16011432ba16efc8dcf779477985b3b9}</code></p>
+<p>Nice challenge.</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="https://red0xff.github.io/writeups/richelieu_challenge_writeup/">
+          <span class="button__text">Writeup of the Richelieu challenge</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "red0xff" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Proudly hosted on Github</span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://red0xff.github.io/assets/main.js"></script>
+<script src="https://red0xff.github.io/assets/prism.js"></script>
+<script src="https://red0xff.github.io/assets/reminder.js"></script>
+<script src="https://red0xff.github.io/assets/codetyper.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
