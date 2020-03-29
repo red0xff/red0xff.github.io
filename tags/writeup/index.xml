@@ -17,7 +17,7 @@
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0200</pubDate>
       
       <guid>https://red0xff.github.io/writeups/volgactf_fhash/</guid>
-      <description>Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description.</description>
+      <description>Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description, you can download the file here</description>
     </item>
     
     <item>

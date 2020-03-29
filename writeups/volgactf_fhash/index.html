@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description."/>
+<meta name="description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description, you can download the file here"/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://red0xff.github.io/writeups/volgactf_fhash/" />
@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="VolgaCTF 2020 Qualifier - F-Hash writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
-<meta name="twitter:description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description." />
+<meta name="twitter:description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description, you can download the file here" />
 <meta name="twitter:site" content="https://red0xff.github.io/" />
 <meta name="twitter:creator" content="Redouane" />
 <meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433521/volgactf_fhash/djxhzaiagxyms0sakpld.png">
@@ -40,7 +40,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="VolgaCTF 2020 Qualifier - F-Hash writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
-<meta property="og:description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description." />
+<meta property="og:description" content="Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description, you can download the file here" />
 <meta property="og:url" content="https://red0xff.github.io/writeups/volgactf_fhash/" />
 <meta property="og:site_name" content="VolgaCTF 2020 Qualifier - F-Hash writeup" />
 <meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433521/volgactf_fhash/djxhzaiagxyms0sakpld.png">
@@ -185,7 +185,7 @@
 </li>
 </ol>
 <h1 id="span-id2899245ece0617ff86d6db5902b5cab9the-challengespan"><span id='2899245ece0617ff86d6db5902b5cab9'>The Challenge</span></h1>
-<p>We are given a binary file, and a short challenge description.</p>
+<p>We are given a binary file, and a short challenge description, you can download the file <a href="https://drive.google.com/file/d/1Vh1OeYtsd7XJ8uTmtYEtLBnK28wV-VhA/view?usp=sharing">here</a></p>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433509/volgactf_fhash/g3ae98gbm1c8nhxn7qwr.png" alt="challenge_description"></p>
 <p>The given file is a 64bit ELF executable.</p>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433509/volgactf_fhash/akvswslzhs63li1opxew.png" alt="checksec"></p>
