@@ -21,6 +21,39 @@
     </item>
     
     <item>
+      <title>CSAW&#39;19 CTF Finals</title>
+      <link>https://red0xff.github.io/about/csaw19/</link>
+      <pubDate>Wed, 06 Nov 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/about/csaw19/</guid>
+      <description>(I am the guy in the middle)
+CSAW&amp;rsquo;19 CTF Finals The finals were held at NYUAD (New York University Abu Dhabi, UAE), from November 6th to November 9th 2019.
+Top 10 undergraduate teams from the qualification CTF (which was held in September) were invited to the finals.
+I played with Sudo_root, and we finished on the 2nd place.</description>
+    </item>
+    
+    <item>
+      <title>HITB&#43; Cyberweek 2019</title>
+      <link>https://red0xff.github.io/about/hitb19/</link>
+      <pubDate>Mon, 14 Oct 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/about/hitb19/</guid>
+      <description>The event was held from October 14th to October 18th, at the Emirates Palace at Abu Dhabi, UAE.
+We were invited to participate in the Standoff, the contest was about doing penetration testing in a fictional industrial city, spanning about 17 square meters (183 square feet) and containing thousands of figurines. The mock city model allowed demonstrating consequences of real cyberattacks against critical infrastructure.</description>
+    </item>
+    
+    <item>
+      <title>Arab CTF 2019</title>
+      <link>https://red0xff.github.io/about/arabctf19/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/about/arabctf19/</guid>
+      <description>The CTF was held at the Intercontinental City Stars Hotel, in Cairo, Egypt, on September 22nd.
+Winners in the national CTF on each country were invited to the finals, I played with the Sudo_root team.
+Really enjoyed my time at Cairo.</description>
+    </item>
+    
+    <item>
       <title>Search</title>
       <link>https://red0xff.github.io/search/</link>
       <pubDate>Tue, 20 Aug 2019 00:00:00 +0000</pubDate>
@@ -39,22 +72,25 @@
     </item>
     
     <item>
+      <title>Redouane&#39;s Blog</title>
+      <link>https://red0xff.github.io/achievements/</link>
+      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/achievements/</guid>
+      <description>CSAW&amp;rsquo;19 CTF Finals The finals were held at NYUAD (New York University Abu Dhabi, UAE), from November 6th to November 9th 2019.
+Top 10 undergraduate teams from the qualification CTF (which was held in September) were invited to the finals.
+I played with Sudo_root, and we finished on the 2nd place.
+(I am the guy in the middle)
+HITB Cyberweek 2019 The event was held from October 14th to October 18th, at the Emirates Palace at Abu Dhabi.</description>
+    </item>
+    
+    <item>
       <title>When exploit mitigations are disabled on modern systems</title>
       <link>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</link>
       <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
       <description>Table of Contents  Introduction Prerequisites: Vulnerable program: Vulnerability Analysis of the executable Exploitation  Initial plan Searching for ROP gadgets in the application Implementing the exploit  Part1 - Initial Buffer overflow, stack pivoting Part2 - VirtualProtect the main module to ERW, scanf on ERW memory, and jump to it: Part3 - Final shellcode Putting it all together     Conclusion  Introduction While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://red0xff.github.io/about/</link>
-      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://red0xff.github.io/about/</guid>
-      <description>Bio My name is Redouane, I am a student at the Higher national school of computer science (ESI).
-Where to find me  Hackerrank : Competitive programming platform. Root-me : Computer security challenge site. Hackthebox : Penetration testing practice platform. Github Linkedin Youtube Youtube alt  </description>
     </item>
     
     <item>

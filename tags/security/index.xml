@@ -21,6 +21,16 @@
     </item>
     
     <item>
+      <title>HITB&#43; Cyberweek 2019</title>
+      <link>https://red0xff.github.io/about/hitb19/</link>
+      <pubDate>Mon, 14 Oct 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/about/hitb19/</guid>
+      <description>The event was held from October 14th to October 18th, at the Emirates Palace at Abu Dhabi, UAE.
+We were invited to participate in the Standoff, the contest was about doing penetration testing in a fictional industrial city, spanning about 17 square meters (183 square feet) and containing thousands of figurines. The mock city model allowed demonstrating consequences of real cyberattacks against critical infrastructure.</description>
+    </item>
+    
+    <item>
       <title>Writeup of the Richelieu challenge</title>
       <link>https://red0xff.github.io/writeups/richelieu_challenge_writeup/</link>
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>

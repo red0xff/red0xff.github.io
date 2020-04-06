@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redouane&#39;s Blog on Redouane</title>
+    <link>https://red0xff.github.io/about/</link>
+    <description>Recent content in Redouane&#39;s Blog on Redouane</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Apr 2019 09:27:58 +0200</lastBuildDate>
+    
+	<atom:link href="https://red0xff.github.io/about/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CSAW&#39;19 CTF Finals</title>
+      <link>https://red0xff.github.io/about/csaw19/</link>
+      <pubDate>Wed, 06 Nov 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/about/csaw19/</guid>
+      <description>(I am the guy in the middle)
+CSAW&amp;rsquo;19 CTF Finals The finals were held at NYUAD (New York University Abu Dhabi, UAE), from November 6th to November 9th 2019.
+Top 10 undergraduate teams from the qualification CTF (which was held in September) were invited to the finals.
+I played with Sudo_root, and we finished on the 2nd place.</description>
+    </item>
+    
+    <item>
+      <title>HITB&#43; Cyberweek 2019</title>
+      <link>https://red0xff.github.io/about/hitb19/</link>
+      <pubDate>Mon, 14 Oct 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/about/hitb19/</guid>
+      <description>The event was held from October 14th to October 18th, at the Emirates Palace at Abu Dhabi, UAE.
+We were invited to participate in the Standoff, the contest was about doing penetration testing in a fictional industrial city, spanning about 17 square meters (183 square feet) and containing thousands of figurines. The mock city model allowed demonstrating consequences of real cyberattacks against critical infrastructure.</description>
+    </item>
+    
+    <item>
+      <title>Arab CTF 2019</title>
+      <link>https://red0xff.github.io/about/arabctf19/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/about/arabctf19/</guid>
+      <description>The CTF was held at the Intercontinental City Stars Hotel, in Cairo, Egypt, on September 22nd.
+Winners in the national CTF on each country were invited to the finals, I played with the Sudo_root team.
+Really enjoyed my time at Cairo.</description>
+    </item>
+    
+  </channel>
+</rss>

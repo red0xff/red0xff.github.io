@@ -33,6 +33,41 @@
   </url>
   
   <url>
+    <loc>https://red0xff.github.io/about/csaw19/</loc>
+    <lastmod>2019-11-06T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/tags/ctf/</loc>
+    <lastmod>2019-11-06T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/tags/finals/</loc>
+    <lastmod>2019-11-06T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/tags/sudo_root/</loc>
+    <lastmod>2019-11-06T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/tags/hitb/</loc>
+    <lastmod>2019-10-14T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/about/hitb19/</loc>
+    <lastmod>2019-10-14T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/about/arabctf19/</loc>
+    <lastmod>2019-09-20T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://red0xff.github.io/search/</loc>
     <lastmod>2019-08-20T00:00:00+00:00</lastmod>
   </url>
@@ -88,6 +123,16 @@
   </url>
   
   <url>
+    <loc>https://red0xff.github.io/about/</loc>
+    <lastmod>2019-04-24T09:27:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/achievements/</loc>
+    <lastmod>2019-04-24T09:27:58+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://red0xff.github.io/categories/security/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
   </url>
@@ -100,11 +145,6 @@
   <url>
     <loc>https://red0xff.github.io/tags/windows/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://red0xff.github.io/about/</loc>
-    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
