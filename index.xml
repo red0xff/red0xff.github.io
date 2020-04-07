@@ -21,17 +21,6 @@
     </item>
     
     <item>
-      <title>ALCPC 2018</title>
-      <link>https://red0xff.github.io/about/alcpc18/</link>
-      <pubDate>Wed, 06 Nov 2019 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/about/alcpc18/</guid>
-      <description>(I am the guy in the middle)
-Algerian Collegiate Programming Contest 2018 The contest was held at University Mohamed Khider at Biskra, Algeria, from October 1st 2018 to October 3rd.
-It was a programming contests, ACM ACPC qualifier. I played with the team NerDz, with students from my school, we finished on the second place, with an equal number of points as the first team (time penalty did the difference).</description>
-    </item>
-    
-    <item>
       <title>CSAW&#39;19 CTF Finals</title>
       <link>https://red0xff.github.io/about/csaw19/</link>
       <pubDate>Wed, 06 Nov 2019 00:00:00 +0200</pubDate>
@@ -102,6 +91,16 @@ HITB Cyberweek 2019 The event was held from October 14th to October 18th, at the
       
       <guid>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
       <description>Table of Contents  Introduction Prerequisites: Vulnerable program: Vulnerability Analysis of the executable Exploitation  Initial plan Searching for ROP gadgets in the application Implementing the exploit  Part1 - Initial Buffer overflow, stack pivoting Part2 - VirtualProtect the main module to ERW, scanf on ERW memory, and jump to it: Part3 - Final shellcode Putting it all together     Conclusion  Introduction While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.</description>
+    </item>
+    
+    <item>
+      <title>ALCPC 2018</title>
+      <link>https://red0xff.github.io/about/alcpc18/</link>
+      <pubDate>Mon, 01 Oct 2018 00:00:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/about/alcpc18/</guid>
+      <description>Algerian Collegiate Programming Contest 2018 The contest was held at University Mohamed Khider at Biskra, Algeria, from October 1st 2018 to October 3rd.
+It was a programming contests, ACM ACPC qualifier. I played with the team NerDz, with students from my school, we finished on the second place, with an equal number of points as the first team (time penalty did the difference).</description>
     </item>
     
     <item>

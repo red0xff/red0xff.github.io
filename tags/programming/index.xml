@@ -6,7 +6,7 @@
     <description>Recent content in programming on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 06 Nov 2019 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 01 Oct 2018 00:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://red0xff.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,11 +14,10 @@
     <item>
       <title>ALCPC 2018</title>
       <link>https://red0xff.github.io/about/alcpc18/</link>
-      <pubDate>Wed, 06 Nov 2019 00:00:00 +0200</pubDate>
+      <pubDate>Mon, 01 Oct 2018 00:00:00 +0200</pubDate>
       
       <guid>https://red0xff.github.io/about/alcpc18/</guid>
-      <description>(I am the guy in the middle)
-Algerian Collegiate Programming Contest 2018 The contest was held at University Mohamed Khider at Biskra, Algeria, from October 1st 2018 to October 3rd.
+      <description>Algerian Collegiate Programming Contest 2018 The contest was held at University Mohamed Khider at Biskra, Algeria, from October 1st 2018 to October 3rd.
 It was a programming contests, ACM ACPC qualifier. I played with the team NerDz, with students from my school, we finished on the second place, with an equal number of points as the first team (time penalty did the difference).</description>
     </item>
     
