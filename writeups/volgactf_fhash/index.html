@@ -223,24 +223,24 @@ arg[3]: 0x206e776f7262206b ('k brown ')
 <p>Let&rsquo;s check <code>recursive_fun</code> more carefully. the second argument looks like an integer, let&rsquo;s name it <code>i</code>, third and fourth ones look like <code>unsigned long long</code>s, let&rsquo;s name them <code>x</code> and <code>y</code>, and the first one looks like a buffer, let&rsquo;s name it <code>buf</code>.</p>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433517/volgactf_fhash/tbdebgk4kgoxaxlpot35.png" alt="recursive_fun_body"></p>
 <p>This gives a high-level view of the function, not all of this pseudocode is accurate through, but we can already see that the function behaves like this (in pseudocode):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">recursive_fun</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">*</span> buf, <span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> x, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> y)
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span>* recursive_fun(<span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span>* buf, <span style="color:#fff;font-weight:bold">int</span> i, <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> x, <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> y)
 {
-	<span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
-		rdx:rax <span style="color:#f92672">=</span> PRF_1(x,y)
-		buf[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> rax; buf[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> rdx; buf[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>
-		rdx:rax <span style="color:#f92672">=</span> PRF_1(x,y)
-		buf[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> rax; buf[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> rdx; buf[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-	<span style="color:#66d9ef">else</span>
-		<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> a[<span style="color:#ae81ff">3</span>];
-		<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> b[<span style="color:#ae81ff">3</span>];
-		recursive_fun(a, i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, x, y)
-		recursive_fun(b, i<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, x, y)
-		rdx:rax <span style="color:#f92672">=</span> PRF_1(x <span style="color:#f92672">^</span> b[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">+</span> a[<span style="color:#ae81ff">3</span>], y)
+	<span style="color:#fff;font-weight:bold">if</span> i == <span style="color:#ff0;font-weight:bold">1</span>
+		rdx:rax = PRF_1(x,y)
+		buf[<span style="color:#ff0;font-weight:bold">0</span>] = rax; buf[<span style="color:#ff0;font-weight:bold">1</span>] = rdx; buf[<span style="color:#ff0;font-weight:bold">2</span>] = <span style="color:#ff0;font-weight:bold">0</span>;
+	<span style="color:#fff;font-weight:bold">else</span> <span style="color:#fff;font-weight:bold">if</span> i == <span style="color:#ff0;font-weight:bold">2</span>
+		rdx:rax = PRF_1(x,y)
+		buf[<span style="color:#ff0;font-weight:bold">0</span>] = rax; buf[<span style="color:#ff0;font-weight:bold">1</span>] = rdx; buf[<span style="color:#ff0;font-weight:bold">2</span>] = <span style="color:#ff0;font-weight:bold">1</span>;
+	<span style="color:#fff;font-weight:bold">else</span>
+		<span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> a[<span style="color:#ff0;font-weight:bold">3</span>];
+		<span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> b[<span style="color:#ff0;font-weight:bold">3</span>];
+		recursive_fun(a, i-<span style="color:#ff0;font-weight:bold">1</span>, x, y)
+		recursive_fun(b, i-<span style="color:#ff0;font-weight:bold">2</span>, x, y)
+		rdx:rax = PRF_1(x ^ b[<span style="color:#ff0;font-weight:bold">3</span>] + a[<span style="color:#ff0;font-weight:bold">3</span>], y)
 		
-		<span style="color:#f92672">&lt;</span> RUN OTHER CODE <span style="color:#f92672">&gt;</span>
+		&lt; RUN OTHER CODE &gt;
 		
-		buf[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> rax; buf[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> rdx; buf[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> r13;
+		buf[<span style="color:#ff0;font-weight:bold">0</span>] = rax; buf[<span style="color:#ff0;font-weight:bold">1</span>] = rdx; buf[<span style="color:#ff0;font-weight:bold">2</span>] = r13;
 	end
 }
 </code></pre></div><p>The missing code reads data from a global array, and does some computations based on what the call to <code>PRF_1</code>, the global array data, and what the recursive calls returned.</p>
@@ -266,15 +266,15 @@ done
 <h2 id="span-id8c7b55145cc8cb16a997af420332bbe2memoization-top-down-approachspan"><span id='8c7b55145cc8cb16a997af420332bbe2'>Memoization (Top-down approach)</span></h2>
 <p>maintain an array <code>results</code>, initially empty.</p>
 <p>Modify the function <code>recursive_fun</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> ull;
-<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">recursive_fun</span>(ull<span style="color:#f92672">*</span> buffer, <span style="color:#66d9ef">int</span> i, ull x, ull y)
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">typedef</span> <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> ull;
+<span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span>* recursive_fun(ull* buffer, <span style="color:#fff;font-weight:bold">int</span> i, ull x, ull y)
 {
-	<span style="color:#66d9ef">if</span> (results[i] is set)
-		copy results[i] to buffer <span style="color:#75715e">// already computed, just return it
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">else</span>
-		<span style="color:#f92672">&lt;</span> CODE FROM THE ORIGINAL recursive_fun, THAT COMPUTES THE RESULT IN buffer <span style="color:#f92672">&gt;</span>
-		copy buffer to results[i]; <span style="color:#75715e">// store it, so that future calls with the same i will return the cached one
-</span><span style="color:#75715e"></span>	end
+	<span style="color:#fff;font-weight:bold">if</span> (results[i] is set)
+		copy results[i] to buffer <span style="color:#007f7f">// already computed, just return it
+</span><span style="color:#007f7f"></span>	<span style="color:#fff;font-weight:bold">else</span>
+		&lt; CODE FROM THE ORIGINAL recursive_fun, THAT COMPUTES THE RESULT IN buffer &gt;
+		copy buffer to results[i]; <span style="color:#007f7f">// store it, so that future calls with the same i will return the cached one
+</span><span style="color:#007f7f"></span>	end
 }
 </code></pre></div><p>It&rsquo;s efficient because the solution of each subproblem is computed once, and stored, subsequent calls will read it from the array (and thus preventing the creation of a larger call tree).</p>
 <h1 id="span-id49b21ad0d38942f635877e7bbc5d7a1esolutionspan"><span id='49b21ad0d38942f635877e7bbc5d7a1e'>Solution</span></h1>
@@ -351,10 +351,10 @@ pop rsi
 ret
 </code></pre><p><code>shl rsi, 5</code> multiplies i by 32 (size of an element of results), and <code>0x20000+i*32</code> is the address where the array element should be.</p>
 <h2 id="span-ida1acbce8016a7013e94ce3abbe09f975second-shellcode-cache-results-at-the-end-of-the-functionspan"><span id='a1acbce8016a7013e94ce3abbe09f975'>Second shellcode: cache results at the end of the function</span></h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	results[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> buf[<span style="color:#ae81ff">0</span>]
-	results[i][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> buf[<span style="color:#ae81ff">1</span>]
-	results[i][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> buf[<span style="color:#ae81ff">2</span>]
-	results[i][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	results[i][<span style="color:#ff0;font-weight:bold">0</span>] = buf[<span style="color:#ff0;font-weight:bold">0</span>]
+	results[i][<span style="color:#ff0;font-weight:bold">1</span>] = buf[<span style="color:#ff0;font-weight:bold">1</span>]
+	results[i][<span style="color:#ff0;font-weight:bold">2</span>] = buf[<span style="color:#ff0;font-weight:bold">2</span>]
+	results[i][<span style="color:#ff0;font-weight:bold">3</span>] = <span style="color:#ff0;font-weight:bold">1</span>
 </code></pre></div><p>The problem we find when trying to do it in assembly is that we don&rsquo;t find a way to access <code>i</code> at the end of the function, remember, it was a function argument, passed in the <code>rsi</code> register, and copied into <code>rbx</code>, but both had their values changed inside the function (and maybe recursive calls), so, how do we get it?</p>
 <p>We can&rsquo;t make the shellcode in <code>$cave1</code> store it in a register, otherwise, recursive calls would change it, it needs to be stored in the storage of the function executing (one if its local variables for example), but one that is never changed.</p>
 <p>For this, I got a pretty clever idea, as the index needs to be saved in the stackframe of the function (as one if its local variables that is never changed inside the function for example), so that recursive calls don&rsquo;t change it, and I noticed the function is protected with a stack canary, why not save the index instead of the canary? :p</p>
