@@ -189,8 +189,8 @@ participate in Google Summer of Code this year, after checking out the list of o
 I applied for Metasploit, because <code>Ruby</code> is my main programming language, and because I
 was very interested in contributing to a framework of this popularity.</p>
 <h1 id="span-id67ed87f44709a5e274e570dc0174bb38my-proposalspan"><span id='67ed87f44709a5e274e570dc0174bb38'>My Proposal</span></h1>
-<p>You can find my proposal <a href="https://drive.google.com/file/d/1luwf1cph0Mtnn-IuasecYLw0aT_apvSE/view?usp=sharing">here</a>.
-Google Summer of Code project description <a href="https://summerofcode.withgoogle.com/projects/#6297726754488320">here</a>.</p>
+<p>You can find my proposal <a href="https://drive.google.com/file/d/1luwf1cph0Mtnn-IuasecYLw0aT_apvSE/view?usp=sharing">here</a>.</p>
+<p>Google Summer of Code project description <a href="https://summerofcode.withgoogle.com/projects/#6297726754488320">here</a>.</p>
 <p>The idea I worked on was enhancing SQL injection support on the Metasploit Framework, SQL injections
 are vulnerabilities that have been around for a very long time, they are due to the lack of input
 sanitization, and can allow attackers to get access to sensitive data, some metasploit modules already
@@ -198,8 +198,13 @@ implement SQL injection attacks, the problem for module writers is that many typ
 require effort implementing, take for example time-based SQL injections, the module writer has to do
 some kind of binary search to leak bytes of data, or for example, cases where the results of the query
 are truncated of a given length, the module writer has to leak substrings, and concatenate them.</p>
-<p>The aim of my project is to add a library that takes care of all these issues, making module writing
-easier in the case of SQL injections.</p>
+<p>The aim of my project was to add a library that takes care of all these issues, making module writing
+easier in the case of SQL injections, I wanted the library to:</p>
+<ul>
+<li>Support not only HTTP, allow the user to handle connection with the server.</li>
+<li>Have module writers run SQL directly, whether the SQL injection is blind or not.</li>
+<li>Have methods for enumerating table names, column names, whatever is useful and commonly done when doing SQL injection.</li>
+</ul>
 <h1 id="span-id7aef9d0c5402a915a1f7711fd90218edcommunity-bonding-periodspan"><span id='7aef9d0c5402a915a1f7711fd90218ed'>Community-Bonding period</span></h1>
 <p>On May 4th, I got the announcement of being accepted to take part on the program,
 during the month of May, I did my best to get familiar with the codebase, I tried fixing
