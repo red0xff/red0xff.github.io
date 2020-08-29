@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39;</title>
+      <link>https://red0xff.github.io/posts/google_summer_of_code_2020/</link>
+      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/posts/google_summer_of_code_2020/</guid>
+      <description>Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
+    </item>
+    
+    <item>
       <title>When exploit mitigations are disabled on modern systems</title>
       <link>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</link>
       <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>

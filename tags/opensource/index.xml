@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>programming on Redouane</title>
-    <link>https://red0xff.github.io/tags/programming/</link>
-    <description>Recent content in programming on Redouane</description>
+    <title>opensource on Redouane</title>
+    <link>https://red0xff.github.io/tags/opensource/</link>
+    <description>Recent content in opensource on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 24 Apr 2019 09:27:58 +0200</lastBuildDate>
     
-	<atom:link href="https://red0xff.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://red0xff.github.io/tags/opensource/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,16 +18,6 @@
       
       <guid>https://red0xff.github.io/posts/google_summer_of_code_2020/</guid>
       <description>Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
-    </item>
-    
-    <item>
-      <title>ALCPC 2018</title>
-      <link>https://red0xff.github.io/about/alcpc18/</link>
-      <pubDate>Mon, 01 Oct 2018 00:00:00 +0200</pubDate>
-      
-      <guid>https://red0xff.github.io/about/alcpc18/</guid>
-      <description>Algerian Collegiate Programming Contest 2018 The contest was held at University Mohamed Khider at Biskra, Algeria, from October 1st 2018 to October 3rd.
-It was a programming contests, ACM ACPC qualifier. I played with the team NerDz, with students from my school, we finished on the second place, with an equal number of points as the first team (time penalty did the difference).</description>
     </item>
     
   </channel>

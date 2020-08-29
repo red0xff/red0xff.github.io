@@ -113,7 +113,22 @@
   </url>
   
   <url>
+    <loc>https://red0xff.github.io/posts/google_summer_of_code_2020/</loc>
+    <lastmod>2019-04-24T09:27:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/tags/opensource/</loc>
+    <lastmod>2019-04-24T09:27:58+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://red0xff.github.io/posts/</loc>
+    <lastmod>2019-04-24T09:27:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/tags/programming/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
   </url>
   
@@ -138,6 +153,16 @@
   </url>
   
   <url>
+    <loc>https://red0xff.github.io/tags/sql-injection/</loc>
+    <lastmod>2019-04-24T09:27:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://red0xff.github.io/tags/web-security/</loc>
+    <lastmod>2019-04-24T09:27:58+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</loc>
     <lastmod>2019-04-24T09:27:58+02:00</lastmod>
   </url>
@@ -154,11 +179,6 @@
   
   <url>
     <loc>https://red0xff.github.io/tags/nerdz/</loc>
-    <lastmod>2018-10-01T00:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://red0xff.github.io/tags/programming/</loc>
     <lastmod>2018-10-01T00:00:00+02:00</lastmod>
   </url>
   
