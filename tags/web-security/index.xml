@@ -6,7 +6,7 @@
     <description>Recent content in web security on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Apr 2019 09:27:58 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2020 16:45:58 +0200</lastBuildDate>
     
 	<atom:link href="https://red0xff.github.io/tags/web-security/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,10 @@
     <item>
       <title>GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39;</title>
       <link>https://red0xff.github.io/posts/google_summer_of_code_2020/</link>
-      <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
+      <pubDate>Sat, 29 Aug 2020 16:45:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/google_summer_of_code_2020/</guid>
-      <description>Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
+      <description>Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
     </item>
     
   </channel>

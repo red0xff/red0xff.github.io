@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity."/>
+<meta name="description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://red0xff.github.io/posts/google_summer_of_code_2020/" />
@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
-<meta name="twitter:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
+<meta name="twitter:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
 <meta name="twitter:site" content="https://red0xff.github.io/" />
 <meta name="twitter:creator" content="NIBOUCHA Redouane" />
 <meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1598717631/gsoc_2020/lbqz6lw6yy0uytgggnov.png">
@@ -40,14 +40,14 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
-<meta property="og:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
+<meta property="og:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
 <meta property="og:url" content="https://red0xff.github.io/posts/google_summer_of_code_2020/" />
 <meta property="og:site_name" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39;" />
 <meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1598717631/gsoc_2020/lbqz6lw6yy0uytgggnov.png">
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
-<meta property="article:section" content="security" />
-<meta property="article:published_time" content="2019-04-24 09:27:58 &#43;0200 CEST" />
+
+<meta property="article:published_time" content="2020-08-29 16:45:58 &#43;0200 CEST" />
 
 
 
@@ -137,7 +137,7 @@
     <a href="https://red0xff.github.io/posts/google_summer_of_code_2020/">GSoC 2020 - Enhancing metasploit support for &lsquo;the Hack That Will Never Go Away&rsquo;</a></h1>
   <div class="post-meta">
     <span class="post-date">
-      2019-04-24
+      2020-08-29
     </span>
     
     <span class="post-author">::
@@ -149,6 +149,8 @@
   <span class="post-tags">
     
     #<a href="https://red0xff.github.io/tags/sql-injection/">sql injection</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/security/">security</a>&nbsp;
     
     #<a href="https://red0xff.github.io/tags/web-security/">web security</a>&nbsp;
     
@@ -181,12 +183,23 @@
 </li>
 <li><a href="#6f8b794f3246b0c1e1780bb4d4d5dc53">Conclusion</a></li>
 </ol>
+<h1 id="span-id0b79795d3efc95b9976c7c5b933afce2introductionspan"><span id='0b79795d3efc95b9976c7c5b933afce2'>Introduction</span></h1>
 <p>Being interested in computer security, and being an opensource lover, I wanted to
 participate in Google Summer of Code this year, after checking out the list of organizations,
 I applied for Metasploit, because <code>Ruby</code> is my main programming language, and because I
 was very interested in contributing to a framework of this popularity.</p>
 <h1 id="span-id67ed87f44709a5e274e570dc0174bb38my-proposalspan"><span id='67ed87f44709a5e274e570dc0174bb38'>My Proposal</span></h1>
-<p>You can find my proposal <a href="https://summerofcode.withgoogle.com/projects/#6297726754488320">here</a>.</p>
+<p>You can find my proposal <a href="https://drive.google.com/file/d/1luwf1cph0Mtnn-IuasecYLw0aT_apvSE/view?usp=sharing">here</a>.
+Google Summer of Code project description <a href="https://summerofcode.withgoogle.com/projects/#6297726754488320">here</a>.</p>
+<p>The idea I worked on was enhancing SQL injection support on the Metasploit Framework, SQL injections
+are vulnerabilities that have been around for a very long time, they are due to the lack of input
+sanitization, and can allow attackers to get access to sensitive data, some metasploit modules already
+implement SQL injection attacks, the problem for module writers is that many types of SQL injections
+require effort implementing, take for example time-based SQL injections, the module writer has to do
+some kind of binary search to leak bytes of data, or for example, cases where the results of the query
+are truncated of a given length, the module writer has to leak substrings, and concatenate them.</p>
+<p>The aim of my project is to add a library that takes care of all these issues, making module writing
+easier in the case of SQL injections.</p>
 <h1 id="span-id7aef9d0c5402a915a1f7711fd90218edcommunity-bonding-periodspan"><span id='7aef9d0c5402a915a1f7711fd90218ed'>Community-Bonding period</span></h1>
 <p>On May 4th, I got the announcement of being accepted to take part on the program,
 during the month of May, I did my best to get familiar with the codebase, I tried fixing
@@ -382,7 +395,7 @@ session_ids.each_with_index <span style="color:#fff;font-weight:bold">do</span> 
 <span style="color:#fff;font-weight:bold">end</span>
 </code></pre></div><h2 id="span-id707ae1bbecb994d13ec98cb72f2316b7results-of-the-executionspan"><span id='707ae1bbecb994d13ec98cb72f2316b7'>Results of the execution</span></h2>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1598711216/gsoc_2020/wlzmh7voeuco9hkoqt7r.png" alt="retrieval of cookies"></p>
-<p>(The error, <code>Login is required ...</code> just indicates that <code>x4J...2Ps</code> is not an admin cookie, it&rsquo;s the cookie of an unprivileged user).</p>
+<p>(The error, <code>Login is required ...</code> just indicates that <code>x4J...2Ps</code> is not an admin cookie, it&rsquo;s the cookie of an unprivileged user, but we notice that the other cookie was tested successfully to be an admin cookie).</p>
 <p>Not only we reproduced the vulnerability, but we were able to retrieve the actual cookies with minimal effort using the library.</p>
 <p>a note about this module: using methods like <code>enum_table_names</code>, <code>enum_table_columns</code>, <code>dump_table_fields</code> might not work because the size of the string embedded in SQL queries is limited (the vulnerable code is written in C,
 and fixed-size buffers are used), and these methods generate long queries to deal with <code>NULL</code> values, convert (cast) types, encode and so on, for cases like this, we can always fall back to <code>run_sql</code>, which should work in most cases.</p>
