@@ -17,7 +17,7 @@
       <pubDate>Sat, 29 Aug 2020 16:45:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/google_summer_of_code_2020/</guid>
-      <description>Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
+      <description>Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
     </item>
     
   </channel>

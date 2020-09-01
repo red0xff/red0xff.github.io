@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity."/>
+<meta name="description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://red0xff.github.io/posts/google_summer_of_code_2020/" />
@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
-<meta name="twitter:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
+<meta name="twitter:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
 <meta name="twitter:site" content="https://red0xff.github.io/" />
 <meta name="twitter:creator" content="NIBOUCHA Redouane" />
 <meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1598731680/gsoc_2020/wozysdpe5qy4gst0tpx9.png">
@@ -40,7 +40,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
-<meta property="og:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution Writing an exploit for CVE-2017-8835  Analysis of the vulnerability Creation of the SQL injection object a word about session management Plan for our implementation Results of the execution   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
+<meta property="og:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
 <meta property="og:url" content="https://red0xff.github.io/posts/google_summer_of_code_2020/" />
 <meta property="og:site_name" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39;" />
 <meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1598731680/gsoc_2020/wozysdpe5qy4gst0tpx9.png">
@@ -172,13 +172,11 @@
 <li><a href="#67ed87f44709a5e274e570dc0174bb38">My Proposal</a></li>
 <li><a href="#7aef9d0c5402a915a1f7711fd90218ed">Community-Bonding period</a></li>
 <li><a href="#fed02dc7f03d495d89a1783a42fa77d3">Results of my contribution</a></li>
-<li><a href="#981725cf5d343830f3590df23fbbf285">Writing an exploit for CVE-2017-8835</a>
+<li><a href="#981725cf5d343830f3590df23fbbf285">My Google Summer of Code journey</a>
 <ol>
-<li><a href="#04d84c9eded9f4fdc34c7148a3a77686">Analysis of the vulnerability</a></li>
-<li><a href="#d3af9b314b9b5c1de3c386ce802233eb">Creation of the SQL injection object</a></li>
-<li><a href="#58adb7987ef3ebb0891820242143bb4d">a word about session management</a></li>
-<li><a href="#d805c5ef0dda336d58014183916db15b">Plan for our implementation</a></li>
-<li><a href="#707ae1bbecb994d13ec98cb72f2316b7">Results of the execution</a></li>
+<li><a href="#04d84c9eded9f4fdc34c7148a3a77686">Initial work</a></li>
+<li><a href="#d3af9b314b9b5c1de3c386ce802233eb">SQLite support and specs for the library</a></li>
+<li><a href="#58adb7987ef3ebb0891820242143bb4d">Support for <code>PostgreSQL</code>, and other database-management systems</a></li>
 </ol>
 </li>
 <li><a href="#6f8b794f3246b0c1e1780bb4d4d5dc53">Conclusion</a></li>
@@ -317,7 +315,7 @@ and to make use of inheritance, so that SQL Injection objects behave the same, e
 regular SQL injections, running:</p>
 <div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#007f7f"># @sqli being a MySQLi::Common object</span>
 @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#39;select group_concat(table_name) from information_schema.tables&#39;</span>)
-</code></pre></div><p>would yield the given SQL query to the block, but if the object was a MySQLi::BooleanBasedBlind, the same call would yield:</p>
+</code></pre></div><p>would yield the given SQL query to the block, but if the object was a <code>MySQLi::BooleanBasedBlind</code>, the same call would yield:</p>
 <pre><code>ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;1&lt;&gt;0
 ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;2&lt;&gt;0
 ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;4&lt;&gt;0
@@ -328,7 +326,7 @@ ascii(mid(cast((select group_concat(table_name) from information_schema.tables) 
 ...
 </code></pre><p>Each of these is sent to the block to be evaluated as a condition, and leak one bit of information, recall that in boolean-based blind SQLi, we only know
 whether the query returned a result or not, so we can only leak one bit with one query, and this is exactly what the library does.</p>
-<p>Time-based blind support for <code>MySQL/MariaDB</code> was done in a similar manner, except that these conditions were wrapped inside if(&hellip;, sleep(delay), 1), so that
+<p>Time-based blind support for <code>MySQL/MariaDB</code> was done in a similar manner, except that these conditions were wrapped inside <code>if(..., sleep(delay), 1)</code>, so that
 a delay is produced if the condition is true, the library also takes care of checking if the target slept more than sleepdelay or not, and all of this is transparent
 to the user.</p>
 <p>The library had to be refactored multiple times, to support more options, to avoid having repetitive code and make unit-testing possible, also, for printing verbose messages that
@@ -339,10 +337,10 @@ and injects the datastore through its constructor.</p>
 <p>My list of features to add kept growing during this period, and I implemented many of them (support for truncated queries, hex encoding strings, encoders and so on).</p>
 <p>Also, during the first month, I re-wrote some SQL injection modules to make them use my library, it reduced a lot of their complexity, and made them more efficient:</p>
 <ul>
-<li><a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/http/eyesofnetwork_autodiscovery_rce.rb">eyesofnetwork_autodiscovery_rce</a> : 527 LoC -&gt; 460 LoC, running time divided by 2.</li>
-<li><a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/sqli/openemr/openemr_sqli_dump.rb">openemr_sqli_dump</a> : 235 LoC -&gt; 151 LoC, improved injection (now skips builtin tables and only retrieves userdata).</li>
+<li><a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/http/eyesofnetwork_autodiscovery_rce.rb">eyesofnetwork_autodiscovery_rce</a> : <code>527</code> LoC -&gt; <code>460</code> LoC, running time divided by 2.</li>
+<li><a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/sqli/openemr/openemr_sqli_dump.rb">openemr_sqli_dump</a> : <code>235</code> LoC -&gt; <code>151</code> LoC, improved injection (now skips builtin tables and only retrieves userdata).</li>
 </ul>
-<h2 id="sqlite-support-and-specs-for-the-library">SQLite support and specs for the library</h2>
+<h2 id="span-idd3af9b314b9b5c1de3c386ce802233ebsqlite-support-and-specs-for-the-libraryspan"><span id='d3af9b314b9b5c1de3c386ce802233eb'>SQLite support and specs for the library</span></h2>
 <p><code>SQLite</code> support was the second on my priority list, mostly because I always thought <code>SQLite</code> was different because of its minimalism, different in a way that could make it hard for module writers to implement SQL injection attacks
 when it is in-use, the part that was a bit more complex was time-based blind SQL injection, because <code>SQLite</code> does not have a function like sleep, that causes a delay in the response, I had to use heavy queries, which are queries that
 take time to be computed, luckily, there exists a function called <code>randomblob</code>, which takes a size parameter, and returns random data of that size, the user specifies a delay in seconds, and I do some benchmarking in the library to
@@ -359,13 +357,17 @@ unicode(substr(cast((#{query}) as blob), 1, 1))&amp;128&lt;&gt;0 and randomblob(
 unicode(substr(cast((#{query}) as blob), 2, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
 ...
 </code></pre><p>If a bit is 1, it should get to the second part of the <code>and</code>, which should take some time to run, this is how the library knows the outcome of the condition.</p>
-<p>I also had to refactor code when adding support for SQLite, because I noticed there was a lot of code shared between DBMS-specific implementations, on blind queries mostly, so I added a Utils mixin that acts like an interface that
+<p>I also had to refactor code when adding support for <code>SQLite</code>, because I noticed there was a lot of code shared between DBMS-specific implementations, on blind queries mostly, so I added a <code>Utils</code> mixin that acts like an interface that
 is implemented in all the classes that make use of the shared code.</p>
-<p>For testing, I wrote a module for exploiting an SQL injection on Peplink Balance routers (writeup <a href="https://gist.github.com/red0xff/c4511d2f427efcb8b018534704e9607a">here</a>, and a testing module for <a href="https://github.com/incredibleindishell/sqlite-lab">sqlite-lab</a>.</p>
-<h2 id="support-for-postgresql-and-other-database-management-systems">Support for PostgreSQL, and other database-management systems</h2>
-<p>PostgreSQL support was easy to add, because of how popular the DBMS is, it was easy to find vulnerable software to test it, to get it running in a testing environment and so on, I wrote a module for <a href="https://www.cvedetails.com/cve/CVE-2019-13373/">CVE-2019-13373</a>, which is a vulnerability
+<p>For testing I wrote:</p>
+<ul>
+<li><a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/gather/peplink_bauth_sqli.rb">peplink_bauth_sqli</a> (writeup <a href="https://gist.github.com/red0xff/c4511d2f427efcb8b018534704e9607a">here</a></li>
+<li><a href="https://github.com/rapid7/metasploit-framework/blob/master/test/modules/auxiliary/test/sqlite_lab.rb">testing module</a> for <a href="https://github.com/incredibleindishell/sqlite-lab">sqlite-lab</a></li>
+</ul>
+<h2 id="span-id58adb7987ef3ebb0891820242143bb4dsupport-for-postgresql-and-other-database-management-systemsspan"><span id='58adb7987ef3ebb0891820242143bb4d'>Support for <code>PostgreSQL</code>, and other database-management systems</span></h2>
+<p><code>PostgreSQL</code> support was easy to add, because of how popular the DBMS is, it was easy to find vulnerable software to test it, to get it running in a testing environment and so on, I wrote a module for <a href="https://www.cvedetails.com/cve/CVE-2019-13373/">CVE-2019-13373</a>, which is a vulnerability
 found on some versons of D-Link Central WiFi Manager CWM(100), and a test module for vulnerable code I wrote myself.</p>
-<p>Support for MSSQL and Oracle was added in the last month of the program, I provided test modules for each, but no exploit on real vulnerabilities, might implement some in the future.</p>
+<p>Support for <code>MSSQL</code> and <code>Oracle Database</code> was added in the last month of the program, I provided test modules for each, but no exploit on real vulnerabilities, might implement some in the future.</p>
 <h1 id="span-id6f8b794f3246b0c1e1780bb4d4d5dc53conclusionspan"><span id='6f8b794f3246b0c1e1780bb4d4d5dc53'>Conclusion</span></h1>
 <p>Working with rapid7 members on the Metasploit Framework was really a great experience for me, I learned a lot of things, would like to thank my mentor, Jeffrey Martin (<code>Op3n4M3</code>), as well as other contributors who helped me out,
 <code>h00die</code>, <code>zeroSteiner</code> and <code>dwelch-r7</code> to name a few.</p>
