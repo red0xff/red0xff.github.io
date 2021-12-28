@@ -196,86 +196,86 @@ Let&rsquo;s find out where <code>this.key</code> is modified</p>
 <table>
 <thead>
 <tr>
-<th align="center">Button</th>
-<th align="center">Index</th>
-<th align="center">Value</th>
+<th style="text-align:center">Button</th>
+<th style="text-align:center">Index</th>
+<th style="text-align:center">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">A</td>
-<td align="center">0</td>
-<td align="center">1969313763</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1969313763</td>
 </tr>
 <tr>
-<td align="center">B</td>
-<td align="center">1</td>
-<td align="center">-1004853109</td>
+<td style="text-align:center">B</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-1004853109</td>
 </tr>
 <tr>
-<td align="center">C</td>
-<td align="center">2</td>
-<td align="center">-1187691929</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">-1187691929</td>
 </tr>
 <tr>
-<td align="center">D</td>
-<td align="center">3</td>
-<td align="center">2118915021</td>
+<td style="text-align:center">D</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2118915021</td>
 </tr>
 <tr>
-<td align="center">E</td>
-<td align="center">4</td>
-<td align="center">938975727</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">938975727</td>
 </tr>
 <tr>
-<td align="center">F</td>
-<td align="center">5</td>
-<td align="center">1974205784</td>
+<td style="text-align:center">F</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1974205784</td>
 </tr>
 <tr>
-<td align="center">1</td>
-<td align="center">6</td>
-<td align="center">825185870</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">825185870</td>
 </tr>
 <tr>
-<td align="center">2</td>
-<td align="center">7</td>
-<td align="center">-872967355</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">-872967355</td>
 </tr>
 <tr>
-<td align="center">3</td>
-<td align="center">8</td>
-<td align="center">569230993</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">569230993</td>
 </tr>
 <tr>
-<td align="center">4</td>
-<td align="center">9</td>
-<td align="center">-1295940314</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">-1295940314</td>
 </tr>
 <tr>
-<td align="center">5</td>
-<td align="center">10</td>
-<td align="center">-1535369140</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">-1535369140</td>
 </tr>
 <tr>
-<td align="center">6</td>
-<td align="center">11</td>
-<td align="center">1597785577</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1597785577</td>
 </tr>
 <tr>
-<td align="center">7</td>
-<td align="center">12</td>
-<td align="center">-1115177609</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">-1115177609</td>
 </tr>
 <tr>
-<td align="center">8</td>
-<td align="center">13</td>
-<td align="center">-559038242</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">13</td>
+<td style="text-align:center">-559038242</td>
 </tr>
 <tr>
-<td align="center">9</td>
-<td align="center">14</td>
-<td align="center">322376503</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">14</td>
+<td style="text-align:center">322376503</td>
 </tr>
 </tbody>
 </table>
@@ -283,7 +283,7 @@ Let&rsquo;s find out where <code>this.key</code> is modified</p>
 <p>xor is both associative and commutative, so we must find a combination of any length of the items of <code>key_list</code> such that the xor of all the the elements of the combination, xored with <code>49153</code> gives <code>-1500809143</code>, the number of possibilities to check is the sum of <code>C(16,k)</code> for <code>k</code> ranging from <code>1</code> to <code>16</code>, which is equal to <code>65535</code>, not that much.
 <code>key_list</code> has <code>16</code> elements, we will take each <code>k</code> between <code>1</code> and <code>16</code>, and each time we will check all the combinations of length <code>k</code> of <code>key_list</code>, when we will find one that satisfies the condition, we will print it.
 Ruby code:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">key_list = [
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">key_list = [
 <span style="color:#ff0;font-weight:bold">1969313763</span>,
 -<span style="color:#ff0;font-weight:bold">1004853109</span>,
 -<span style="color:#ff0;font-weight:bold">1187691929</span>,
@@ -347,7 +347,7 @@ put the pointer to <code>&quot;/bin/sh&quot;</code> in <code>rdi</code> (the arg
 <li>Send two space-separated integers, the first one is <code>0x69ee00+4</code> (first 4 characters at <code>0x69ee00</code> will be <code>&quot;stop&quot;</code>, so <code>0x69ee00+4</code> will point to <code>&quot;/bin/sh&quot;</code>), the second one is the address of system (in our case, the ELF is statically linked, but even if it wasn&rsquo;t, we would have been able to return to its corresponding address in the plt section)</li>
 <li>Send <code>&quot;stop/bin/sh&quot;</code> plus a null byte <code>'\0'</code></li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> pwn <span style="color:#fff;font-weight:bold">import</span> *
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> pwn <span style="color:#fff;font-weight:bold">import</span> *
 
 p = process(<span style="color:#0ff;font-weight:bold">&#39;./furthest_point&#39;</span>)
 
@@ -435,7 +435,7 @@ p.interactive()
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
         <span>:: Proudly hosted on Github</span>
       </div>
     

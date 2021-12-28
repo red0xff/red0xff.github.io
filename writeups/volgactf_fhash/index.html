@@ -214,7 +214,7 @@
 <p>(note: the base address of the binary should change randomly on each run (because of <code>PiE</code>), but gdb disables randomization by default, <code>disable-randomization</code> is <code>ON</code>)</p>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433518/volgactf_fhash/qvdq5nxt70fokxmqksmw.png" alt="breakpoint_call_recursive_fun"></p>
 <p>The breakpoint is hit, and we see the arguments passed to the function:</p>
-<pre><code>Guessed arguments:
+<pre tabindex="0"><code>Guessed arguments:
 arg[0]: 0x7fffffffddc0 --&gt; 0x0 
 arg[1]: 0x100 
 arg[2]: 0x6369757120656854 ('The quic')
@@ -223,7 +223,7 @@ arg[3]: 0x206e776f7262206b ('k brown ')
 <p>Let&rsquo;s check <code>recursive_fun</code> more carefully. the second argument looks like an integer, let&rsquo;s name it <code>i</code>, third and fourth ones look like <code>unsigned long long</code>s, let&rsquo;s name them <code>x</code> and <code>y</code>, and the first one looks like a buffer, let&rsquo;s name it <code>buf</code>.</p>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433517/volgactf_fhash/tbdebgk4kgoxaxlpot35.png" alt="recursive_fun_body"></p>
 <p>This gives a high-level view of the function, not all of this pseudocode is accurate through, but we can already see that the function behaves like this (in pseudocode):</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span>* recursive_fun(<span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span>* buf, <span style="color:#fff;font-weight:bold">int</span> i, <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> x, <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> y)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span>* recursive_fun(<span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span>* buf, <span style="color:#fff;font-weight:bold">int</span> i, <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> x, <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> y)
 {
 	<span style="color:#fff;font-weight:bold">if</span> i == <span style="color:#ff0;font-weight:bold">1</span>
 		rdx:rax = PRF_1(x,y)
@@ -247,7 +247,7 @@ arg[3]: 0x206e776f7262206b ('k brown ')
 <h1 id="span-id45796aaa6eae15616eed86008f007dafalgorithm-optimizationspan"><span id='45796aaa6eae15616eed86008f007daf'>Algorithm Optimization</span></h1>
 <p>The question is : how can we compute recursive_fun efficiently?</p>
 <p>We see that in recursive calls, only the value of <code>i</code> changes, the function looks like a (complicated) variant of the fibonacci function, we have a recurrent relation of the form:</p>
-<pre><code>recursive_fun(1) = const_A
+<pre tabindex="0"><code>recursive_fun(1) = const_A
 recursive_fun(2) = const_B
 recursive_fun(i) = f(recursive_fun(i-1), recursive_fun(i-2))
 </code></pre><p>for fixed <code>x</code>,<code>y</code> values, some constants <code>const_A</code>, <code>const_B</code>, and a function <code>f</code> that can be computed in polynomial time.</p>
@@ -257,7 +257,7 @@ recursive_fun(i) = f(recursive_fun(i-1), recursive_fun(i-2))
 To efficiently compute values of <code>recursive_fun</code>, we have two possible solutions:</p>
 <h2 id="span-idabe1efe83279413dcbf2d0b933a29931dynamic-programming-the-bottom-up-approachspan"><span id='abe1efe83279413dcbf2d0b933a29931'>Dynamic programming (the Bottom-up approach)</span></h2>
 <p>Maintain an array <code>dp</code> where <code>dp[i] = recursive_fun(i)</code>, initially empty.</p>
-<pre><code>dp[1] = recursive_fun(1)
+<pre tabindex="0"><code>dp[1] = recursive_fun(1)
 dp[2] = recursive_fun(2)
 for i from 3 to 0x100
 	dp[i] = f(dp[i-1], dp[i-2])
@@ -266,7 +266,7 @@ done
 <h2 id="span-id8c7b55145cc8cb16a997af420332bbe2memoization-top-down-approachspan"><span id='8c7b55145cc8cb16a997af420332bbe2'>Memoization (Top-down approach)</span></h2>
 <p>maintain an array <code>results</code>, initially empty.</p>
 <p>Modify the function <code>recursive_fun</code>:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">typedef</span> <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> ull;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">typedef</span> <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span> ull;
 <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">long</span> <span style="color:#fff;font-weight:bold">long</span>* recursive_fun(ull* buffer, <span style="color:#fff;font-weight:bold">int</span> i, ull x, ull y)
 {
 	<span style="color:#fff;font-weight:bold">if</span> (results[i] is set)
@@ -288,13 +288,13 @@ done
 <h2 id="span-id75a8ea85d4a76f85b24e9bc93e357189allocating-memory-for-our-memoization-code-and-for-our-results-arrayspan"><span id='75a8ea85d4a76f85b24e9bc93e357189'>Allocating memory for our memoization code, and for our <code>results</code> array</span></h2>
 <p>We will do everything inside a gdb debugging session, as it disables randomization, and supports scripting.</p>
 <p>First, we allocate 1024 bytes for our memoization code, we make the allocation at a fixed address (<code>0x10000</code>), and with executable protections (as it&rsquo;s for our injected code).</p>
-<pre><code>set $cave1 = mmap(0x10000, 0x400, 7, 0x32, -1, 0)
+<pre tabindex="0"><code>set $cave1 = mmap(0x10000, 0x400, 7, 0x32, -1, 0)
 </code></pre><p>for the results array, since <code>recursive_fun</code> returns three <code>unsigned long long</code>s, each element of it will contain 4 fields : the first three are as returned by <code>recursive_fun</code>, the fourth one, when 1 marks the element as existent, when 0 marks it as free.
 That is 32 bytes for each entry of it, we will allocate it with:</p>
-<pre><code>set $results = mmap(0x20000, 0x101*32, 3, 0x32, -1, 0)
+<pre tabindex="0"><code>set $results = mmap(0x20000, 0x101*32, 3, 0x32, -1, 0)
 </code></pre><p>(0x101 elements, so that <code>$results[0x100]</code> is bound, and is what the function computes).
 Since we need two codecaves: one for the memoization code running at the beginning of the function, and one at the end, we will set:</p>
-<pre><code>set $cave2 = $cave1+0x200
+<pre tabindex="0"><code>set $cave2 = $cave1+0x200
 </code></pre><p>0x200 bytes is largely enough.</p>
 <h2 id="span-id2da9b68b5c1a05efcead94df646dba5fhow-we-will-add-code-at-the-beginning-and-end-of-recursive_funspan"><span id='2da9b68b5c1a05efcead94df646dba5f'>How we will add code at the beginning and end of <code>recursive_fun</code></span></h2>
 <p>In order to insert code at a certain line in the function, we will:</p>
@@ -308,15 +308,15 @@ Since we need two codecaves: one for the memoization code running at the beginni
 <ol>
 <li>at address <code>0x5555555553b0</code> with:</li>
 </ol>
-<pre><code>mov rax,0x10000
+<pre tabindex="0"><code>mov rax,0x10000
 jmp rax
 </code></pre><p>this takes 7 bytes, and overwrites the instructions</p>
-<pre><code>push r14
+<pre tabindex="0"><code>push r14
 push r13
 mov r14, rcx
 </code></pre><p>So we need to run them at the end of our code at <code>$cave1</code> (if we are returning to execute the function, otherwise, if the result is cached, we can return straight away from the function).</p>
 <h2 id="span-id637c6935efbe125a2b90c6f85abd6b9cfirst-shellcode-checking-if-the-result-is-already-computed-at-the-beginning-of-the-functionspan"><span id='637c6935efbe125a2b90c6f85abd6b9c'>First shellcode: checking if the result is already computed at the beginning of the function</span></h2>
-<pre><code>	if results[i][3] == 1
+<pre tabindex="0"><code>	if results[i][3] == 1
 		buf[0] = results[i][0]
 		buf[1] = results[i][1]
 		buf[2] = results[i][2]
@@ -328,7 +328,7 @@ mov r14, rcx
 <ol start="2">
 <li>code in <code>$cave1</code>:</li>
 </ol>
-<pre><code>mov rax,0x20000 ; address of results
+<pre tabindex="0"><code>mov rax,0x20000 ; address of results
 push rsi
 shl rsi, 5
 add rax,rsi     ; rax = &amp;results[i]
@@ -351,7 +351,7 @@ pop rsi
 ret
 </code></pre><p><code>shl rsi, 5</code> multiplies i by 32 (size of an element of results), and <code>0x20000+i*32</code> is the address where the array element should be.</p>
 <h2 id="span-ida1acbce8016a7013e94ce3abbe09f975second-shellcode-cache-results-at-the-end-of-the-functionspan"><span id='a1acbce8016a7013e94ce3abbe09f975'>Second shellcode: cache results at the end of the function</span></h2>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	results[i][<span style="color:#ff0;font-weight:bold">0</span>] = buf[<span style="color:#ff0;font-weight:bold">0</span>]
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	results[i][<span style="color:#ff0;font-weight:bold">0</span>] = buf[<span style="color:#ff0;font-weight:bold">0</span>]
 	results[i][<span style="color:#ff0;font-weight:bold">1</span>] = buf[<span style="color:#ff0;font-weight:bold">1</span>]
 	results[i][<span style="color:#ff0;font-weight:bold">2</span>] = buf[<span style="color:#ff0;font-weight:bold">2</span>]
 	results[i][<span style="color:#ff0;font-weight:bold">3</span>] = <span style="color:#ff0;font-weight:bold">1</span>
@@ -363,7 +363,7 @@ ret
 <ol start="3">
 <li>The canary is saved at <code>[rsp+0x48]</code>, we will just replace <code>mov [rsp+0x48], rax</code> at address <code>0x5555555553d1</code> with :</li>
 </ol>
-<pre><code>mov [rsp+0x48], rsi
+<pre tabindex="0"><code>mov [rsp+0x48], rsi
 </code></pre><p>at that instruction to make it store <code>i</code> instead.</p>
 <p>The end of the function (where it returns) looks like this: it checks if the canary has changed, if yes, probably calls __stack_chk_fail or abort, otherwise, cleans the stack and returns.</p>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1585433522/volgactf_fhash/gj5dny2ek084uyworlfx.png" alt="recursive_fun_epilogue"></p>
@@ -371,7 +371,7 @@ ret
 <ol start="4">
 <li>at <code>$cave2</code>:</li>
 </ol>
-<pre><code>mov rax, 0x20000
+<pre tabindex="0"><code>mov rax, 0x20000
 shl rdx, 5
 add rax, rdx
 mov rdx, [rbp]
@@ -394,26 +394,26 @@ ret
 <ol start="5">
 <li>At <code>0x0000555555555406</code></li>
 </ol>
-<pre><code>mov rax, 0x10200
+<pre tabindex="0"><code>mov rax, 0x10200
 jmp rax
 db 0x90,0x90
 </code></pre><p><code>0x10200</code> is the address of <code>$cave2</code>, I added 2 nop instructions to keep my patch to the size of an instruction, but since I am not returning from <code>$cave2</code>, that&rsquo;s optional.</p>
 <p>Everything is ready.</p>
 <h2 id="span-idcfef532a396bdc54755011b61fd56a37how-to-assemble-shellcodesspan"><span id='cfef532a396bdc54755011b61fd56a37'>How to assemble shellcodes</span></h2>
 <p>It&rsquo;s very simple to assemble shellcodes, using <code>rasm2</code>, like:</p>
-<pre><code>cat |rasm2 -ax86.nasm -b64 -f- &lt;&lt;EOF
+<pre tabindex="0"><code>cat |rasm2 -ax86.nasm -b64 -f- &lt;&lt;EOF
 mov rax, 0x10000
 jmp rax
 EOF
 </code></pre><h2 id="span-id55271f51722d6aaee751925be22bf2d3other-things-to-keep-in-mindspan"><span id='55271f51722d6aaee751925be22bf2d3'>Other things to keep in mind</span></h2>
 <p>It turns out that <code>recursive_fun</code> is called multiple times from the same address with different <code>x</code> and <code>y</code> values, and <code>i = 0x100</code>, it&rsquo;s necessary to clear the <code>results</code> array between two successive calls, otherwise, it will be using previously cached values that are wrong.
 We will clear it with</p>
-<pre><code>p (void*)memset($results, 0, 0x101*32)
+<pre tabindex="0"><code>p (void*)memset($results, 0, 0x101*32)
 </code></pre><h2 id="span-id6acb76aa304fcff925cebfc5ac2534definal-gdb-script-that-automates-solving-it-using-the-peda-patch-commandspan"><span id='6acb76aa304fcff925cebfc5ac2534de'>Final gdb script that automates solving it (using the peda <code>patch</code> command)</span></h2>
 <p>I&rsquo;ve numbered each shellcode, as well as the address where it should be (see on the top).
 The patch command writes the results of assembing the shellcodes (returned by <code>nasm</code>, which is used by <code>rasm2</code>), into the target addresses.</p>
 <p>In total, <code>recursive_fun</code> is called five times.</p>
-<pre><code>b *0x000055555555577c
+<pre tabindex="0"><code>b *0x000055555555577c
 r
 set $cave1 = mmap(0x10000, 0x400, 7, 0x32, -1, 0)
 set $cave2 = $cave1 + 0x200
@@ -488,7 +488,7 @@ end
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
         <span>:: Proudly hosted on Github</span>
       </div>
     

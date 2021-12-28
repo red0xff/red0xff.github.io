@@ -6,11 +6,7 @@
     <description>Recent content in pwn on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Jun 2019 14:55:32 +0200</lastBuildDate>
-    
-	<atom:link href="https://red0xff.github.io/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 14 Jun 2019 14:55:32 +0200</lastBuildDate><atom:link href="https://red0xff.github.io/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writeup of the Richelieu challenge</title>
       <link>https://red0xff.github.io/writeups/richelieu_challenge_writeup/</link>

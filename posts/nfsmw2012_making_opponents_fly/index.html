@@ -218,7 +218,7 @@ We select all the results, then click the red arrow next to the scan results, an
 <li>Our code will just save the address of the height of our car somewhere where we will find it easily (register a symbol), actually, instead of saving the height address, we will save the base address of the structure (<code>height address - 0x34</code>, which is the content of the <code>ecx</code> register)
 The code will be simple, this will do:</li>
 </ul>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#f00">[</span>enable]
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#f00">[</span>enable]
 alloc(log_player,<span style="color:#ff0;font-weight:bold">1024</span>)
 label(player_car) // player_car+<span style="color:#ff0;font-weight:bold">30</span><span style="color:#f00">={</span>x,z,y<span style="color:#f00">}</span>
 registersymbol(player_car)
@@ -279,7 +279,7 @@ We delete all the addresses from our address list, and we add that script (<code
 <p>The hotkey will just set <code>activated</code> to <code>1</code></p>
 </li>
 </ul>
-<pre><code class="language-clike" data-lang="clike">[OUR VARIABLES]
+<pre tabindex="0"><code class="language-clike" data-lang="clike">[OUR VARIABLES]
 activated = 0; // if set to 1, the cheat will run for 5ms
 
 start_time = 0;
@@ -322,7 +322,7 @@ if (activated == 1)
 }
 </code></pre><p>By using meaningful label names, string instructions with prefixes (<code>repne scasd</code>, <code>rep stosd</code>), our code has remained short and readable.
 Full code here</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#f00">[</span>enable]
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#f00">[</span>enable]
 assert(player_car,**)
 alloc(forall,<span style="color:#ff0;font-weight:bold">1024</span>)
 label(start_time)
@@ -404,7 +404,7 @@ dealloc(forall)
 unregistersymbol(activated)
 </code></pre></div><p>In its <code>[disable]</code> section, we will just dealloc our allocated memory, and we&rsquo;ll restore the original code, now we&rsquo;ll add the script to our cheat table.
 In order to activate the script, we need to set <code>activated</code> to <code>1</code>, this small Lua script will create the hotkey <code>E</code>, that when clicked, sets <code>activated</code> to <code>1</code></p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">copsfly = createHotkey(<span style="color:#fff;font-weight:bold">function</span>()
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">copsfly = createHotkey(<span style="color:#fff;font-weight:bold">function</span>()
   <span style="color:#fff;font-weight:bold">return</span> writeBytes(<span style="color:#0ff;font-weight:bold">&#39;activated&#39;</span>, <span style="color:#ff0;font-weight:bold">1</span>)
 <span style="color:#fff;font-weight:bold">end</span>, VK_E)
 </code></pre></div><p>We will save it on our cheat table (<code>table -&gt; Show Cheat Table Lua Script</code>).
@@ -470,7 +470,7 @@ On race opponents :</p>
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
         <span>:: Proudly hosted on Github</span>
       </div>
     
