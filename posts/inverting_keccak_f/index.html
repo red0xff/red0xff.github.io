@@ -226,7 +226,7 @@
 <p>We call the function <code>f</code> the <code>Permutation Function</code> of the sponge construction.</p>
 <p>Sponge constructions can be used not only to hash data, but also to generate variable-sized streams of data (which can be used for <code>PRNG</code>s or stream ciphers for example).</p>
 <h3 id="span-idc7457bffbda74e572bc8e713f630a86athe-internal-statespan"><span id='c7457bffbda74e572bc8e713f630a86a'>The internal state</span></h3>
-<p>The internal state of the hash function has \(r+c\) bits. We represent it as a \(5\times 5\times w\) 3D array of bits, where \(w\) is a multiple of <code>2</code> (in practice, \(w = 64\), so \(r+c = 1600\)).</p>
+<p>The internal state of the hash function has \(r+c\) bits. We represent it as a \(5\times 5\times w\) 3D array of bits, where \(w\) is a power of <code>2</code> (\(w = 2^l\)) (in practice, \(w = 64\), so \(r+c = 1600\)).</p>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1644050412/inverting_keccak_f/l6hvsredmgyhverauemr.png" alt="internal state"></p>
 <p>In the <code>SHA-3</code> family of hash functions, different functions have different rate and capacity values.</p>
 <table>
@@ -269,7 +269,7 @@
 <p>The function at the core of the sponge construction in SHA-3 is called <code>Keccak-p</code>. The steps it consists of are as follow:</p>
 <p>Input:</p>
 <ul>
-<li>String S of length \( b =  5 \times 5 \times w \)</li>
+<li>String <code>S</code> of length \( b =  5 \times 5 \times w \)</li>
 <li>Number of rounds \( n_r \).</li>
 </ul>
 <p>Operations:</p>
@@ -281,7 +281,7 @@
 <li>\( A' \) becomes the new state</li>
 </ul>
 </li>
-<li>Convert the state to a string S (of length <code>b</code>), bits are just rearranged, as in the first step.</li>
+<li>Convert the state to a string <code>S</code> (of length <code>b</code>), bits are just rearranged, as in the first step.</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> keccak_rho(s, nr)
     state_from_bitarray s;
@@ -307,7 +307,7 @@
 <ul>
 <li>For all pairs \((x, z)\) such that \(0 \leq x &lt; 5\) and \(0 \leq z &lt; w\), let
 $$C[x, z] = A[x, 0, z] \oplus A[x, 1, z] \oplus A[x, 2, z] \oplus A[x, 3, z] \oplus A[x, 4, z]$$
-\(C[x, z]\) is just the sum in \(GF(2)\) of the column at \((x, z)\) (see the screenshot below for an illustration)</li>
+\(C[x, z]\) is just the sum in \(GF(2)\) of the column at \((x, z)\) (see the screenshot above for an illustration)</li>
 <li>For all pairs \((x, z)\) such that \(0 ≤ x &lt; 5\) and \(0 ≤ z &lt; w\) let
 $$D[x, z] = C[(x-1)\bmod 5, z] \oplus C[(x+1)\bmod 5, (z-1)\bmod w]$$
 \(D[x, z]\) is the sum of the two columns, at \(((x-1)\bmod 5, z)\) and \((x+1)\bmod 5, (z-1)\bmod w\).</li>
@@ -407,7 +407,7 @@ $$A'[x, y, z] = A[x, y, z] \oplus ((A[(x+1)\bmod 5, y, z] \oplus 1) \wedge A[(x+
 <li>Some round constants are calculated, using a simple algorithm that only takes into consideration the round index.
 \(RC\) is a vector of \(w\) bits. The constant for round \(i_r\).</li>
 <li>Make \(A'\) a copy of \(A\).</li>
-<li>For all z such that \(0 \leq z &lt;w\), let \(A'[0, 0, z] = A[0, 0, z] ⊕ RC[z]\).</li>
+<li>For all \(z\) such that \(0 \leq z &lt;w\), let \(A'[0, 0, z] = A[0, 0, z] ⊕ RC[z]\).</li>
 <li>\(A'\) is the new state.</li>
 </ul>
 <p>More details on each of the steps, including the algorithm for calculating round constants, can be found on <a href="https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.202.pdf">the original NIST publication</a>.</p>
@@ -454,7 +454,7 @@ A[1, 0, 4] \oplus A[1, 1, 4] \oplus A[1, 2, 4] \oplus A[1, 3, 4] \oplus A[1, 4, 
 A[3, 0, 3] \oplus A[3, 1, 3] \oplus A[3, 2, 3] \oplus A[3, 3, 3] \oplus A[3, 4, 3]$$</p>
 <p>My idea to invert this step is to consider \(5\times 5\times w\) equations of \(5\times 5\times w\) unknowns, where unknowns are bits from the state before the application of the \(\theta\) step.</p>
 <p>In the matrix form of this system:
-\(M.B = B'\), where \(B\) is the state before the transformation, \(B'\) after, M the matrix representing the system.</p>
+\(M.B = B'\), where \(B\) is the state before the transformation, \(B'\) after, \(M\) the matrix representing the system.</p>
 <div class="reminder">
 <p><code>reminder</code> (click to expand)</p>
 </div>
@@ -554,8 +554,8 @@ $$ A[x, y, (z – (t +1)(t + 2)/2)\bmod w] = A'[x, y, z]$$</li>
 </li>
 </ul>
 <h4 id="span-id364549d11c2ca4a7d57526a128c79fc7-chi-1--non-linearityspan"><span id='364549d11c2ca4a7d57526a128c79fc7'>\( \chi^{-1} \): Non-linearity</span></h4>
-<p>The \(\chi\) operation is the only non-linear one (non-linear because it includes logical and (&amp;) operations, which are analog to multiplications).</p>
-<p>If we look closely, we notice that the step applies the non-linear function on 5-bit parts, that is, for every \((y, z)\), \(0 \leq y &lt; 5\), \(0 \leq z &lt; w\), the bits at \((x, y, z)\) for every possible value of \(x\) (from <code>0</code> to <code>4</code>) are inputs and outputs of the function.</p>
+<p>The \(\chi\) operation is the only non-linear one (non-linear because it includes logical and <code>&amp;</code> operations, which are analog to multiplications).</p>
+<p>If we look closely, we notice that the step applies the non-linear function on <code>5</code>-bit parts, that is, for every \((y, z)\), \(0 \leq y &lt; 5\), \(0 \leq z &lt; w\), the bits at \((x, y, z)\) for every possible value of \(x\) (from <code>0</code> to <code>4</code>) are inputs and outputs of the function.</p>
 <p>To inverse it, my approach was to:</p>
 <ul>
 <li>Generate a truth-table of the function, by calculating the nonlinear function image of every value from <code>00000</code> to <code>11111</code>.</li>
@@ -612,6 +612,7 @@ $$ A[x, y, (z – (t +1)(t + 2)/2)\bmod w] = A'[x, y, z]$$</li>
 <li>\( A' \) becomes the new state</li>
 </ul>
 </li>
+<li>Convert the state to a string <code>S</code> (of length <code>b</code>), bits are just rearranged, as in the first step.</li>
 </ul>
 <p>Inversing it becomes trivial, the following are the steps:</p>
 <ul>
@@ -622,7 +623,7 @@ $$ A[x, y, (z – (t +1)(t + 2)/2)\bmod w] = A'[x, y, z]$$</li>
 <li>\( A \) becomes the new state</li>
 </ul>
 </li>
-<li>Convert the state to a string S (of length <code>b</code>), bits are just rearranged, as in the first step.</li>
+<li>Convert the state to a string <code>S</code> (of length <code>b</code>), bits are just rearranged, as in the first step.</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> unkeccak_rho(s, nr)
     state_from_bitarray s;
