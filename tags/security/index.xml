@@ -13,7 +13,7 @@
       <pubDate>Sat, 05 Feb 2022 11:15:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/inverting_keccak_f/</guid>
-      <description>Table of Contents  What is SHA3  Why another hash function in the SHA family? Deeper view of SHA-3  The sponge construction The internal state The Permutation function at the core of Keccak: Keccak-p  Theta: \(\theta\) Rho: \(\rho\) Pi: \(\pi\) Chi: \(\chi\) Iota: \(\iota\)   Inverting Keccak-p  \( \theta^{-1} \): Back to linear algebra \( \rho^{-1} \): Simplier than it looks \( \pi^{-1} \): Inverse transposition \( \chi^{-1} \): Non-linearity \( \iota^{-1} \): Xor again and it&amp;rsquo;ll be done \(Keccak-p^{-1}\): Just perform the inverse operations in reverse order   Example testing Implications       What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.</description>
+      <description>Table of Contents  What is SHA3 Why another hash function in the SHA family? Deeper view of SHA-3  The sponge construction The internal state The Permutation function at the core of Keccak: Keccak-p  Theta: \(\theta\) Rho: \(\rho\) Pi: \(\pi\) Chi: \(\chi\) Iota: \(\iota\)   Inverting Keccak-p  \( \theta^{-1} \): Back to linear algebra \( \rho^{-1} \): Simplier than it looks \( \pi^{-1} \): Inverse transposition \( \chi^{-1} \): Non-linearity \( \iota^{-1} \): Xor again and it&amp;rsquo;ll be done   \(Keccak-p^{-1}\): Just perform the inverse operations in reverse order Example testing   Implications   What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.</description>
     </item>
     
     <item>
