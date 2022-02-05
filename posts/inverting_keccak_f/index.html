@@ -305,13 +305,13 @@
 <p><img src="https://keccak.team/files/Keccak-f-Theta.png" alt="theta"></p>
 <p>The \(\theta\) operation adds some adjacent columns to each element in the state array. The formal steps are:</p>
 <ul>
-<li>For all pairs \((x, z)\) such that \(0 ≤ x &lt; 5\) and \(0 ≤ z &lt; w\), let
+<li>For all pairs \((x, z)\) such that \(0 \leq x &lt; 5\) and \(0 \leq z &lt; w\), let
 $$C[x, z] = A[x, 0, z] \oplus A[x, 1, z] \oplus A[x, 2, z] \oplus A[x, 3, z] \oplus A[x, 4, z]$$
 \(C[x, z]\) is just the sum in \(GF(2)\) of the column at \((x, z)\) (see the screenshot below for an illustration)</li>
 <li>For all pairs \((x, z)\) such that \(0 ≤ x &lt; 5\) and \(0 ≤ z &lt; w\) let
 $$D[x, z] = C[(x-1)\bmod 5, z] \oplus C[(x+1)\bmod 5, (z-1)\bmod w]$$
 \(D[x, z]\) is the sum of the two columns, at \(((x-1)\bmod 5, z)\) and \((x+1)\bmod 5, (z-1)\bmod w\).</li>
-<li>For all triples \((x, y, z)\) such that \(0 ≤ x &lt; 5, 0 ≤ y &lt; 5\), and \(0 ≤ z &lt; w\), let
+<li>For all triples \((x, y, z)\) such that \(0 \leq x &lt; 5\), \(0 \leq y &lt; 5\), and \(0 \leq z &lt; w\), let
 $$A'[x, y, z] = A[x, y, z] \oplus D[x, z]$$</li>
 </ul>
 <p>Code:</p>
@@ -338,11 +338,11 @@ $$A'[x, y, z] = A[x, y, z] \oplus D[x, z]$$</li>
 <p><img src="https://keccak.team/files/Keccak-f-Rho.png" alt="rho"></p>
 <p>The \(\rho\) operation rotates the bits of each lane by an offset. The steps are:</p>
 <ul>
-<li>For all \(z\) such that \(0 ≤ z &lt; w\), let \(A'[0, 0, z] = A[0, 0, z]\).</li>
+<li>For all \(z\) such that \(0 \leq z &lt; w\), let \(A'[0, 0, z] = A[0, 0, z]\).</li>
 <li>Let \((x, y) = (1, 0)\).</li>
 <li>For \(t\) from <code>0</code> to <code>23</code>:
 <ul>
-<li>for all \(z\) such that \(0 ≤ z &lt; w\), let \(A'[x, y, z] = A[x, y, (z – (t +1)(t + 2)/2)\bmod w]\)</li>
+<li>for all \(z\) such that \(0 \leq z &lt; w\), let \(A'[x, y, z] = A[x, y, (z – (t +1)(t + 2)/2)\bmod w]\)</li>
 <li>let \((x, y) = (y, (2x + 3y)\bmod 5)\).</li>
 </ul>
 </li>
@@ -365,7 +365,7 @@ $$A'[x, y, z] = A[x, y, z] \oplus D[x, z]$$</li>
 <p><img src="https://keccak.team/files/Keccak-f-Pi.png" alt="pi"></p>
 <p>The \(\pi\) operation rearranges the positions of the lanes, also a simple substitution of the bits in the lanes.</p>
 <ul>
-<li>For all triples \((x, y, z)\) such that \(0 ≤ x &lt; 5, 0 ≤ y &lt; 5\), and \(0 ≤ z &lt; w\), let
+<li>For all triples \((x, y, z)\) such that \(0 \leq x &lt; 5\), \(0 \leq y &lt; 5\), and \(0 \leq z &lt; w\), let
 \(A'[x, y, z]= A[(x + 3y)\bmod 5, x, z]\).</li>
 <li>\(A'\) becomes the new state.</li>
 </ul>
@@ -385,7 +385,7 @@ $$A'[x, y, z] = A[x, y, z] \oplus D[x, z]$$</li>
 <p><img src="https://keccak.team/files/Keccak-f-Chi.png" alt="chi"></p>
 <p>The \(\chi\) operation replaces each bit in the state, with its xor with a non-linear function of two bits from its row.</p>
 <ul>
-<li>For all triples \((x, y, z)\) such that \(0 ≤ x &lt; 5, 0 ≤ y &lt; 5\), and \(0 ≤ z &lt; w\), let
+<li>For all triples \((x, y, z)\) such that \(0 \leq x &lt; 5\), \(0 \leq y &lt; 5\), and \(0 \leq z &lt; w\), let
 $$A'[x, y, z] = A[x, y, z] \oplus ((A[(x+1)\bmod 5, y, z] \oplus 1) \wedge A[(x+2)\bmod 5, y, z])$$</li>
 <li>\(A'\) becomes the new state.</li>
 </ul>
@@ -407,7 +407,7 @@ $$A'[x, y, z] = A[x, y, z] \oplus ((A[(x+1)\bmod 5, y, z] \oplus 1) \wedge A[(x+
 <li>Some round constants are calculated, using a simple algorithm that only takes into consideration the round index.
 \(RC\) is a vector of \(w\) bits. The constant for round \(i_r\).</li>
 <li>Make \(A'\) a copy of \(A\).</li>
-<li>For all z such that \(0 ≤ z &lt;w\), let \(A'[0, 0, z] = A[0, 0, z] ⊕ RC[z]\).</li>
+<li>For all z such that \(0 \leq z &lt;w\), let \(A'[0, 0, z] = A[0, 0, z] ⊕ RC[z]\).</li>
 <li>\(A'\) is the new state.</li>
 </ul>
 <p>More details on each of the steps, including the algorithm for calculating round constants, can be found on <a href="https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.202.pdf">the original NIST publication</a>.</p>
@@ -537,25 +537,25 @@ for \(w = 64\) (that is, a state matrix having the shape \(5\times 5\times 64\),
 <ul>
 <li>For \(t\) from <code>0</code> to <code>23</code>
 <ul>
-<li>for all \(z\) such that \(0 ≤ z &lt;w\), let
+<li>for all \(z\) such that \(0 \leq z &lt;w\), let
 $$ A[x, y, (z – (t +1)(t + 2)/2)\bmod w] = A'[x, y, z]$$</li>
 <li>let \((x, y) = (y, (2x + 3y)\bmod 5)\)</li>
 </ul>
 </li>
 </ul>
 <h4 id="span-id8f9a26e303dd7828e03db2fab96a133c-pi-1--inverse-transpositionspan"><span id='8f9a26e303dd7828e03db2fab96a133c'>\( \pi^{-1} \): Inverse transposition</span></h4>
-<p>Also a very simple step to inverse. \(\pi\) essentially performs \(A'[x,y,z] = A[(x+3y)\bmod 5,x,z]\) for every \(0 &lt;= x &lt; 5, 0 &lt;= y &lt; 5, 0 &lt;= z &lt; w\).</p>
+<p>Also a very simple step to inverse. \(\pi\) essentially performs \(A'[x, y, z] = A[(x+3y)\bmod 5, x, z]\) for every \(0 \leq x &lt; 5\), \(0 \leq y &lt; 5\), \(0 \leq z &lt; w\).</p>
 <p>This is the algorithm for \(\pi^{-1}\):</p>
 <ul>
-<li>For all \(0 &lt;= x &lt; 5, 0 &lt;= y &lt; 5, 0 &lt;= z &lt; w\):
+<li>For all \(0 \leq x &lt; 5\), \(0 \leq y &lt; 5\), \(0 \leq z &lt; w\):
 <ul>
-<li>Set \(A[(x+3y)\bmod 5,x,z] = A'[(x+3y)\bmod 5,x,z]\)</li>
+<li>Set \(A[(x+3y)\bmod 5, x, z] = A'[x, y, z]\)</li>
 </ul>
 </li>
 </ul>
 <h4 id="span-id364549d11c2ca4a7d57526a128c79fc7-chi-1--non-linearityspan"><span id='364549d11c2ca4a7d57526a128c79fc7'>\( \chi^{-1} \): Non-linearity</span></h4>
 <p>The \(\chi\) operation is the only non-linear one (non-linear because it includes logical and (&amp;) operations, which are analog to multiplications).</p>
-<p>If we look closely, we notice that the step applies the non-linear function on 5-bit parts, that is, for every \((y, z), 0 &lt;= y &lt; 5, 0 &lt;= z &lt; w\), the bits at \((x, y, z)\) for every possible value of \(x\) (from <code>0</code> to <code>4</code>) are inputs and outputs of the function.</p>
+<p>If we look closely, we notice that the step applies the non-linear function on 5-bit parts, that is, for every \((y, z)\), \(0 \leq y &lt; 5\), \(0 \leq z &lt; w\), the bits at \((x, y, z)\) for every possible value of \(x\) (from <code>0</code> to <code>4</code>) are inputs and outputs of the function.</p>
 <p>To inverse it, my approach was to:</p>
 <ul>
 <li>Generate a truth-table of the function, by calculating the nonlinear function image of every value from <code>00000</code> to <code>11111</code>.</li>
