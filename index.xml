@@ -8,6 +8,18 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 24 Apr 2019 09:27:58 +0200</lastBuildDate><atom:link href="https://red0xff.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Inverting Keccak-f if the sponge leaks</title>
+      <link>https://red0xff.github.io/posts/inverting_keccak_f/</link>
+      <pubDate>Sat, 05 Feb 2022 11:15:58 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/posts/inverting_keccak_f/</guid>
+      <description>What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.
+reminder (click to expand)
+ a cryptographic hash function is a fast one-way function that associates a fixed-size digest to variable-size inputs, a good hash function must satisfy the following properties:
+ Collision resistance: It should be difficult to find two messages that have the same hash.</description>
+    </item>
+    
+    <item>
       <title>GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39;</title>
       <link>https://red0xff.github.io/posts/google_summer_of_code_2020/</link>
       <pubDate>Sat, 29 Aug 2020 16:45:58 +0200</pubDate>

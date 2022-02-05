@@ -6,7 +6,19 @@
     <description>Recent content in cryptography on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Jun 2019 14:55:32 +0200</lastBuildDate><atom:link href="https://red0xff.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Feb 2022 11:15:58 +0200</lastBuildDate><atom:link href="https://red0xff.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Inverting Keccak-f if the sponge leaks</title>
+      <link>https://red0xff.github.io/posts/inverting_keccak_f/</link>
+      <pubDate>Sat, 05 Feb 2022 11:15:58 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/posts/inverting_keccak_f/</guid>
+      <description>What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.
+reminder (click to expand)
+ a cryptographic hash function is a fast one-way function that associates a fixed-size digest to variable-size inputs, a good hash function must satisfy the following properties:
+ Collision resistance: It should be difficult to find two messages that have the same hash.</description>
+    </item>
+    
     <item>
       <title>Writeup of the Richelieu challenge</title>
       <link>https://red0xff.github.io/writeups/richelieu_challenge_writeup/</link>

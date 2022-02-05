@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Inverting Keccak-f if the sponge leaks :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.
+reminder (click to expand)
+ a cryptographic hash function is a fast one-way function that associates a fixed-size digest to variable-size inputs, a good hash function must satisfy the following properties:
+ Collision resistance: It should be difficult to find two messages that have the same hash."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://red0xff.github.io/posts/inverting_keccak_f/" />
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/reminder.css" />
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://red0xff.github.io/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://red0xff.github.io/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="https://red0xff.github.io/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Inverting Keccak-f if the sponge leaks :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
+<meta name="twitter:description" content="What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.
+reminder (click to expand)
+ a cryptographic hash function is a fast one-way function that associates a fixed-size digest to variable-size inputs, a good hash function must satisfy the following properties:
+ Collision resistance: It should be difficult to find two messages that have the same hash." />
+<meta name="twitter:site" content="https://red0xff.github.io/" />
+<meta name="twitter:creator" content="NIBOUCHA Redouane" />
+<meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1644059629/inverting_keccak_f/qi8pm4ghov9qrrxmkpvo.png">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Inverting Keccak-f if the sponge leaks :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
+<meta property="og:description" content="What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.
+reminder (click to expand)
+ a cryptographic hash function is a fast one-way function that associates a fixed-size digest to variable-size inputs, a good hash function must satisfy the following properties:
+ Collision resistance: It should be difficult to find two messages that have the same hash." />
+<meta property="og:url" content="https://red0xff.github.io/posts/inverting_keccak_f/" />
+<meta property="og:site_name" content="Inverting Keccak-f if the sponge leaks" />
+<meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1644059629/inverting_keccak_f/qi8pm4ghov9qrrxmkpvo.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2022-02-05 11:15:58 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Redouane&#39;s Blog
+  </div>
+</a>
+<div id="typingcode" class="hidden"></div>
+<div id="fences"></div>
+
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/posts/">Posts</a></li>
+        
+      
+        
+          <li><a href="/search/">Search</a></li>
+        
+      
+        
+          <li><a href="/writeups/">Writeups</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+      
+        <li><a href="/posts/">Posts</a></li>
+      
+    
+      
+        <li><a href="/search/">Search</a></li>
+      
+    
+      
+        <li><a href="/writeups/">Writeups</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://red0xff.github.io/posts/inverting_keccak_f/">Inverting Keccak-f if the sponge leaks</a></h1>
+  <div class="post-meta">
+    <span class="post-date">
+      2022-02-05
+    </span>
+    
+    <span class="post-author">::
+      NIBOUCHA Redouane
+    </span>
+    
+  </div>
+  
+  <span class="post-tags">
+    
+    #<a href="https://red0xff.github.io/tags/cryptography/">cryptography</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/security/">security</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/programming/">programming</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1644059629/inverting_keccak_f/qi8pm4ghov9qrrxmkpvo.png" class="post-cover" />
+  
+
+  <div class="post-content">
+    <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<h1 id="what-is-sha3">What is SHA3</h1>
+<p>SHA3 is a family of standarised cryptographic hashing functions, it&rsquo;s the winner of the 2012 NIST hash function contest.</p>
+<div class="reminder">
+<p><code>reminder</code> (click to expand)</p>
+</div>
+<div class="reminder-content">
+<p>a cryptographic hash function is a fast one-way function that associates a fixed-size digest to variable-size inputs, a good hash function must satisfy the following properties:<br></p>
+<ul>
+<li>Collision resistance: It should be difficult to find two messages that have the same hash.<br></li>
+<li>Pre-image resistance: given <code>h</code>, an output of the function, it should be difficult to find a message <code>m</code> such that <code>h = hash(m)</code>.<br></li>
+<li>Second pre-image resistance: Given an input <code>m1</code>, it should be difficult to find another input <code>m2</code> such that <code>hash(m1) = hash(m2)</code>.<br></li>
+</ul>
+</div>
+<h2 id="why-another-hash-function-in-the-sha-family">Why another hash function in the SHA family?</h2>
+<p>For over a decade, the most common construction of hash functions was based on block ciphers. Using the so-called <a href="https://en.wikipedia.org/wiki/Merkle%E2%80%93Damg%C3%A5rd_construction">Merkle–Damgård construction</a>. Associated with a <a href="https://en.wikipedia.org/wiki/One-way_compression_function">compression function</a> that is very similar to a block cipher.</p>
+<p>All hash functions developed from the <code>1980s</code> through the <code>2010s</code> are based on this construction: <code>MD4</code>, <code>MD5</code>, <code>SHA-1</code>, and the <code>SHA-2</code> family, as well as the lesser-known <code>RIPEMD</code> and <code>Whirlpool</code> functions.</p>
+<p>The construction has proven secure enough for most of the properties wanted from a cryptographic hash function, and it&rsquo;s simple. View it as a way to turn a secure compression function to a secure hash function. However, it has some flaws, for example, it makes <a href="https://en.wikipedia.org/wiki/Length_extension_attack">hash-length extension attacks</a> possible.</p>
+<p>Some of the previously-standarized hash functions have also proven vulnerable, collisions have become practical on some of them (see <a href="https://shattered.io/">SHATTERED</a> and <a href="https://www.avira.com/en/blog/md5-the-broken-algorithm">MD5 Collisions</a>)</p>
+<p><code>SHA-3</code> is fundamentally different, it&rsquo;s not just another similarly-designed hash function with a different compression function. It relies instead on a sponge construction.</p>
+<h2 id="deeper-view-of-sha-3">Deeper view of SHA-3</h2>
+<h3 id="the-sponge-construction">The sponge construction</h3>
+<p>The structure of a sponge construction is illustrated below:</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1644048900/inverting_keccak_f/mqrsivtmph9fgfydlgzk.png" alt="sponge construction"></p>
+<p>We call the function <code>f</code> the <code>Permutation Function</code> of the sponge construction.</p>
+<p>Sponge constructions can be used not only to hash data, but also to generate variable-sized streams of data (which can be used for <code>PRNG</code>s or stream ciphers for example).</p>
+<h3 id="the-internal-state">The internal state</h3>
+<p>The internal state of the hash function has \(r+c\) bits. We represent it as a \(5\times 5\times w\) 3D array of bits, where \(w\) is a multiple of <code>2</code> (in practice, \(w = 64\), so \(r+c = 1600\)).</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1644050412/inverting_keccak_f/l6hvsredmgyhverauemr.png" alt="internal state"></p>
+<p>In the <code>SHA-3</code> family of hash functions, different functions have different rate and capacity values.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Function</th>
+<th style="text-align:center">Capacity \(c\)</th>
+<th style="text-align:center">Rate \(r\)</th>
+<th style="text-align:center">Output size \(d\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SHA3-224</td>
+<td style="text-align:center">448</td>
+<td style="text-align:center">1152</td>
+<td style="text-align:center">224</td>
+</tr>
+<tr>
+<td style="text-align:center">SHA3-256</td>
+<td style="text-align:center">512</td>
+<td style="text-align:center">1088</td>
+<td style="text-align:center">256</td>
+</tr>
+<tr>
+<td style="text-align:center">SHA3-384</td>
+<td style="text-align:center">768</td>
+<td style="text-align:center">832</td>
+<td style="text-align:center">384</td>
+</tr>
+<tr>
+<td style="text-align:center">SHA3-512</td>
+<td style="text-align:center">1024</td>
+<td style="text-align:center">576</td>
+<td style="text-align:center">512</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-permutation-function-at-the-core-of-keccak-keccak-p">The Permutation function at the core of Keccak: <code>Keccak-p</code></h3>
+<p>The function at the core of the sponge construction in SHA-3 is called <code>Keccak-p</code>. The steps it consists of are as follow:</p>
+<p>Input:</p>
+<ul>
+<li>String S of length \( b =  5 \times 5 \times w \)</li>
+<li>Number of rounds \( n_r \).</li>
+</ul>
+<p>Operations:</p>
+<ul>
+<li>Convert the input string <code>S</code> (of length <code>b</code>) to a 3-dimensional state array <code>A</code> (of the shape \( 5 \times 5 \times w \)) . Bits are just rearranged.</li>
+<li>Runs the following operations \( n_r \) times (\( i_r \) being the round index, taking the values <code>0</code>, <code>1</code>, &hellip;).
+<ul>
+<li>\( A' = \iota ( \chi ( \pi ( \rho ( \theta ( A ) ) ) ), i_r ) \)</li>
+<li>\( A' \) becomes the new state</li>
+</ul>
+</li>
+<li>Convert the state to a string S (of length <code>b</code>), bits are just rearranged, as in the first step.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> keccak_rho(s, nr)
+    state_from_bitarray s;
+    l = Math.log(@w, <span style="color:#ff0;font-weight:bold">2</span>).to_i
+    (<span style="color:#ff0;font-weight:bold">12</span>+<span style="color:#ff0;font-weight:bold">2</span>*l-nr).upto(<span style="color:#ff0;font-weight:bold">12</span>+<span style="color:#ff0;font-weight:bold">2</span>*l-<span style="color:#ff0;font-weight:bold">1</span>) <span style="color:#fff;font-weight:bold">do</span>|ir|
+      theta
+      rho
+      pi
+      chi
+      iota(ir)
+    <span style="color:#fff;font-weight:bold">end</span>
+    bitarray_from_state
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><p><code>Keccak-f</code> is just <code>Keccak-p</code> with \(12 + 2 \times log_2(w)\) rounds.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> keccak_f(s)
+    l = Math.log(@w, <span style="color:#ff0;font-weight:bold">2</span>).to_i
+    keccak_rho(s, <span style="color:#ff0;font-weight:bold">12</span>+<span style="color:#ff0;font-weight:bold">2</span>*l)
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><p>The next subsections will summarize each of these operations.</p>
+<h4 id="theta-theta">Theta: \(\theta\)</h4>
+<p><img src="https://keccak.team/files/Keccak-f-Theta.png" alt="theta"></p>
+<p>The \(\theta\) operation adds some adjacent columns to each element in the state array. The formal steps are:</p>
+<ul>
+<li>For all pairs \((x, z)\) such that \(0 ≤ x &lt; 5\) and \(0 ≤ z &lt; w\), let
+$$C[x, z] = A[x, 0, z] \oplus A[x, 1, z] \oplus A[x, 2, z] \oplus A[x, 3, z] \oplus A[x, 4, z]$$
+\(C[x, z]\) is just the sum in \(GF(2)\) of the column at \((x, z)\) (see the screenshot below for an illustration)</li>
+<li>For all pairs \((x, z)\) such that \(0 ≤ x &lt; 5\) and \(0 ≤ z &lt; w\) let
+$$D[x, z] = C[(x-1)\bmod 5, z] \oplus C[(x+1)\bmod 5, (z-1)\bmod w]$$
+\(D[x, z]\) is the sum of the two columns, at \(((x-1)\bmod 5, z)\) and \((x+1)\bmod 5, (z-1)\bmod w\).</li>
+<li>For all triples \((x, y, z)\) such that \(0 ≤ x &lt; 5, 0 ≤ y &lt; 5\), and \(0 ≤ z &lt; w\), let
+$$A'[x, y, z] = A[x, y, z] \oplus D[x, z]$$</li>
+</ul>
+<p>Code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> theta
+    c = <span style="color:#ff0;font-weight:bold">5</span>.times.map{|x|
+      @w.times.map{|z|
+        @state[x][<span style="color:#ff0;font-weight:bold">0</span>][z] ^ @state[x][<span style="color:#ff0;font-weight:bold">1</span>][z] ^ @state[x][<span style="color:#ff0;font-weight:bold">2</span>][z] ^ @state[x][<span style="color:#ff0;font-weight:bold">3</span>][z] ^ @state[x][<span style="color:#ff0;font-weight:bold">4</span>][z]
+      }
+    }
+    d = <span style="color:#ff0;font-weight:bold">5</span>.times.map{|x|
+      @w.times.map{|z|
+        c[ (x-<span style="color:#ff0;font-weight:bold">1</span>) % <span style="color:#ff0;font-weight:bold">5</span> ][z] ^ c[ (x+<span style="color:#ff0;font-weight:bold">1</span>) % <span style="color:#ff0;font-weight:bold">5</span> ][ (z-<span style="color:#ff0;font-weight:bold">1</span>) % @w ]
+      }
+    }
+    <span style="color:#ff0;font-weight:bold">5</span>.times{|x|
+      <span style="color:#ff0;font-weight:bold">5</span>.times{|y|
+        @w.times{|z|
+          @state[x][y][z] ^= d[x][z]
+        }
+      }
+    }
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h4 id="rho-rho">Rho: \(\rho\)</h4>
+<p><img src="https://keccak.team/files/Keccak-f-Rho.png" alt="rho"></p>
+<p>The \(\rho\) operation rotates the bits of each lane by an offset. The steps are:</p>
+<ul>
+<li>For all \(z\) such that \(0 ≤ z &lt; w\), let \(A'[0, 0, z] = A[0, 0, z]\).</li>
+<li>Let \((x, y) = (1, 0)\).</li>
+<li>For \(t\) from <code>0</code> to <code>23</code>:
+<ul>
+<li>for all \(z\) such that \(0 ≤ z &lt; w\), let \(A'[x, y, z] = A[x, y, (z – (t +1)(t + 2)/2)\bmod w]\)</li>
+<li>let \((x, y) = (y, (2x + 3y)\bmod 5)\).</li>
+</ul>
+</li>
+<li>\(A'\) becomes the new state.</li>
+</ul>
+<p>Code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> rho
+    new_state = clone_state <span style="color:#007f7f"># create a clone of the current state</span>
+
+    x, y = <span style="color:#ff0;font-weight:bold">1</span>, <span style="color:#ff0;font-weight:bold">0</span>;
+    <span style="color:#ff0;font-weight:bold">0</span>.upto(<span style="color:#ff0;font-weight:bold">23</span>) <span style="color:#fff;font-weight:bold">do</span>|t|
+      @w.times{|z|
+        new_state[x][y][z] = @state[x][y][( z - ( t + <span style="color:#ff0;font-weight:bold">1</span> ) * (t + <span style="color:#ff0;font-weight:bold">2</span>) / <span style="color:#ff0;font-weight:bold">2</span> ) % @w ]
+      }
+      x, y = y, (<span style="color:#ff0;font-weight:bold">2</span>*x + <span style="color:#ff0;font-weight:bold">3</span>*y) % <span style="color:#ff0;font-weight:bold">5</span>;
+    <span style="color:#fff;font-weight:bold">end</span>
+    @state = new_state;
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h4 id="pi-pi">Pi: \(\pi\)</h4>
+<p><img src="https://keccak.team/files/Keccak-f-Pi.png" alt="pi"></p>
+<p>The \(\pi\) operation rearranges the positions of the lanes, also a simple substitution of the bits in the lanes.</p>
+<ul>
+<li>For all triples \((x, y, z)\) such that \(0 ≤ x &lt; 5, 0 ≤ y &lt; 5\), and \(0 ≤ z &lt; w\), let
+\(A'[x, y, z]= A[(x + 3y)\bmod 5, x, z]\).</li>
+<li>\(A'\) becomes the new state.</li>
+</ul>
+<p>Code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> pi
+    new_state = clone_state
+    <span style="color:#ff0;font-weight:bold">5</span>.times <span style="color:#fff;font-weight:bold">do</span>|x|
+      <span style="color:#ff0;font-weight:bold">5</span>.times <span style="color:#fff;font-weight:bold">do</span>|y|
+        @w.times <span style="color:#fff;font-weight:bold">do</span>|z|
+          new_state[x][y][z] = @state[ (x + <span style="color:#ff0;font-weight:bold">3</span>*y) % <span style="color:#ff0;font-weight:bold">5</span> ][x][z]
+        <span style="color:#fff;font-weight:bold">end</span>
+      <span style="color:#fff;font-weight:bold">end</span>
+    <span style="color:#fff;font-weight:bold">end</span>
+    @state = new_state
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h4 id="chi-chi">Chi: \(\chi\)</h4>
+<p><img src="https://keccak.team/files/Keccak-f-Chi.png" alt="chi"></p>
+<p>The \(\chi\) operation replaces each bit in the state, with its xor with a non-linear function of two bits from its row.</p>
+<ul>
+<li>For all triples \((x, y, z)\) such that \(0 ≤ x &lt; 5, 0 ≤ y &lt; 5\), and \(0 ≤ z &lt; w\), let
+$$A'[x, y, z] = A[x, y, z] \oplus ((A[(x+1)\bmod 5, y, z] \oplus 1) \wedge A[(x+2)\bmod 5, y, z])$$</li>
+<li>\(A'\) becomes the new state.</li>
+</ul>
+<p>Code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> chi
+    new_state = clone_state
+     <span style="color:#ff0;font-weight:bold">5</span>.times <span style="color:#fff;font-weight:bold">do</span>|x|
+      <span style="color:#ff0;font-weight:bold">5</span>.times <span style="color:#fff;font-weight:bold">do</span>|y|
+        @w.times <span style="color:#fff;font-weight:bold">do</span>|z|
+          new_state[x][y][z] = @state[x][y][z] ^ ((@state[(x+<span style="color:#ff0;font-weight:bold">1</span>)%<span style="color:#ff0;font-weight:bold">5</span>][y][z]^<span style="color:#ff0;font-weight:bold">1</span>) &amp; @state[(x+<span style="color:#ff0;font-weight:bold">2</span>)%<span style="color:#ff0;font-weight:bold">5</span>][y][z]);
+        <span style="color:#fff;font-weight:bold">end</span>
+      <span style="color:#fff;font-weight:bold">end</span>
+    <span style="color:#fff;font-weight:bold">end</span>
+    @state = new_state
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h4 id="iota-iota">Iota: \(\iota\)</h4>
+<p>The effect of this operation is to modify some bits of the lane \((0, 0)\) in a manner that depends on the round index \(i_r\).</p>
+<ul>
+<li>Some round constants are calculated, using a simple algorithm that only takes into consideration the round index.
+\(RC\) is a vector of \(w\) bits. The constant for round \(i_r\).</li>
+<li>Make \(A'\) a copy of \(A\).</li>
+<li>For all z such that \(0 ≤ z &lt;w\), let \(A'[0, 0, z] = A[0, 0, z] ⊕ RC[z]\).</li>
+<li>\(A'\) is the new state.</li>
+</ul>
+<p>More details on each of the steps, including the algorithm for calculating round constants, can be found on <a href="https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.202.pdf">the original NIST publication</a>.</p>
+<p>Code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> self.rc(t)
+    <span style="color:#007f7f">#return 1 if t % 255 == 0</span>
+    r = <span style="color:#ff0;font-weight:bold">1</span>
+    <span style="color:#ff0;font-weight:bold">1</span>.upto(t) <span style="color:#fff;font-weight:bold">do</span>|i|
+      r &lt;&lt;= <span style="color:#ff0;font-weight:bold">1</span>
+      r ^= <span style="color:#ff0;font-weight:bold">0x71</span> <span style="color:#fff;font-weight:bold">if</span> r &amp; <span style="color:#ff0;font-weight:bold">0x100</span> != <span style="color:#ff0;font-weight:bold">0</span>
+      <span style="color:#007f7f">#r &amp;= 0xfff</span>
+    <span style="color:#fff;font-weight:bold">end</span>
+    r &amp; <span style="color:#ff0;font-weight:bold">1</span>
+  <span style="color:#fff;font-weight:bold">end</span>
+
+  <span style="color:#fff;font-weight:bold">def</span> iota(ir)
+    rc = [ <span style="color:#ff0;font-weight:bold">0</span> ] * @w
+    l = Math.log(@w, <span style="color:#ff0;font-weight:bold">2</span>).to_i
+    rc = <span style="color:#ff0;font-weight:bold">0</span>
+    shift = <span style="color:#ff0;font-weight:bold">1</span>
+    <span style="color:#ff0;font-weight:bold">0</span>.upto(l) <span style="color:#fff;font-weight:bold">do</span>|j|
+      rc |= Keccak.rc(j + <span style="color:#ff0;font-weight:bold">7</span> * ir) &lt;&lt; (shift-<span style="color:#ff0;font-weight:bold">1</span>);
+      shift &lt;&lt;= <span style="color:#ff0;font-weight:bold">1</span>;
+    <span style="color:#fff;font-weight:bold">end</span>
+    rc = rc.to_s(<span style="color:#ff0;font-weight:bold">2</span>).ljust(<span style="color:#ff0;font-weight:bold">64</span>,<span style="color:#0ff;font-weight:bold">?0</span>).chars.map(&amp;<span style="color:#0ff;font-weight:bold">:to_i</span>)
+
+    @w.times <span style="color:#fff;font-weight:bold">do</span>|z|
+      @state[<span style="color:#ff0;font-weight:bold">0</span>][<span style="color:#ff0;font-weight:bold">0</span>][z] ^= rc[z];
+    <span style="color:#fff;font-weight:bold">end</span>
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h3 id="inverting-keccak-p">Inverting Keccak-p</h3>
+<p>\(Keccak-p\) is a permutation, as such, it is efficiently invertible. This doesn&rsquo;t have the disastrous consequences you might think of, the hash function remains safe, and one-way, because the internal state is never returned, and it&rsquo;s not possible to invert the permutation by having only <code>rate</code> bits of its internal state.</p>
+<p>However, this can have some implications if, for example, the whole internal state of the sponge construction gets leaked at some point during the computation.</p>
+<p>Inverting \(Keccak-p\) requires inverting each of its steps.</p>
+<p>Please note that:</p>
+<ul>
+<li>This is my own attempt at inverting the function, I did not follow any reference to do it, as such, it might not be the most efficient way, but it works.</li>
+<li>The implementation is focused on simplicity and readability, not performance. It&rsquo;s as close as possible to the specification from <a href="https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.202.pdf">the NIST paper</a>.</li>
+</ul>
+<h4 id="-theta-1--back-to-linear-algebra">\( \theta^{-1} \): Back to linear algebra</h4>
+<p>The \(\theta\) step essentially replaces each element in the state with a sum of 11 elements. For example:
+$$ A'[2, 2, 4] = A[2, 2, 4] \oplus \\
+A[1, 0, 4] \oplus A[1, 1, 4] \oplus A[1, 2, 4] \oplus A[1, 3, 4] \oplus A[1, 4, 4] \oplus \\
+A[3, 0, 3] \oplus A[3, 1, 3] \oplus A[3, 2, 3] \oplus A[3, 3, 3] \oplus A[3, 4, 3]$$</p>
+<p>My idea to invert this step is to consider \(5\times 5\times w\) equations of \(5\times 5\times w\) unknowns, where unknowns are bits from the state before the application of the \(\theta\) step.</p>
+<p>In the matrix form of this system:
+\(M.B = B'\), where \(B\) is the state before the transformation, \(B'\) after, M the matrix representing the system.</p>
+<div class="reminder">
+<p><code>reminder</code> (click to expand)</p>
+</div>
+<div class="reminder-content">
+<p>Just like the following system:
+$$
+a+c+d = 1\\
+a+e+f = 0\\
+b+c+d+e+f = 1\\
+d+f = 0\\
+a+b+e = 1\\
+b+d+e+f = 1\\
+$$
+Can be represented using the following notation: \( M_1.X_1 = X_2 \).
+Where the matrix \(M\) equals:</p>
+<p>\begin{pmatrix}
+1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 \\
+0 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 \\
+1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 1
+\end{pmatrix}</p>
+<p>\(X_1\) equals:</p>
+<p>\begin{pmatrix}
+a \\
+b \\
+c \\
+d \\
+e \\
+f
+\end{pmatrix}</p>
+<p>And \(X_2\):
+\begin{pmatrix}
+1 \\
+0 \\
+1 \\
+0 \\
+1 \\
+1
+\end{pmatrix}</p>
+</div>
+<p>If we have \(M^{-1}\), we can efficiently calculate \(B = M^{-1}.B'\), which is the state before the \(\theta\) operation.
+for \(w = 64\) (that is, a state matrix having the shape \(5\times 5\times 64\), as in <code>sha3</code>), we would have <code>1600</code> equations with <code>1600</code> unknowns, where each unknown is a bit.</p>
+<p>This involves a lot of calculations, fortunately, we can precompute this inverse matrix, and use it to inverse this step efficiently.</p>
+<p>We define a class <code>BinMatrix</code>, which will represent a matrix over the field \(GF(2)\), we implement the <a href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a> algorithm for inverting the matrix (check out the final code at the end of the article for implementation details).</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#007f7f"># precomputes the inverse of the M matrix we defined above for a given value of w</span>
+  <span style="color:#fff;font-weight:bold">def</span> precompute_untheta(w)
+    state_equations = (w*<span style="color:#ff0;font-weight:bold">5</span>*<span style="color:#ff0;font-weight:bold">5</span>).times.map{|i|
+      z = i % w
+      y = (i / w) % <span style="color:#ff0;font-weight:bold">5</span>
+      x = (i / w / <span style="color:#ff0;font-weight:bold">5</span>)
+      r = [ <span style="color:#ff0;font-weight:bold">0</span> ] * (w * <span style="color:#ff0;font-weight:bold">25</span>)
+      <span style="color:#ff0;font-weight:bold">5</span>.times{|k|
+        r[((x-<span style="color:#ff0;font-weight:bold">1</span>)%<span style="color:#ff0;font-weight:bold">5</span>) * <span style="color:#ff0;font-weight:bold">5</span> * w + k * w + z] = <span style="color:#ff0;font-weight:bold">1</span>
+        r[((x+<span style="color:#ff0;font-weight:bold">1</span>)%<span style="color:#ff0;font-weight:bold">5</span>) * <span style="color:#ff0;font-weight:bold">5</span> * w + k * w + ((z-<span style="color:#ff0;font-weight:bold">1</span>) % w)] = <span style="color:#ff0;font-weight:bold">1</span>
+      }
+      r[x * <span style="color:#ff0;font-weight:bold">5</span> * w + y * w + z] = <span style="color:#ff0;font-weight:bold">1</span>
+      r
+    }
+    inv = BinMatrix.new(state_equations).inverse
+    File.open(<span style="color:#0ff;font-weight:bold">&#34;</span><span style="color:#0ff;font-weight:bold">#{</span>w<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">_inverted.mat&#34;</span>,<span style="color:#0ff;font-weight:bold">&#39;wb&#39;</span>) <span style="color:#fff;font-weight:bold">do</span>|out|
+      out.puts(inv.to_s)
+    <span style="color:#fff;font-weight:bold">end</span>
+  <span style="color:#fff;font-weight:bold">end</span>
+  
+  <span style="color:#fff;font-weight:bold">def</span> untheta
+    <span style="color:#fff;font-weight:bold">unless</span> instance_variable_defined?(<span style="color:#0ff;font-weight:bold">:theta_inv</span>)
+      precompute_untheta(@w) <span style="color:#fff;font-weight:bold">unless</span> File.exists?(<span style="color:#0ff;font-weight:bold">&#34;</span><span style="color:#0ff;font-weight:bold">#{</span>@w<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">_inverted.mat&#34;</span>)
+      @theta_inv = BinMatrix.new(File.open(<span style="color:#0ff;font-weight:bold">&#34;</span><span style="color:#0ff;font-weight:bold">#{</span>@w<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">_inverted.mat&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;rb&#34;</span>, &amp;<span style="color:#0ff;font-weight:bold">:read</span>).lines.map{|l| l.chomp.split.map(&amp;<span style="color:#0ff;font-weight:bold">:to_i</span>) })
+    <span style="color:#fff;font-weight:bold">end</span>
+    
+    <span style="color:#007f7f"># flatten and map to obtain a column matrix representing the current state, B&#39;</span>
+    <span style="color:#007f7f"># as_state(w) of BinMatrix returns a 3-dimensional state matrix from a BinMatrix.</span>
+    @state = (@theta_inv * BinMatrix.new(@state.flatten.map{|e|[e]})).as_state(<span style="color:#ff0;font-weight:bold">64</span>)
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h4 id="-rho-1--simplier-than-it-looks">\( \rho^{-1} \): Simplier than it looks</h4>
+<p>The \(\rho\) step essentially loops <code>24</code> times, and moves bits within each lane, iterating over each lane exactly once (except for \((0, 0)\), for which no rotation is performed). We checked it by inspecting \((x, y)\) values as iterations advance.</p>
+<p>To inverse this step, we simply have to rotate the bits back, we can keep the same iteration order (same order of the lanes to rotate).</p>
+<ul>
+<li>For \(t\) from <code>0</code> to <code>23</code>
+<ul>
+<li>for all \(z\) such that \(0 ≤ z &lt;w\), let
+$$ A[x, y, (z – (t +1)(t + 2)/2)\bmod w] = A'[x, y, z]$$</li>
+<li>let \((x, y) = (y, (2x + 3y)\bmod 5)\)</li>
+</ul>
+</li>
+</ul>
+<h4 id="-pi-1--inverse-transposition">\( \pi^{-1} \): Inverse transposition</h4>
+<p>Also a very simple step to inverse. \(\pi\) essentially performs \(A'[x,y,z] = A[(x+3y)\bmod 5,x,z]\) for every \(0 &lt;= x &lt; 5, 0 &lt;= y &lt; 5, 0 &lt;= z &lt; w\).</p>
+<p>This is the algorithm for \(\pi^{-1}\):</p>
+<ul>
+<li>For all \(0 &lt;= x &lt; 5, 0 &lt;= y &lt; 5, 0 &lt;= z &lt; w\):
+<ul>
+<li>Set \(A[(x+3y)\bmod 5,x,z] = A'[(x+3y)\bmod 5,x,z]\)</li>
+</ul>
+</li>
+</ul>
+<h4 id="-chi-1--non-linearity">\( \chi^{-1} \): Non-linearity</h4>
+<p>The \(\chi\) operation is the only non-linear one (non-linear because it includes logical and (&amp;) operations, which are analog to multiplications).</p>
+<p>If we look closely, we notice that the step applies the non-linear function on 5-bit parts, that is, for every \((y, z), 0 &lt;= y &lt; 5, 0 &lt;= z &lt; w\), the bits at \((x, y, z)\) for every possible value of \(x\) (from <code>0</code> to <code>4</code>) are inputs and outputs of the function.</p>
+<p>To inverse it, my approach was to:</p>
+<ul>
+<li>Generate a truth-table of the function, by calculating the nonlinear function image of every value from <code>00000</code> to <code>11111</code>.</li>
+<li>Check if the function is invertible (that it&rsquo;s a bijection).</li>
+<li>Create a table that maps outputs of the function to inputs.</li>
+<li>Use it to invert the result of \(\chi\) efficiently, that is, apply the inverse function on 5-bit inputs.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> precompute_unchi
+    <span style="color:#007f7f"># The nonlinear function: A&#39;(x) = A(x) ^ ((!A(x+1)) &amp; A(x+2))</span>
+    truth_table = (<span style="color:#ff0;font-weight:bold">2</span>**<span style="color:#ff0;font-weight:bold">5</span>).times.map{|val|
+      a4, a3, a2, a1, a0 = val &gt;&gt; <span style="color:#ff0;font-weight:bold">4</span>, (val &gt;&gt; <span style="color:#ff0;font-weight:bold">3</span>) &amp; <span style="color:#ff0;font-weight:bold">1</span>, (val &gt;&gt; <span style="color:#ff0;font-weight:bold">2</span>) &amp; <span style="color:#ff0;font-weight:bold">1</span>, (val &gt;&gt; <span style="color:#ff0;font-weight:bold">1</span>) &amp; <span style="color:#ff0;font-weight:bold">1</span>, val &amp; <span style="color:#ff0;font-weight:bold">1</span>;
+      n4 = a4 ^ ((a3^<span style="color:#ff0;font-weight:bold">1</span>) &amp; a2)
+      n3 = a3 ^ ((a2^<span style="color:#ff0;font-weight:bold">1</span>) &amp; a1)
+      n2 = a2 ^ ((a1^<span style="color:#ff0;font-weight:bold">1</span>) &amp; a0)
+      n1 = a1 ^ ((a0^<span style="color:#ff0;font-weight:bold">1</span>) &amp; a4)
+      n0 = a0 ^ ((a4^<span style="color:#ff0;font-weight:bold">1</span>) &amp; a3) 
+      (n4 &lt;&lt; <span style="color:#ff0;font-weight:bold">4</span>) | (n3 &lt;&lt; <span style="color:#ff0;font-weight:bold">3</span>) | (n2 &lt;&lt; <span style="color:#ff0;font-weight:bold">2</span>) | (n1 &lt;&lt; <span style="color:#ff0;font-weight:bold">1</span>) | n0
+    }
+    <span style="color:#007f7f"># the inverse of the truth table</span>
+    (<span style="color:#ff0;font-weight:bold">2</span>**<span style="color:#ff0;font-weight:bold">5</span>).times.map{|val|
+      truth_table.index val
+    }
+  <span style="color:#fff;font-weight:bold">end</span>
+
+  <span style="color:#fff;font-weight:bold">def</span> unchi
+    truth_tbl = precompute_unchi
+    new_state = clone_state
+    <span style="color:#ff0;font-weight:bold">5</span>.times <span style="color:#fff;font-weight:bold">do</span>|y|
+      @w.times <span style="color:#fff;font-weight:bold">do</span>|z|
+        table_line = (@state[<span style="color:#ff0;font-weight:bold">0</span>][y][z] &lt;&lt; <span style="color:#ff0;font-weight:bold">4</span>) | (@state[<span style="color:#ff0;font-weight:bold">1</span>][y][z] &lt;&lt; <span style="color:#ff0;font-weight:bold">3</span>) | (@state[<span style="color:#ff0;font-weight:bold">2</span>][y][z] &lt;&lt; <span style="color:#ff0;font-weight:bold">2</span>) | (@state[<span style="color:#ff0;font-weight:bold">3</span>][y][z] &lt;&lt; <span style="color:#ff0;font-weight:bold">1</span>) | @state[<span style="color:#ff0;font-weight:bold">4</span>][y][z]
+        inv_num = truth_tbl[table_line]
+        new_state[<span style="color:#ff0;font-weight:bold">0</span>][y][z] = inv_num &gt;&gt; <span style="color:#ff0;font-weight:bold">4</span>
+        new_state[<span style="color:#ff0;font-weight:bold">1</span>][y][z] = (inv_num &gt;&gt; <span style="color:#ff0;font-weight:bold">3</span>) &amp; <span style="color:#ff0;font-weight:bold">1</span>
+        new_state[<span style="color:#ff0;font-weight:bold">2</span>][y][z] = (inv_num &gt;&gt; <span style="color:#ff0;font-weight:bold">2</span>) &amp; <span style="color:#ff0;font-weight:bold">1</span>
+        new_state[<span style="color:#ff0;font-weight:bold">3</span>][y][z] = (inv_num &gt;&gt; <span style="color:#ff0;font-weight:bold">1</span>) &amp; <span style="color:#ff0;font-weight:bold">1</span>
+        new_state[<span style="color:#ff0;font-weight:bold">4</span>][y][z] = inv_num &amp; <span style="color:#ff0;font-weight:bold">1</span>
+      <span style="color:#fff;font-weight:bold">end</span>
+    <span style="color:#fff;font-weight:bold">end</span>
+    @state = new_state
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h4 id="-iota-1--xor-again-and-itll-be-done">\( \iota^{-1} \): Xor again and it&rsquo;ll be done</h4>
+<p>This step is very easy to inverse, all it does is to xor some values in the state with some round constants.</p>
+<p>To invert it, we just have to perform it again (the same round constants will be generated, and xors will cancel out).</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> uniota(ir)
+    iota(ir)
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><h4 id="keccak-p-1-just-perform-the-inverse-operations-in-reverse-order">\(Keccak-p^{-1}\): Just perform the inverse operations in reverse order</h4>
+<p>As a reminder, the \(Keccak-p\) function performs the following steps:</p>
+<ul>
+<li>Convert the input string <code>S</code> (of length <code>b</code>) to a 3-dimensional state array <code>A</code> (of the shape \( 5 \times 5 \times w \)) . Bits are just rearranged.</li>
+<li>Runs the following operations \(n_r\) times (\(i_r\) being the round index, <code>0</code>, <code>1</code> &hellip;).
+<ul>
+<li>\( A' = \iota ( \chi ( \pi ( \rho ( \theta ( A ) ) ) ), i_r ) \)</li>
+<li>\( A' \) becomes the new state</li>
+</ul>
+</li>
+</ul>
+<p>Inversing it becomes trivial, the following are the steps:</p>
+<ul>
+<li>Convert the input string <code>S</code> (of length <code>b</code>) to a 3-dimensional state array <code>A'</code> (of the shape \( 5 \times 5 \times w \)) . Bits are just rearranged.</li>
+<li>Runs the following operations \(n_r\) times (\(i_r\) being the round index), for \(i_r\) from \(n_r\) to <code>0</code>.
+<ul>
+<li>\( A = \theta^{-1}(\rho^{-1}(\pi^{-1}(\chi^{-1}(\iota^{-1}(A', i_r))))) \)</li>
+<li>\( A \) becomes the new state</li>
+</ul>
+</li>
+<li>Convert the state to a string S (of length <code>b</code>), bits are just rearranged, as in the first step.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#fff;font-weight:bold">def</span> unkeccak_rho(s, nr)
+    state_from_bitarray s;
+    l = Math.log(@w, <span style="color:#ff0;font-weight:bold">2</span>).to_i
+    (<span style="color:#ff0;font-weight:bold">12</span>+<span style="color:#ff0;font-weight:bold">2</span>*l-<span style="color:#ff0;font-weight:bold">1</span>).downto(<span style="color:#ff0;font-weight:bold">12</span>+<span style="color:#ff0;font-weight:bold">2</span>*l-nr) <span style="color:#fff;font-weight:bold">do</span>|ir|
+      uniota(ir)
+      unchi
+      unpi
+      unrho
+      untheta
+    <span style="color:#fff;font-weight:bold">end</span>
+    bitarray_from_state
+  <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><p>That&rsquo;s it! we&rsquo;ve successfully inverted the permutation at the core of the Keccak algorithm.</p>
+<h3 id="example-testing">Example testing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">    <span style="color:#007f7f"># generate a vector of 1600 random bits</span>
+    msg = <span style="color:#ff0;font-weight:bold">1600</span>.times.map{ [<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">1</span>].sample }
+    
+    output = keccak_f(msg)
+    
+    inverse = unkeccak_f(output)
+    
+    <span style="color:#fff;font-weight:bold">if</span> inverse == msg
+      <span style="color:#fff;font-weight:bold">puts</span> <span style="color:#0ff;font-weight:bold">&#34;[+] Inverting Keccak-f was successful&#34;</span>
+    <span style="color:#fff;font-weight:bold">else</span>
+      <span style="color:#fff;font-weight:bold">puts</span> <span style="color:#0ff;font-weight:bold">&#34;[-] Didn&#39;t retrieve the original message after inverting keccak-f&#34;</span>
+    <span style="color:#fff;font-weight:bold">end</span>
+</code></pre></div><p>You can find the full program <a href="/files/inverting_keccak_f/invert_keccak_f.rb">here</a>.</p>
+<p>The inverse of the \(1600\times 1600\) matrix can be found <a href="/files/inverting_keccak_f/64_inverted.mat">here</a>. (It&rsquo;ll take a few minutes to compute it on the first run)</p>
+<h3 id="implications">Implications</h3>
+<p>The permutation function is known to be invertible, it&rsquo;s a permutation function after all, this doesn&rsquo;t make the whole hash function vulnerable. However, this property can lead to unwanted consequences, depending on the attack model we consider.</p>
+<p>Looking back at the sponge construction, at least \(c\) bytes of the internal state will not be returned as output from the function. This property makes it one-way, if an attacker can recover the full state (\(5\times 5\times w\) matrix), he will be able to inverse the keccak permutation function, and if the input message consists of only one block, it&rsquo;s possible to recover the initial vector of (\((0^r \oplus P) || 0^c\)), which includes the plaintext message \(P\).</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="https://red0xff.github.io/posts/google_summer_of_code_2020/">
+          <span class="button__text">GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39;</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "red0xff" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2022 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Proudly hosted on Github</span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://red0xff.github.io/assets/main.js"></script>
+<script src="https://red0xff.github.io/assets/prism.js"></script>
+<script src="https://red0xff.github.io/assets/reminder.js"></script>
+<script src="https://red0xff.github.io/assets/codetyper.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
