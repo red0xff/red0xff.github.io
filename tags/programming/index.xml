@@ -13,8 +13,7 @@
       <pubDate>Fri, 29 Jul 2022 18:32:00 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/cracking_the_coding_interview_literally/</guid>
-      <description>Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
-About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers.</description>
+      <description>Table of Contents Introduction About competitive programming Why is it important? Types of failed submissions Let&amp;rsquo;s focus on time limits, what? Hackerrank CodinGame for Work Codechef My Idea Choice for the slower programming language (for the stub) Initial enumeration on the different platforms Hackerrank Codingame Codechef Writing the stub Implementing the stub Decompressing the native executable Getting pointers to memfd_create, write and fexecve Creating the anonymous file, and writing the binary to it Preparing a fake ARGV and ENVP for fexecve Calling the loaded executable Testing with a C program that prints &amp;ldquo;hello world&amp;rdquo; Hackerrank Codingame Codechef Impact, and possible mitigations Conclusion Introduction Competitive programming was my entry point into computer science.</description>
     </item>
     
     <item>

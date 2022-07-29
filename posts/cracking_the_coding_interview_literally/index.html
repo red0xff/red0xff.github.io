@@ -6,8 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
-About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers."/>
+<meta name="description" content="Table of Contents Introduction About competitive programming Why is it important? Types of failed submissions Let&amp;rsquo;s focus on time limits, what? Hackerrank CodinGame for Work Codechef My Idea Choice for the slower programming language (for the stub) Initial enumeration on the different platforms Hackerrank Codingame Codechef Writing the stub Implementing the stub Decompressing the native executable Getting pointers to memfd_create, write and fexecve Creating the anonymous file, and writing the binary to it Preparing a fake ARGV and ENVP for fexecve Calling the loaded executable Testing with a C program that prints &amp;ldquo;hello world&amp;rdquo; Hackerrank Codingame Codechef Impact, and possible mitigations Conclusion Introduction Competitive programming was my entry point into computer science."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://red0xff.github.io/posts/cracking_the_coding_interview_literally/" />
@@ -32,8 +31,7 @@ About competitive programming For those who are not familiar with this mind-spor
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Cracking the Coding Interview (literally) :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
-<meta name="twitter:description" content="Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
-About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers." />
+<meta name="twitter:description" content="Table of Contents Introduction About competitive programming Why is it important? Types of failed submissions Let&amp;rsquo;s focus on time limits, what? Hackerrank CodinGame for Work Codechef My Idea Choice for the slower programming language (for the stub) Initial enumeration on the different platforms Hackerrank Codingame Codechef Writing the stub Implementing the stub Decompressing the native executable Getting pointers to memfd_create, write and fexecve Creating the anonymous file, and writing the binary to it Preparing a fake ARGV and ENVP for fexecve Calling the loaded executable Testing with a C program that prints &amp;ldquo;hello world&amp;rdquo; Hackerrank Codingame Codechef Impact, and possible mitigations Conclusion Introduction Competitive programming was my entry point into computer science." />
 <meta name="twitter:site" content="https://red0xff.github.io/" />
 <meta name="twitter:creator" content="NIBOUCHA Redouane" />
 <meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1659112199/cracking_the_coding_interview_literally/hrtfrb5ctykeifit3xyw.jpg">
@@ -42,8 +40,7 @@ About competitive programming For those who are not familiar with this mind-spor
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Cracking the Coding Interview (literally) :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
-<meta property="og:description" content="Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
-About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers." />
+<meta property="og:description" content="Table of Contents Introduction About competitive programming Why is it important? Types of failed submissions Let&amp;rsquo;s focus on time limits, what? Hackerrank CodinGame for Work Codechef My Idea Choice for the slower programming language (for the stub) Initial enumeration on the different platforms Hackerrank Codingame Codechef Writing the stub Implementing the stub Decompressing the native executable Getting pointers to memfd_create, write and fexecve Creating the anonymous file, and writing the binary to it Preparing a fake ARGV and ENVP for fexecve Calling the loaded executable Testing with a C program that prints &amp;ldquo;hello world&amp;rdquo; Hackerrank Codingame Codechef Impact, and possible mitigations Conclusion Introduction Competitive programming was my entry point into computer science." />
 <meta property="og:url" content="https://red0xff.github.io/posts/cracking_the_coding_interview_literally/" />
 <meta property="og:site_name" content="Cracking the Coding Interview (literally)" />
 <meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1659112199/cracking_the_coding_interview_literally/hrtfrb5ctykeifit3xyw.jpg">
@@ -160,21 +157,69 @@ About competitive programming For those who are not familiar with this mind-spor
   
 
   <div class="post-content">
-    <script type="text/javascript"
+    <h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#0b79795d3efc95b9976c7c5b933afce2">Introduction</a>
+<ol>
+<li><a href="#6477f0987fb5a53e6369d1917e269d7f">About competitive programming</a></li>
+<li><a href="#8fcb81cfdd7b25a2e8fe175f3c88cfec">Why is it important?</a></li>
+<li><a href="#c49d19689605f60652d71577f5e93b59">Types of failed submissions</a></li>
+<li><a href="#877ffcb70d0e01f13693cf0d93797a15">Let&rsquo;s focus on time limits, what?</a>
+<ol>
+<li><a href="#6642e4bb428f8cadd1b0873fc4013baf">Hackerrank</a></li>
+<li><a href="#667319ac566eaac797fdca146988803d">CodinGame for Work</a></li>
+<li><a href="#5dc25e8e747697d445a5d2110618850f">Codechef</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#f9e976a90ad6e9dbab943c1e08234c3d">My Idea</a>
+<ol>
+<li><a href="#551e06d6aba9bf326dd4db6f034fb0ff">Choice for the slower programming language (for the stub)</a></li>
+<li><a href="#c331a5c9792d72a6b203c4ce3670fa9b">Initial enumeration on the different platforms</a>
+<ol>
+<li><a href="#6642e4bb428f8cadd1b0873fc4013baf">Hackerrank</a></li>
+<li><a href="#b63e2d7786dac4c313fa11a061fa29c6">Codingame</a></li>
+<li><a href="#5dc25e8e747697d445a5d2110618850f">Codechef</a></li>
+</ol>
+</li>
+<li><a href="#746756a27857e5ce81151d21b3c84292">Writing the stub</a></li>
+<li><a href="#52310a1a8adabc58b0df39e7774dbbc1">Implementing the stub</a>
+<ol>
+<li><a href="#0d6f0596a96b53b273088a5bc9335903">Decompressing the native executable</a></li>
+<li><a href="#9e9c3afd84a2af46ae2565cb302fc78e">Getting pointers to <code>memfd_create</code>, <code>write</code> and <code>fexecve</code></a></li>
+<li><a href="#c4bceb8d0b2fed6978281df08032e4fd">Creating the anonymous file, and writing the binary to it</a></li>
+<li><a href="#b8f5f3f6245c02368be4b47dedeb0f12">Preparing a fake <code>ARGV</code> and <code>ENVP</code> for <code>fexecve</code></a></li>
+<li><a href="#3fd8fc54792153098b4b7c558025442b">Calling the loaded executable</a></li>
+</ol>
+</li>
+<li><a href="#c6dff7ea9b9f521dbeb6cbdc0c9a4507">Testing with a C program that prints &ldquo;hello world&rdquo;</a>
+<ol>
+<li><a href="#6642e4bb428f8cadd1b0873fc4013baf">Hackerrank</a></li>
+<li><a href="#b63e2d7786dac4c313fa11a061fa29c6">Codingame</a></li>
+<li><a href="#5dc25e8e747697d445a5d2110618850f">Codechef</a></li>
+</ol>
+</li>
+<li><a href="#f8479c834875bd02e4e5b5da124ff5de">Impact, and possible mitigations</a></li>
+</ol>
+</li>
+<li><a href="#6f8b794f3246b0c1e1780bb4d4d5dc53">Conclusion</a></li>
+</ol>
+<script type="text/javascript"
     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<h1 id="introduction">Introduction</h1>
+<h1 id="span-id0b79795d3efc95b9976c7c5b933afce2introductionspan"><span id='0b79795d3efc95b9976c7c5b933afce2'>Introduction</span></h1>
 <p>Competitive programming was my entry point into computer science. I joined <a href="https://www.hackerrank.com/">Hackerrank</a>, <a href="https://www.codechef.com/">Codechef</a>, <a href="https://projecteuler.net/">Project Euler</a> and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).</p>
-<h1 id="about-competitive-programming">About competitive programming</h1>
+<h2 id="span-id6477f0987fb5a53e6369d1917e269d7fabout-competitive-programmingspan"><span id='6477f0987fb5a53e6369d1917e269d7f'>About competitive programming</span></h2>
 <p>For those who are not familiar with this mind-sport, it&rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers. Each problem has some constraints (Sizes of the inputs it gets).
 The user also gets some example inputs and outputs, and should write and submit a computer program that can read inputs in the given format, solve the problem and print the corresponding outputs.
-The user&rsquo;s submission gets executed in the cloud, and its output gets compared with the output of &ldquo;hidden&rdquo; testcases. If it&rsquo;s the same, the submission is considered as correct.</p>
-<h2 id="why-is-it-important">Why is it important?</h2>
+The user&rsquo;s submission gets executed in the cloud, and its output gets compared with the precomputed correct output of &ldquo;hidden&rdquo; testcases. If it&rsquo;s the same, the submission is considered as correct.</p>
+<h2 id="span-id8fcb81cfdd7b25a2e8fe175f3c88cfecwhy-is-it-importantspan"><span id='8fcb81cfdd7b25a2e8fe175f3c88cfec'>Why is it important?</span></h2>
 <ul>
 <li>Competitive programming is used as a basis for hiring by numerous companies: The first step of the hiring process is often a programming challenge to solve on a platform like <a href="https://www.hackerrank.com/">Hackerrank</a> or <a href="https://www.codingame.com/">Codingame</a>.</li>
 <li>Contests: There are a lot of them (<a href="https://icpc.global/">ACM ICPC</a>, <a href="https://codingcompetitions.withgoogle.com/codejam">Google CodeJam</a>, <a href="https://www.facebook.com/codingcompetitions/hacker-cup">Meta HackerCup</a> &hellip;), just like CTFs.</li>
 </ul>
-<h2 id="types-of-failed-submissions">Types of failed submissions</h2>
+<h2 id="span-idc49d19689605f60652d71577f5e93b59types-of-failed-submissionsspan"><span id='c49d19689605f60652d71577f5e93b59'>Types of failed submissions</span></h2>
 <p>There are different kinds of failed submissions:</p>
 <ul>
 <li><code>Wrong answer</code>: When the output of the program is different than the expected output of the testcase.</li>
@@ -182,10 +227,10 @@ The user&rsquo;s submission gets executed in the cloud, and its output gets comp
 <li><code>Compilation Error</code>: When the program doesn&rsquo;t compile, or contains syntax errors.</li>
 <li><code>Runtime Error</code>: When the program crashes (unhandled exception, segmentation fault, or any other type of errors).</li>
 </ul>
-<h2 id="lets-focus-on-time-limits-what">Let&rsquo;s focus on time limits, what?</h2>
+<h2 id="span-id877ffcb70d0e01f13693cf0d93797a15lets-focus-on-time-limits-whatspan"><span id='877ffcb70d0e01f13693cf0d93797a15'>Let&rsquo;s focus on time limits, what?</span></h2>
 <p>The <code>TLE</code>, or Time-Limit Exceeded error happens when a submission takes more than the maximum duration allocated for it. People running these platforms have figured out that comparing the execution time of programs written in different programming languages is unfair (and would give a clear advantage to C/C++ programmers for instance). For this reason, they defined a multiplier that is specific to each programming language. On Hackerrank for example, Ruby or Python submissions get an execution time that is 5 times higher than C or C++ submissions (this aims to compensate the runtime overhead).</p>
 <p>Below are some numbers taken from the different (and most popular) competitive programming platforms at the time of writing (For platforms that can host &ldquo;work&rdquo; interviews, these are the configurations of the environment where candidate submissions will be executed).</p>
-<h4 id="hackerrank">Hackerrank</h4>
+<h3 id="span-id6642e4bb428f8cadd1b0873fc4013bafhackerrankspan"><span id='6642e4bb428f8cadd1b0873fc4013baf'>Hackerrank</span></h3>
 <table>
 <thead>
 <tr>
@@ -216,7 +261,7 @@ The user&rsquo;s submission gets executed in the cloud, and its output gets comp
 </tr>
 <tr>
 <td>Coffeescript</td>
-<td> Node.js v14.15.4</td>
+<td>Node.js v14.15.4</td>
 <td>10</td>
 <td>1024</td>
 </tr>
@@ -224,7 +269,7 @@ The user&rsquo;s submission gets executed in the cloud, and its output gets comp
 <td>Common Lisp</td>
 <td>SBCL 1.4.2</td>
 <td>12</td>
-<td> 512</td>
+<td>512</td>
 </tr>
 <tr>
 <td>Erlang</td>
@@ -258,14 +303,14 @@ The user&rsquo;s submission gets executed in the cloud, and its output gets comp
 </tr>
 <tr>
 <td>OCaml</td>
-<td>ocamlopt, version 4.09</td>
+<td>ocamlopt 4.09</td>
 <td>3</td>
 <td>512</td>
 </tr>
 <tr>
 <td>Perl</td>
 <td>Perl (v5.26.3)</td>
-<td> 9</td>
+<td>9</td>
 <td>512</td>
 </tr>
 <tr>
@@ -295,7 +340,7 @@ The user&rsquo;s submission gets executed in the cloud, and its output gets comp
 </tbody>
 </table>
 <p>The full table can be found <a href="https://support.hackerrank.com/hc/en-us/articles/1500002392722--Execution-Environment-and-Samples">here</a>.</p>
-<h4 id="codingame-for-work">CodinGame for Work</h4>
+<h3 id="span-id667319ac566eaac797fdca146988803dcodingame-for-workspan"><span id='667319ac566eaac797fdca146988803d'>CodinGame for Work</span></h3>
 <table>
 <thead>
 <tr>
@@ -357,7 +402,7 @@ The user&rsquo;s submission gets executed in the cloud, and its output gets comp
 <tr>
 <td>Perl</td>
 <td>5.32.1</td>
-<td> 6</td>
+<td>6</td>
 <td>768</td>
 </tr>
 <tr>
@@ -381,7 +426,7 @@ The user&rsquo;s submission gets executed in the cloud, and its output gets comp
 </tbody>
 </table>
 <p>The full table can be found <a href="https://help.codingame.com/article/273-what-environment-does-my-test-run-in">here</a>.</p>
-<h4 id="codechef">Codechef</h4>
+<h3 id="span-id5dc25e8e747697d445a5d2110618850fcodechefspan"><span id='5dc25e8e747697d445a5d2110618850f'>Codechef</span></h3>
 <table>
 <thead>
 <tr>
@@ -409,10 +454,10 @@ The user&rsquo;s submission gets executed in the cloud, and its output gets comp
 </tbody>
 </table>
 <p>The updated table can be found <a href="https://blog.codechef.com/2009/04/01/announcing-time-limits-based-on-programming-language/">here</a>.</p>
-<h1 id="my-idea">My Idea</h1>
+<h1 id="span-idf9e976a90ad6e9dbab943c1e08234c3dmy-ideaspan"><span id='f9e976a90ad6e9dbab943c1e08234c3d'>My Idea</span></h1>
 <p>Looking back into this common practice of having different time limits for different programming languages, I got an idea: what if I could somehow execute faster code from a slower programming language, and get an extended time limit?
 While the constraints are often picked in a way that makes naive or unoptimized solutions time out, this could for example allow candidates to submit a sub-optimal solution in <code>C</code>, <code>C++</code> or <code>Go</code> (embedded in a stub written in a slower programming language), and avoid the time-limit exceeded error (because the platform would pick the time limit of the slower programming language).</p>
-<h2 id="choice-for-the-slower-programming-language-for-the-stub">Choice for the slower programming language (for the stub)</h2>
+<h2 id="span-id551e06d6aba9bf326dd4db6f034fb0ffchoice-for-the-slower-programming-language-for-the-stubspan"><span id='551e06d6aba9bf326dd4db6f034fb0ff'>Choice for the slower programming language (for the stub)</span></h2>
 <p>We can choose any programming language that is considered as slow compared to <code>C</code>, and that has a builtin library that allows low-level memory hacking (calling native functions, manipulating pointers for example).</p>
 <p>Possible choices are:</p>
 <ul>
@@ -420,19 +465,19 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 <li>Ruby with <a href="https://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html">fiddle</a>.</li>
 <li>Probably more.</li>
 </ul>
-<h3 id="initial-enumeration-on-the-different-platforms">Initial enumeration on the different platforms</h3>
+<h2 id="span-idc331a5c9792d72a6b203c4ce3670fa9binitial-enumeration-on-the-different-platformsspan"><span id='c331a5c9792d72a6b203c4ce3670fa9b'>Initial enumeration on the different platforms</span></h2>
 <p>Let&rsquo;s first check the operating systems, kernel and libc versions on the different platforms.</p>
 <p>We run these lines of code in <code>Lua</code> to gather informations about the execution environments.</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">local</span> commands = { <span style="color:#0ff;font-weight:bold">&#39;uname -a&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;id&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;ls -l /lib/x86_64-linux-gnu/libc.so.6&#39;</span> };
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>os.execute( table.concat(commands, <span style="color:#0ff;font-weight:bold">&#39; ; &#39;</span>) );
-</span></span></code></pre></div><h4 id="hackerrank-1">Hackerrank</h4>
+</span></span></code></pre></div><h3 id="span-id6642e4bb428f8cadd1b0873fc4013bafhackerrankspan-1"><span id='6642e4bb428f8cadd1b0873fc4013baf'>Hackerrank</span></h3>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101412/cracking_the_coding_interview_literally/zy0if5wqenvqckrzkwby.png" alt="hackerrank_enum"></p>
-<h4 id="codingame">Codingame</h4>
+<h3 id="span-idb63e2d7786dac4c313fa11a061fa29c6codingamespan"><span id='b63e2d7786dac4c313fa11a061fa29c6'>Codingame</span></h3>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101639/cracking_the_coding_interview_literally/ruui5x36ymj8ycdf5gda.png" alt="codingame"></p>
-<h4 id="codechef-1">Codechef</h4>
+<h3 id="span-id5dc25e8e747697d445a5d2110618850fcodechefspan-1"><span id='5dc25e8e747697d445a5d2110618850f'>Codechef</span></h3>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101412/cracking_the_coding_interview_literally/akaon3ankqmtwscku8sx.png" alt="codechef"></p>
-<h2 id="writing-the-stub">Writing the stub</h2>
+<h2 id="span-id746756a27857e5ce81151d21b3c84292writing-the-stubspan"><span id='746756a27857e5ce81151d21b3c84292'>Writing the stub</span></h2>
 <p>For a proof of concept, we will be doing the following:</p>
 <ul>
 <li>From the slower programming language, create an anonymous file that lives in <code>tmpfs</code> with <code>memfd_create</code>.</li>
@@ -440,8 +485,8 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 <li>Execute the anonymous file from memory using <code>fexecve</code>.</li>
 </ul>
 <p>We will avoid writing data on the disk, as different environments can have different configurations, and some might not allow writing data on the disk.</p>
-<h3 id="implementing-the-stub">Implementing the stub</h3>
-<h4 id="decompressing-the-native-executable">Decompressing the native executable</h4>
+<h2 id="span-id52310a1a8adabc58b0df39e7774dbbc1implementing-the-stubspan"><span id='52310a1a8adabc58b0df39e7774dbbc1'>Implementing the stub</span></h2>
+<h3 id="span-id0d6f0596a96b53b273088a5bc9335903decompressing-the-native-executablespan"><span id='0d6f0596a96b53b273088a5bc9335903'>Decompressing the native executable</span></h3>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;fiddle&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;zlib&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;base64&#39;</span>
@@ -457,7 +502,7 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span>DEFLATED
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>exe = Zlib.inflate(Base64.decode64(exe))
-</span></span></code></pre></div><h4 id="getting-pointers-to-memfd_create-write-and-fexecve">Getting pointers to <code>memfd_create</code>, <code>write</code> and <code>fexecve</code></h4>
+</span></span></code></pre></div><h3 id="span-id9e9c3afd84a2af46ae2565cb302fc78egetting-pointers-to-memfd_create-write-and-fexecvespan"><span id='9e9c3afd84a2af46ae2565cb302fc78e'>Getting pointers to <code>memfd_create</code>, <code>write</code> and <code>fexecve</code></span></h3>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>libc = Fiddle.dlopen(<span style="color:#0ff;font-weight:bold">&#39;/lib/x86_64-linux-gnu/libc.so.6&#39;</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#007f7f"># int memfd_create(const char *name, unsigned int flags)</span>
@@ -480,11 +525,11 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span>    [Fiddle::TYPE_INT, Fiddle::TYPE_VOIDP, Fiddle::TYPE_VOIDP],
 </span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT
 </span></span><span style="display:flex;"><span>);
-</span></span></code></pre></div><h4 id="creating-the-anonymous-file-and-writing-the-binary-to-it">Creating the anonymous file, and writing the binary to it</h4>
+</span></span></code></pre></div><h3 id="span-idc4bceb8d0b2fed6978281df08032e4fdcreating-the-anonymous-file-and-writing-the-binary-to-itspan"><span id='c4bceb8d0b2fed6978281df08032e4fd'>Creating the anonymous file, and writing the binary to it</span></h3>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>fd = memfd_create.call(<span style="color:#0ff;font-weight:bold">&#39;exec&#39;</span>, <span style="color:#ff0;font-weight:bold">0</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>written = write.call(fd, exe, exe.length)
-</span></span></code></pre></div><h4 id="preparing-a-fake-argv-and-envp-for-fexecve">Preparing a fake <code>ARGV</code> and <code>ENVP</code> for <code>fexecve</code></h4>
+</span></span></code></pre></div><h3 id="span-idb8f5f3f6245c02368be4b47dedeb0f12preparing-a-fake-argv-and-envp-for-fexecvespan"><span id='b8f5f3f6245c02368be4b47dedeb0f12'>Preparing a fake <code>ARGV</code> and <code>ENVP</code> for <code>fexecve</code></span></h3>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#007f7f"># set argv[0] = &#34;exec&#34;</span>
 </span></span><span style="display:flex;"><span>argv0 = Fiddle::Pointer.malloc(<span style="color:#ff0;font-weight:bold">5</span>)
 </span></span><span style="display:flex;"><span>
@@ -498,9 +543,9 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span><span style="color:#007f7f"># set envp = { NULL }</span>
 </span></span><span style="display:flex;"><span>envp = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
 </span></span><span style="display:flex;"><span>envp[<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">8</span>] = <span style="color:#ff0;font-weight:bold">0</span>.chr * <span style="color:#ff0;font-weight:bold">8</span>
-</span></span></code></pre></div><h4 id="call-the-loaded-executable">Call the loaded executable</h4>
+</span></span></code></pre></div><h3 id="span-id3fd8fc54792153098b4b7c558025442bcalling-the-loaded-executablespan"><span id='3fd8fc54792153098b4b7c558025442b'>Calling the loaded executable</span></h3>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>ret = fexecve.call(fd, argv, envp)
-</span></span></code></pre></div><h3 id="testing-with-a-c-program-that-prints-hello-world">Testing with a C program that prints &ldquo;hello world&rdquo;</h3>
+</span></span></code></pre></div><h2 id="span-idc6dff7ea9b9f521dbeb6cbdc0c9a4507testing-with-a-c-program-that-prints-hello-worldspan"><span id='c6dff7ea9b9f521dbeb6cbdc0c9a4507'>Testing with a C program that prints &ldquo;hello world&rdquo;</span></h2>
 <p>The program below runs the following C code:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#include</span> <span style="color:#0f0;font-weight:bold">&lt;stdio.h&gt;</span><span style="color:#0f0;font-weight:bold">
 </span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>
@@ -616,11 +661,11 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span>envp[<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">8</span>] = <span style="color:#ff0;font-weight:bold">0</span>.chr * <span style="color:#ff0;font-weight:bold">8</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>ret = fexecve.call(fd, argv, envp)
-</span></span></code></pre></div><h4 id="hackerrank-2">Hackerrank</h4>
+</span></span></code></pre></div><h3 id="span-id6642e4bb428f8cadd1b0873fc4013bafhackerrankspan-2"><span id='6642e4bb428f8cadd1b0873fc4013baf'>Hackerrank</span></h3>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101413/cracking_the_coding_interview_literally/zakum1pvetkmrgwwwnkv.png" alt="hackerrank_result"></p>
-<h4 id="codingame-1">Codingame</h4>
+<h3 id="span-idb63e2d7786dac4c313fa11a061fa29c6codingamespan-1"><span id='b63e2d7786dac4c313fa11a061fa29c6'>Codingame</span></h3>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101413/cracking_the_coding_interview_literally/creljybozifmj2jnkgp5.png" alt="codingame_result"></p>
-<h4 id="codechef-2">Codechef</h4>
+<h3 id="span-id5dc25e8e747697d445a5d2110618850fcodechefspan-2"><span id='5dc25e8e747697d445a5d2110618850f'>Codechef</span></h3>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101412/cracking_the_coding_interview_literally/mc61efflhpihew4tjkbk.png" alt="codechef_result"></p>
 <p>It didn&rsquo;t work in codechef right away. It looks like libc support for <code>memfd_create</code> is not available. We can still get to call it manually:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#007f7f"># void *mmap(void *addr, size_t length, int prot, int flags,</span>
@@ -633,7 +678,7 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#007f7f"># 7 = PROT_READ | PROT_WRITE | PROT_EXEC</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 0x22 = MAP_ANONYMOUS | MAP_PRIVATE</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 0x22 = MAP_ANONYMOUS | MAP_PRIVATE</span>
 </span></span><span style="display:flex;"><span>mem = mmap.call(<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">0x1000</span>, <span style="color:#ff0;font-weight:bold">7</span>, <span style="color:#ff0;font-weight:bold">0x22</span>, -<span style="color:#ff0;font-weight:bold">1</span>, <span style="color:#ff0;font-weight:bold">0</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#007f7f"># write the shellcode:</span>
@@ -649,7 +694,7 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101412/cracking_the_coding_interview_literally/dhto4vgms4ykyipjjy9v.png" alt="codechef_result2"></p>
-<h1 id="impact-and-possible-mitigations">Impact, and possible mitigations</h1>
+<h2 id="span-idf8479c834875bd02e4e5b5da124ff5deimpact-and-possible-mitigationsspan"><span id='f8479c834875bd02e4e5b5da124ff5de'>Impact, and possible mitigations</span></h2>
 <p>The impact of this isn&rsquo;t huge, because:</p>
 <ul>
 <li>Solutions that have a different time complexity are likely to take more than 5 times the duration of execution of the better ones (depending on the size of the inputs, and the time complexity), if the naive approach is an \(O(2^n)\) algorithm, and the optimized one \(O(n^2)\), the former could take thousands of times the duration of execution of the latter.</li>
@@ -661,7 +706,7 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 <li>A seccomp whitelist (why would a candidate call <code>memfd_create</code>, or <code>execve</code> ?!).</li>
 <li>Modified programming language runtimes to prevent unsafe operations (no <code>ctypes</code> module for python for example).</li>
 </ul>
-<h1 id="conclusion">Conclusion</h1>
+<h1 id="span-id6f8b794f3246b0c1e1780bb4d4d5dc53conclusionspan"><span id='6f8b794f3246b0c1e1780bb4d4d5dc53'>Conclusion</span></h1>
 <p>This post did not demonstrate a vulnerability, but rather a logic flaw in the execution environments of the most popular competitive programming platforms. This post is intended for educational purpose only. You should not use the approach described in this article at your advantage, and I am not responsible of any misuse or damage related to that.</p>
 <p>I hope you&rsquo;ve enjoyed reading this article. Don&rsquo;t hesitate to follow me on <a href="https://twitter.com/red0xff">Twitter</a> and <a href="https://github.com/red0xff">Github</a>, or to ask me any kind of questions.</p>
 
