@@ -8,7 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta name="description" content="Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
 Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
-
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :"/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
@@ -36,7 +35,6 @@ We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we
 <meta name="twitter:title" content="Himayatic 2017 - Rev400 Writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
 <meta name="twitter:description" content="Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
 Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
-
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :" />
 <meta name="twitter:site" content="https://red0xff.github.io/" />
 <meta name="twitter:creator" content="Redouane" />
@@ -48,7 +46,6 @@ We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we
 <meta property="og:title" content="Himayatic 2017 - Rev400 Writeup :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
 <meta property="og:description" content="Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
 Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
-
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :" />
 <meta property="og:url" content="https://red0xff.github.io/writeups/himayatic17_rev400/" />
 <meta property="og:site_name" content="Himayatic 2017 - Rev400 Writeup" />
@@ -57,9 +54,6 @@ We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we
 <meta property="og:image:height" content="1024">
 
 <meta property="article:published_time" content="2017-11-05 00:00:00 &#43;0200 &#43;0200" />
-
-
-
 
 
 
@@ -232,29 +226,29 @@ We look for references to <code>this.o</code>, and we find this :</p>
 <p>It&rsquo;s pretty straightforward to understand this code, it&rsquo;s calling the method <code>V</code>, something like this : <code>V( this.FL__.Text, this.Name, true)</code></p>
 <p><code>this.FL__.Text</code> is the user input, <code>this.Name</code> can be found in <code>FZero</code> class ( <code>this.Name = &quot;FZero&quot;;</code> ).</p>
 <p>After that, it&rsquo;s pretty simple to get the flag, just a simple Ruby script:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#fff;font-weight:bold">require</span><span style="color:#0ff;font-weight:bold">&#39;base64&#39;</span>;
-<span style="color:#fff;font-weight:bold">require</span><span style="color:#0ff;font-weight:bold">&#39;openssl&#39;</span>;
-<span style="color:#fff;font-weight:bold">require</span><span style="color:#0ff;font-weight:bold">&#39;digest&#39;</span>;
-<span style="color:#fff;font-weight:bold">begin</span>
-	enc = Base64.decode64 <span style="color:#0ff;font-weight:bold">&#34;FQUFl/85WMFJp5XXfJX5Xykt8WhTPcy1MD0/0+SqEsj/IdMrolb3Haaq9yiZvcuH&#34;</span>;
-	e = OpenSSL::Cipher::AES.new(<span style="color:#ff0;font-weight:bold">256</span>,<span style="color:#0ff;font-weight:bold">:ECB</span>)
-	e.decrypt; <span style="color:#007f7f"># initialize it for decryption</span>
-	md5 = Digest::MD5.digest(<span style="color:#0ff;font-weight:bold">&#34;FZero&#34;</span> + <span style="color:#0ff;font-weight:bold">&#34;Himayatic_0xC001&#34;</span>);
-	key = <span style="color:#0ff;font-weight:bold">&#34;</span><span style="color:#0ff;font-weight:bold">\x00</span><span style="color:#0ff;font-weight:bold">&#34;</span> * <span style="color:#ff0;font-weight:bold">32</span>;
-	key[<span style="color:#ff0;font-weight:bold">0</span>,<span style="color:#ff0;font-weight:bold">16</span>] = md5;
-	key[<span style="color:#ff0;font-weight:bold">15</span>, <span style="color:#ff0;font-weight:bold">16</span>] = md5;
-	e.key = key;	
-	<span style="color:#fff;font-weight:bold">puts</span> (e.update(enc)+e.final); <span style="color:#007f7f"># should output the flag</span>
-<span style="color:#fff;font-weight:bold">rescue</span> Exception =&gt; e
-	<span style="color:#007f7f"># show the exception</span>
-    <span style="color:#fff;font-weight:bold">p</span> e;
-    <span style="color:#fff;font-weight:bold">p</span> e.message;
-    <span style="color:#fff;font-weight:bold">p</span> e.backtrace
-<span style="color:#fff;font-weight:bold">ensure</span>
-	<span style="color:#007f7f"># wait before exiting</span>
-    <span style="color:#fff;font-weight:bold">gets</span>
-<span style="color:#fff;font-weight:bold">end</span>
-</code></pre></div><p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109587/himayatic17_rev400/we_did_it_ahceyx.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109587/himayatic17_rev400/we_did_it_ahceyx.png" alt="congrats"></a></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span><span style="color:#0ff;font-weight:bold">&#39;base64&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span><span style="color:#0ff;font-weight:bold">&#39;openssl&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span><span style="color:#0ff;font-weight:bold">&#39;digest&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">begin</span>
+</span></span><span style="display:flex;"><span>	enc = Base64.decode64 <span style="color:#0ff;font-weight:bold">&#34;FQUFl/85WMFJp5XXfJX5Xykt8WhTPcy1MD0/0+SqEsj/IdMrolb3Haaq9yiZvcuH&#34;</span>;
+</span></span><span style="display:flex;"><span>	e = OpenSSL::Cipher::AES.new(<span style="color:#ff0;font-weight:bold">256</span>,<span style="color:#0ff;font-weight:bold">:ECB</span>)
+</span></span><span style="display:flex;"><span>	e.decrypt; <span style="color:#007f7f"># initialize it for decryption</span>
+</span></span><span style="display:flex;"><span>	md5 = Digest::MD5.digest(<span style="color:#0ff;font-weight:bold">&#34;FZero&#34;</span> + <span style="color:#0ff;font-weight:bold">&#34;Himayatic_0xC001&#34;</span>);
+</span></span><span style="display:flex;"><span>	key = <span style="color:#0ff;font-weight:bold">&#34;</span><span style="color:#0ff;font-weight:bold">\x00</span><span style="color:#0ff;font-weight:bold">&#34;</span> * <span style="color:#ff0;font-weight:bold">32</span>;
+</span></span><span style="display:flex;"><span>	key[<span style="color:#ff0;font-weight:bold">0</span>,<span style="color:#ff0;font-weight:bold">16</span>] = md5;
+</span></span><span style="display:flex;"><span>	key[<span style="color:#ff0;font-weight:bold">15</span>, <span style="color:#ff0;font-weight:bold">16</span>] = md5;
+</span></span><span style="display:flex;"><span>	e.key = key;	
+</span></span><span style="display:flex;"><span>	<span style="color:#fff;font-weight:bold">puts</span> (e.update(enc)+e.final); <span style="color:#007f7f"># should output the flag</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">rescue</span> Exception =&gt; e
+</span></span><span style="display:flex;"><span>	<span style="color:#007f7f"># show the exception</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">p</span> e;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">p</span> e.message;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">p</span> e.backtrace
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">ensure</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#007f7f"># wait before exiting</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">gets</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">end</span>
+</span></span></code></pre></div><p><a href="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109587/himayatic17_rev400/we_did_it_ahceyx.png"><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1558109587/himayatic17_rev400/we_did_it_ahceyx.png" alt="congrats"></a></p>
 <p><code>Himayatic{*1LLu510N__W17h0u7_C4rD5*}</code>
 Really nice challenge.</p>
 
@@ -282,7 +276,7 @@ Really nice challenge.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

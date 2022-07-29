@@ -6,14 +6,24 @@
     <description>Recent content in programming on Redouane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Feb 2022 11:15:58 +0200</lastBuildDate><atom:link href="https://red0xff.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Jul 2022 18:32:00 +0200</lastBuildDate><atom:link href="https://red0xff.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cracking the Coding Interview (literally)</title>
+      <link>https://red0xff.github.io/posts/cracking_the_coding_interview_literally/</link>
+      <pubDate>Fri, 29 Jul 2022 18:32:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/posts/cracking_the_coding_interview_literally/</guid>
+      <description>Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
+About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers.</description>
+    </item>
+    
     <item>
       <title>Inverting Keccak-f if the sponge leaks</title>
       <link>https://red0xff.github.io/posts/inverting_keccak_f/</link>
       <pubDate>Sat, 05 Feb 2022 11:15:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/inverting_keccak_f/</guid>
-      <description>Table of Contents  What is SHA3 Why another hash function in the SHA family? Deeper view of SHA-3  The sponge construction The internal state The Permutation function at the core of Keccak: Keccak-p  Theta: \(\theta\) Rho: \(\rho\) Pi: \(\pi\) Chi: \(\chi\) Iota: \(\iota\)   Inverting Keccak-p  \( \theta^{-1} \): Back to linear algebra \( \rho^{-1} \): Simplier than it looks \( \pi^{-1} \): Inverse transposition \( \chi^{-1} \): Non-linearity \( \iota^{-1} \): Xor again and it&amp;rsquo;ll be done   \(Keccak-p^{-1}\): Just perform the inverse operations in reverse order Example testing   Implications   What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.</description>
+      <description>Table of Contents What is SHA3 Why another hash function in the SHA family? Deeper view of SHA-3 The sponge construction The internal state The Permutation function at the core of Keccak: Keccak-p Theta: \(\theta\) Rho: \(\rho\) Pi: \(\pi\) Chi: \(\chi\) Iota: \(\iota\) Inverting Keccak-p \( \theta^{-1} \): Back to linear algebra \( \rho^{-1} \): Simplier than it looks \( \pi^{-1} \): Inverse transposition \( \chi^{-1} \): Non-linearity \( \iota^{-1} \): Xor again and it&amp;rsquo;ll be done \(Keccak-p^{-1}\): Just perform the inverse operations in reverse order Example testing Implications What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.</description>
     </item>
     
     <item>
@@ -22,7 +32,7 @@
       <pubDate>Sat, 29 Aug 2020 16:45:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/google_summer_of_code_2020/</guid>
-      <description>Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
+      <description>Table of Contents Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems Conclusion Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
     </item>
     
     <item>

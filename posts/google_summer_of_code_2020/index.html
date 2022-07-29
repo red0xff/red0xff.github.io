@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity."/>
+<meta name="description" content="Table of Contents Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems Conclusion Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://red0xff.github.io/posts/google_summer_of_code_2020/" />
@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
-<meta name="twitter:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
+<meta name="twitter:description" content="Table of Contents Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems Conclusion Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
 <meta name="twitter:site" content="https://red0xff.github.io/" />
 <meta name="twitter:creator" content="NIBOUCHA Redouane" />
 <meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1598731680/gsoc_2020/wozysdpe5qy4gst0tpx9.png">
@@ -40,17 +40,14 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39; :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
-<meta property="og:description" content="Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
+<meta property="og:description" content="Table of Contents Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems Conclusion Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity." />
 <meta property="og:url" content="https://red0xff.github.io/posts/google_summer_of_code_2020/" />
 <meta property="og:site_name" content="GSoC 2020 - Enhancing metasploit support for &#39;the Hack That Will Never Go Away&#39;" />
 <meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1598731680/gsoc_2020/wozysdpe5qy4gst0tpx9.png">
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
 
-<meta property="article:published_time" content="2020-08-29 16:45:58 &#43;0200 &#43;0200" />
-
-
-
+<meta property="article:published_time" content="2020-08-29 16:45:58 &#43;0200 CEST" />
 
 
 
@@ -134,7 +131,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://red0xff.github.io/posts/google_summer_of_code_2020/">GSoC 2020 - Enhancing metasploit support for &lsquo;the Hack That Will Never Go Away&rsquo;</a></h1>
+    <a href="https://red0xff.github.io/posts/google_summer_of_code_2020/">GSoC 2020 - Enhancing metasploit support for &rsquo;the Hack That Will Never Go Away'</a></h1>
   <div class="post-meta">
     <span class="post-date">
       2020-08-29
@@ -313,9 +310,9 @@ was willing to develop.</p>
 from the beginning, I decided to let users provide a block that would query the server (so that the library does not have to handle networking stuff),
 and to make use of inheritance, so that SQL Injection objects behave the same, even if technically, their exploitation is done differently, take for example
 regular SQL injections, running:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#007f7f"># @sqli being a MySQLi::Common object</span>
-@sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#39;select group_concat(table_name) from information_schema.tables&#39;</span>)
-</code></pre></div><p>would yield the given SQL query to the block, but if the object was a <code>MySQLi::BooleanBasedBlind</code>, the same call would yield:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#007f7f"># @sqli being a MySQLi::Common object</span>
+</span></span><span style="display:flex;"><span>@sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#39;select group_concat(table_name) from information_schema.tables&#39;</span>)
+</span></span></code></pre></div><p>would yield the given SQL query to the block, but if the object was a <code>MySQLi::BooleanBasedBlind</code>, the same call would yield:</p>
 <pre tabindex="0"><code>ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;1&lt;&gt;0
 ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;2&lt;&gt;0
 ascii(mid(cast((select group_concat(table_name) from information_schema.tables) as binary), 1, 1))&amp;4&lt;&gt;0
@@ -346,15 +343,15 @@ when it is in-use, the part that was a bit more complex was time-based blind SQL
 take time to be computed, luckily, there exists a function called <code>randomblob</code>, which takes a size parameter, and returns random data of that size, the user specifies a delay in seconds, and I do some benchmarking in the library to
 find the perfect randomblob parameter that would cause that delay, once found, <code>1000000</code> for example, my SQL injection would work like this:</p>
 <p>For example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#007f7f"># @sqli being a SQLitei::TimeBasedBlind object</span>
-@sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;&#34;</span>)
-</code></pre></div><p>The library would yield conditions like this to the block, to be evaluated, and would measure timings, and return the data.</p>
-<pre tabindex="0"><code>unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 1, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
-unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 1, 1))&amp;2&lt;&gt;0 and randomblob(1000000)
-unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 1, 1))&amp;4&lt;&gt;0 and randomblob(1000000)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#007f7f"># @sqli being a SQLitei::TimeBasedBlind object</span>
+</span></span><span style="display:flex;"><span>@sqli.run_sql(<span style="color:#0ff;font-weight:bold">&#34;select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;&#34;</span>)
+</span></span></code></pre></div><p>The library would yield conditions like this to the block, to be evaluated, and would measure timings, and return the data.</p>
+<pre tabindex="0"><code>unicode(substr(cast((select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;) as blob), 1, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;) as blob), 1, 1))&amp;2&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;) as blob), 1, 1))&amp;4&lt;&gt;0 and randomblob(1000000)
 ...
-unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 1, 1))&amp;128&lt;&gt;0 and randomblob(1000000)
-unicode(substr(cast((select group_concat(tbl_name,';') from sqlite_master where type='table') as blob), 2, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;) as blob), 1, 1))&amp;128&lt;&gt;0 and randomblob(1000000)
+unicode(substr(cast((select group_concat(tbl_name,&#39;;&#39;) from sqlite_master where type=&#39;table&#39;) as blob), 2, 1))&amp;1&lt;&gt;0 and randomblob(1000000)
 ...
 </code></pre><p>If a bit is 1, it should get to the second part of the <code>and</code>, which should take some time to run, this is how the library knows the outcome of the condition.</p>
 <p>I also had to refactor code when adding support for <code>SQLite</code>, because I noticed there was a lot of code shared between DBMS-specific implementations, on blind queries mostly, so I added a <code>Utils</code> mixin that acts like an interface that
@@ -405,7 +402,7 @@ found on some versions of D-Link Central WiFi Manager CWM(100), and a test modul
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

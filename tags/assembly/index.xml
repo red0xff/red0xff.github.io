@@ -14,7 +14,6 @@
       
       <guid>https://red0xff.github.io/posts/nfsmw2012_making_opponents_fly/</guid>
       <description>This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
-
 In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
 We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that indicates its height), we must keep in mind that the z axis might be inverted (ie.</description>
     </item>
@@ -27,7 +26,6 @@ We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that
       <guid>https://red0xff.github.io/writeups/himayatic17_rev400/</guid>
       <description>Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
 Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
-
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :</description>
     </item>
     

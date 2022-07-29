@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Cracking the Coding Interview (literally) :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
+About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://red0xff.github.io/posts/cracking_the_coding_interview_literally/" />
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/reminder.css" />
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://red0xff.github.io/assets/blue.css">
+
+
+
+<link rel="stylesheet" href="https://red0xff.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://red0xff.github.io/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="https://red0xff.github.io/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Cracking the Coding Interview (literally) :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever" />
+<meta name="twitter:description" content="Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
+About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers." />
+<meta name="twitter:site" content="https://red0xff.github.io/" />
+<meta name="twitter:creator" content="NIBOUCHA Redouane" />
+<meta name="twitter:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1659112199/cracking_the_coding_interview_literally/hrtfrb5ctykeifit3xyw.jpg">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Cracking the Coding Interview (literally) :: Redouane — Interesting stuff related to Computer Science, Gaming or Whatever">
+<meta property="og:description" content="Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
+About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers." />
+<meta property="og:url" content="https://red0xff.github.io/posts/cracking_the_coding_interview_literally/" />
+<meta property="og:site_name" content="Cracking the Coding Interview (literally)" />
+<meta property="og:image" content="https://res.cloudinary.com/dik00g2mh/image/upload/v1659112199/cracking_the_coding_interview_literally/hrtfrb5ctykeifit3xyw.jpg">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="article:section" content="security" />
+<meta property="article:published_time" content="2022-07-29 18:32:00 &#43;0200 CEST" />
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Redouane&#39;s Blog
+  </div>
+</a>
+<div id="typingcode" class="hidden"></div>
+<div id="fences"></div>
+
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/posts/">Posts</a></li>
+        
+      
+        
+          <li><a href="/search/">Search</a></li>
+        
+      
+        
+          <li><a href="/writeups/">Writeups</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+      
+        <li><a href="/posts/">Posts</a></li>
+      
+    
+      
+        <li><a href="/search/">Search</a></li>
+      
+    
+      
+        <li><a href="/writeups/">Writeups</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://red0xff.github.io/posts/cracking_the_coding_interview_literally/">Cracking the Coding Interview (literally)</a></h1>
+  <div class="post-meta">
+    <span class="post-date">
+      2022-07-29
+    </span>
+    
+    <span class="post-author">::
+      NIBOUCHA Redouane
+    </span>
+    
+  </div>
+  
+  <span class="post-tags">
+    
+    #<a href="https://red0xff.github.io/tags/programming/">programming</a>&nbsp;
+    
+    #<a href="https://red0xff.github.io/tags/shorts/">shorts</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659112199/cracking_the_coding_interview_literally/hrtfrb5ctykeifit3xyw.jpg" class="post-cover" />
+  
+
+  <div class="post-content">
+    <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<h1 id="introduction">Introduction</h1>
+<p>Competitive programming was my entry point into computer science. I joined <a href="https://www.hackerrank.com/">Hackerrank</a>, <a href="https://www.codechef.com/">Codechef</a>, <a href="https://projecteuler.net/">Project Euler</a> and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).</p>
+<h1 id="about-competitive-programming">About competitive programming</h1>
+<p>For those who are not familiar with this mind-sport, it&rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers. Each problem has some constraints (Sizes of the inputs it gets).
+The user also gets some example inputs and outputs, and should write and submit a computer program that can read inputs in the given format, solve the problem and print the corresponding outputs.
+The user&rsquo;s submission gets executed in the cloud, and its output gets compared with the output of &ldquo;hidden&rdquo; testcases. If it&rsquo;s the same, the submission is considered as correct.</p>
+<h2 id="why-is-it-important">Why is it important?</h2>
+<ul>
+<li>Competitive programming is used as a basis for hiring by numerous companies: The first step of the hiring process is often a programming challenge to solve on a platform like <a href="https://www.hackerrank.com/">Hackerrank</a> or <a href="https://www.codingame.com/">Codingame</a>.</li>
+<li>Contests: There are a lot of them (<a href="https://icpc.global/">ACM ICPC</a>, <a href="https://codingcompetitions.withgoogle.com/codejam">Google CodeJam</a>, <a href="https://www.facebook.com/codingcompetitions/hacker-cup">Meta HackerCup</a> &hellip;), just like CTFs.</li>
+</ul>
+<h2 id="types-of-failed-submissions">Types of failed submissions</h2>
+<p>There are different kinds of failed submissions:</p>
+<ul>
+<li><code>Wrong answer</code>: When the output of the program is different than the expected output of the testcase.</li>
+<li><code>Time-Limit exceeded</code>: When the program takes too much time to execute, execution is stopped, and this error is returned.</li>
+<li><code>Compilation Error</code>: When the program doesn&rsquo;t compile, or contains syntax errors.</li>
+<li><code>Runtime Error</code>: When the program crashes (unhandled exception, segmentation fault, or any other type of errors).</li>
+</ul>
+<h2 id="lets-focus-on-time-limits-what">Let&rsquo;s focus on time limits, what?</h2>
+<p>The <code>TLE</code>, or Time-Limit Exceeded error happens when a submission takes more than the maximum duration allocated for it. People running these platforms have figured out that comparing the execution time of programs written in different programming languages is unfair (and would give a clear advantage to C/C++ programmers for instance). For this reason, they defined a multiplier that is specific to each programming language. On Hackerrank for example, Ruby or Python submissions get an execution time that is 5 times higher than C or C++ submissions (this aims to compensate the runtime overhead).</p>
+<p>Below are some numbers taken from the different (and most popular) competitive programming platforms at the time of writing (For platforms that can host &ldquo;work&rdquo; interviews, these are the configurations of the environment where candidate submissions will be executed).</p>
+<h4 id="hackerrank">Hackerrank</h4>
+<table>
+<thead>
+<tr>
+<th>Programming language</th>
+<th>Description</th>
+<th>Time (secs)</th>
+<th>Memory (MB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>GCC 8.3.0, C11 standard</td>
+<td>2</td>
+<td>512</td>
+</tr>
+<tr>
+<td>C#</td>
+<td>.NET 6.0.2, C# 10.0</td>
+<td>3</td>
+<td>512</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>G++ 8.3.0</td>
+<td>2</td>
+<td>512</td>
+</tr>
+<tr>
+<td>Coffeescript</td>
+<td> Node.js v14.15.4</td>
+<td>10</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>Common Lisp</td>
+<td>SBCL 1.4.2</td>
+<td>12</td>
+<td> 512</td>
+</tr>
+<tr>
+<td>Erlang</td>
+<td>Erlang/OTP 21</td>
+<td>12</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>1.13</td>
+<td>4</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>Haskell</td>
+<td>ghc 8.6.5, lts-14.7</td>
+<td>5</td>
+<td>512</td>
+</tr>
+<tr>
+<td>Java 15</td>
+<td>OpenJDK 15.0.2</td>
+<td>4</td>
+<td>512</td>
+</tr>
+<tr>
+<td>Lua</td>
+<td>5.3.3</td>
+<td>12</td>
+<td>512</td>
+</tr>
+<tr>
+<td>OCaml</td>
+<td>ocamlopt, version 4.09</td>
+<td>3</td>
+<td>512</td>
+</tr>
+<tr>
+<td>Perl</td>
+<td>Perl (v5.26.3)</td>
+<td> 9</td>
+<td>512</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>PHP 7.3.13</td>
+<td>9</td>
+<td>512</td>
+</tr>
+<tr>
+<td>PyPy 3</td>
+<td>PyPy3.6 v6.0.0</td>
+<td>4</td>
+<td>512</td>
+</tr>
+<tr>
+<td>Python 3</td>
+<td>Python 3.9.4</td>
+<td>10</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>Ruby 2.6.4p104</td>
+<td>10</td>
+<td>512</td>
+</tr>
+</tbody>
+</table>
+<p>The full table can be found <a href="https://support.hackerrank.com/hc/en-us/articles/1500002392722--Execution-Environment-and-Samples">here</a>.</p>
+<h4 id="codingame-for-work">CodinGame for Work</h4>
+<table>
+<thead>
+<tr>
+<th>Programming language</th>
+<th>Description</th>
+<th>Time (secs)</th>
+<th>Memory (MB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>gcc 10.2.1</td>
+<td>2</td>
+<td>768</td>
+</tr>
+<tr>
+<td>C#</td>
+<td>C# 8.0, .NET Core 3.1.3</td>
+<td>1</td>
+<td>768</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>g++ 10.2.1</td>
+<td>2</td>
+<td>768</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>1.17.1</td>
+<td>2</td>
+<td>768</td>
+</tr>
+<tr>
+<td>Haskell</td>
+<td>Haskell Platform 8.4.3</td>
+<td>2</td>
+<td>768</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>JDK 1.8.0 OpenJDK 11.0.2</td>
+<td>2</td>
+<td>768</td>
+</tr>
+<tr>
+<td>Lua</td>
+<td>5.4.3</td>
+<td>6</td>
+<td>768</td>
+</tr>
+<tr>
+<td>OCaml</td>
+<td>4.12.0</td>
+<td>6</td>
+<td>768</td>
+</tr>
+<tr>
+<td>Perl</td>
+<td>5.32.1</td>
+<td> 6</td>
+<td>768</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>PHP 7.3.9</td>
+<td>2</td>
+<td>768</td>
+</tr>
+<tr>
+<td>Python 3</td>
+<td>Python 3.9.2</td>
+<td>5</td>
+<td>768</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>Ruby 3.0.1</td>
+<td>6</td>
+<td>768</td>
+</tr>
+</tbody>
+</table>
+<p>The full table can be found <a href="https://help.codingame.com/article/273-what-environment-does-my-test-run-in">here</a>.</p>
+<h4 id="codechef">Codechef</h4>
+<table>
+<thead>
+<tr>
+<th>Programming language</th>
+<th>Time Multiplier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C, C++, Go, OCaml, &hellip;</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Java, PyPy3, C#, Scala</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Ruby, PHP, Lisp, Scheme</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>The updated table can be found <a href="https://blog.codechef.com/2009/04/01/announcing-time-limits-based-on-programming-language/">here</a>.</p>
+<h1 id="my-idea">My Idea</h1>
+<p>Looking back into this common practice of having different time limits for different programming languages, I got an idea: what if I could somehow execute faster code from a slower programming language, and get an extended time limit?
+While the constraints are often picked in a way that makes naive or unoptimized solutions time out, this could for example allow candidates to submit a sub-optimal solution in <code>C</code>, <code>C++</code> or <code>Go</code> (embedded in a stub written in a slower programming language), and avoid the time-limit exceeded error (because the platform would pick the time limit of the slower programming language).</p>
+<h2 id="choice-for-the-slower-programming-language-for-the-stub">Choice for the slower programming language (for the stub)</h2>
+<p>We can choose any programming language that is considered as slow compared to <code>C</code>, and that has a builtin library that allows low-level memory hacking (calling native functions, manipulating pointers for example).</p>
+<p>Possible choices are:</p>
+<ul>
+<li>Python with <a href="https://docs.python.org/3/library/ctypes.html">ctypes</a>.</li>
+<li>Ruby with <a href="https://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html">fiddle</a>.</li>
+<li>Probably more.</li>
+</ul>
+<h3 id="initial-enumeration-on-the-different-platforms">Initial enumeration on the different platforms</h3>
+<p>Let&rsquo;s first check the operating systems, kernel and libc versions on the different platforms.</p>
+<p>We run these lines of code in <code>Lua</code> to gather informations about the execution environments.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">local</span> commands = { <span style="color:#0ff;font-weight:bold">&#39;uname -a&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;id&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;ls -l /lib/x86_64-linux-gnu/libc.so.6&#39;</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>os.execute( table.concat(commands, <span style="color:#0ff;font-weight:bold">&#39; ; &#39;</span>) );
+</span></span></code></pre></div><h4 id="hackerrank-1">Hackerrank</h4>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101412/cracking_the_coding_interview_literally/zy0if5wqenvqckrzkwby.png" alt="hackerrank_enum"></p>
+<h4 id="codingame">Codingame</h4>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101639/cracking_the_coding_interview_literally/ruui5x36ymj8ycdf5gda.png" alt="codingame"></p>
+<h4 id="codechef-1">Codechef</h4>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101412/cracking_the_coding_interview_literally/akaon3ankqmtwscku8sx.png" alt="codechef"></p>
+<h2 id="writing-the-stub">Writing the stub</h2>
+<p>For a proof of concept, we will be doing the following:</p>
+<ul>
+<li>From the slower programming language, create an anonymous file that lives in <code>tmpfs</code> with <code>memfd_create</code>.</li>
+<li>Decompress and decode the payload (<code>zlib</code> and <code>base64</code>), and write it to the anonymous file (using <code>write</code>).</li>
+<li>Execute the anonymous file from memory using <code>fexecve</code>.</li>
+</ul>
+<p>We will avoid writing data on the disk, as different environments can have different configurations, and some might not allow writing data on the disk.</p>
+<h3 id="implementing-the-stub">Implementing the stub</h3>
+<h4 id="decompressing-the-native-executable">Decompressing the native executable</h4>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;fiddle&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;zlib&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;base64&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exe = <span style="color:#0ff;font-weight:bold">&lt;&lt;DEFLATED
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold"></span>eJztW31wG8UV35PlL0gkBZLgOF8mdaYOwYoFTrBJApYtOyd6DiaxA4WYi2yd
+</span></span><span style="display:flex;"><span>YzGy5Eon4lCgpiaBQ1FIGYYyHZiGGZjS4SvTmTIlpcHGTghQOomHMoEQ6qGh
+</span></span><span style="display:flex;"><span>yASCCUlwSJzr27tdxW4jFdpYmOnoeaR377fvvX23u7fe1e37Rb3QYOE4RCkH
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>RV0TjH1qv0QmrqbvsM1jzPZ0nd5UYY6Ttac0hdMxak3XsRuIfQmjzjqbRupn
+</span></span><span style="display:flex;"><span>kN7Ufh6Dc2m4BV1IvcRMnAy4uUjIjYedPwpRht9MepbquCPGOTvgTstgv65K
+</span></span><span style="display:flex;"><span>B86MAWvWb7A6tNYT
+</span></span><span style="display:flex;"><span>DEFLATED
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exe = Zlib.inflate(Base64.decode64(exe))
+</span></span></code></pre></div><h4 id="getting-pointers-to-memfd_create-write-and-fexecve">Getting pointers to <code>memfd_create</code>, <code>write</code> and <code>fexecve</code></h4>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>libc = Fiddle.dlopen(<span style="color:#0ff;font-weight:bold">&#39;/lib/x86_64-linux-gnu/libc.so.6&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># int memfd_create(const char *name, unsigned int flags)</span>
+</span></span><span style="display:flex;"><span>memfd_create = Fiddle::Function.new(
+</span></span><span style="display:flex;"><span>    libc[<span style="color:#0ff;font-weight:bold">&#39;memfd_create&#39;</span>],
+</span></span><span style="display:flex;"><span>    [Fiddle::TYPE_VOIDP, Fiddle::TYPE_INT],
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># ssize_t write(int fd, const void *buf, size_t count);</span>
+</span></span><span style="display:flex;"><span>write = Fiddle::Function.new(
+</span></span><span style="display:flex;"><span>    libc[<span style="color:#0ff;font-weight:bold">&#39;write&#39;</span>],
+</span></span><span style="display:flex;"><span>    [Fiddle::TYPE_INT, Fiddle::TYPE_VOIDP, Fiddle::TYPE_SIZE_T],
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_SSIZE_T
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># int fexecve(int fd, char *const argv[], char *const envp[]);</span>
+</span></span><span style="display:flex;"><span>fexecve = Fiddle::Function.new(
+</span></span><span style="display:flex;"><span>    libc[<span style="color:#0ff;font-weight:bold">&#39;fexecve&#39;</span>],
+</span></span><span style="display:flex;"><span>    [Fiddle::TYPE_INT, Fiddle::TYPE_VOIDP, Fiddle::TYPE_VOIDP],
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><h4 id="creating-the-anonymous-file-and-writing-the-binary-to-it">Creating the anonymous file, and writing the binary to it</h4>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>fd = memfd_create.call(<span style="color:#0ff;font-weight:bold">&#39;exec&#39;</span>, <span style="color:#ff0;font-weight:bold">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>written = write.call(fd, exe, exe.length)
+</span></span></code></pre></div><h4 id="preparing-a-fake-argv-and-envp-for-fexecve">Preparing a fake <code>ARGV</code> and <code>ENVP</code> for <code>fexecve</code></h4>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#007f7f"># set argv[0] = &#34;exec&#34;</span>
+</span></span><span style="display:flex;"><span>argv0 = Fiddle::Pointer.malloc(<span style="color:#ff0;font-weight:bold">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>argv0[<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">5</span>] = <span style="color:#0ff;font-weight:bold">&#39;exec&#39;</span> + <span style="color:#ff0;font-weight:bold">0</span>.chr;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># set argv = { &#34;exec&#34;, NULL }</span>
+</span></span><span style="display:flex;"><span>argv = Fiddle::Pointer.malloc(<span style="color:#ff0;font-weight:bold">2</span>*Fiddle::SIZEOF_VOIDP)
+</span></span><span style="display:flex;"><span>argv[<span style="color:#ff0;font-weight:bold">0</span>,<span style="color:#ff0;font-weight:bold">8</span>] = [argv0.to_i].pack(<span style="color:#0ff;font-weight:bold">&#39;Q&#39;</span>)
+</span></span><span style="display:flex;"><span>argv[<span style="color:#ff0;font-weight:bold">8</span>,<span style="color:#ff0;font-weight:bold">8</span>] = <span style="color:#ff0;font-weight:bold">0</span>.chr * <span style="color:#ff0;font-weight:bold">8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># set envp = { NULL }</span>
+</span></span><span style="display:flex;"><span>envp = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
+</span></span><span style="display:flex;"><span>envp[<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">8</span>] = <span style="color:#ff0;font-weight:bold">0</span>.chr * <span style="color:#ff0;font-weight:bold">8</span>
+</span></span></code></pre></div><h4 id="call-the-loaded-executable">Call the loaded executable</h4>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>ret = fexecve.call(fd, argv, envp)
+</span></span></code></pre></div><h3 id="testing-with-a-c-program-that-prints-hello-world">Testing with a C program that prints &ldquo;hello world&rdquo;</h3>
+<p>The program below runs the following C code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#include</span> <span style="color:#0f0;font-weight:bold">&lt;stdio.h&gt;</span><span style="color:#0f0;font-weight:bold">
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	puts(<span style="color:#0ff;font-weight:bold">&#34;Hello world from C ^^&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We compress and encode it with the following lines of Ruby.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;zlib&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;base64&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exe = File.open(<span style="color:#0ff;font-weight:bold">&#39;exe&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;rb&#39;</span>, &amp;<span style="color:#0ff;font-weight:bold">:read</span>)
+</span></span><span style="display:flex;"><span>compressed = Zlib.deflate(exe)
+</span></span><span style="display:flex;"><span>encoded = Base64.encode64(compressed)
+</span></span></code></pre></div><p>The Ruby stub with the compressed ELF embedded inside is around 100 lines of code. We will test it on the different platforms.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;fiddle&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;zlib&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span> <span style="color:#0ff;font-weight:bold">&#39;base64&#39;</span>
+</span></span><span style="display:flex;"><span>exe = <span style="color:#0ff;font-weight:bold">&lt;&lt;DEFLATED
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold"></span>eJztW29sHEcVnz377DN17i6pTW0nxEdIFIfijZ0mxk1x4juf7T10cYxzbhMR
+</span></span><span style="display:flex;"><span>Z7v2ru1D9697e40dIZrWFHEqpv3GF5CChPgjIoRA6id/cJRQRUJBSZGqIKhq
+</span></span><span style="display:flex;"><span>ValwEC3un1QGEh8zu/Pudsa3SeFLP7A/<span style="color:#ff0;font-weight:bold">6</span>+<span style="color:#ff0;font-weight:bold">637817</span>b97Ozu3N+uY9Nxgf8ggC
+</span></span><span style="display:flex;"><span>AtSgI4hIuaAl91N975fLJljXi7bg93a0E9VhudZmx/NND8u+cj+WX0uNJfO8
+</span></span><span style="display:flex;"><span>A7Es2LgWOWPdyzIKVvy8NpnnawLLdj+zvxDVc3xSYNnuR8ZmtdOSV/tYluh4
+</span></span><span style="display:flex;"><span>jHpYPw/<span style="color:#ff0;font-weight:bold">1</span>W6d+<span style="color:#ff0;font-weight:bold">630</span>srwgsw3jW0lcvHT+e+fR5v5PUjucoYhnG/sQ7hvq/<span style="color:#ff0;font-weight:bold">9</span>DdK
+</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">/XbQBp6/</span>gliG/r6G/erQJwdc3jHan9N1aPGwDJdxfyo52XNwf0rtTCUzhbnO
+</span></span><span style="display:flex;"><span>ud6ezp6DYj4rHijnRfogc2p4ZBx5zqPlWps/OW5C1jwn7Qu3joz8vvXizd++
+</span></span><span style="display:flex;"><span>Fe0f/<span style="color:#ff0;font-weight:bold">93</span>dAz/<span style="color:#ff0;font-weight:bold">1</span>fDcCMQRqg6g9TAmEKvMB5hNCz5vvMBY3tD+k7zcO5DRDVfQk
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">3</span>rYq+mYH/SmHOLMOepLfrmoJ5QpGHsny1JwiTyczSip5TsMiHu0pOW8ouiGn
+</span></span><span style="display:flex;"><span>lWQGEZkMdg8ajsciA/IB8YB4CMmxxDFZ1XRtJpk3ND1xbCCVzWgJZTJFYsyk
+</span></span><span style="display:flex;"><span>sxkaQ7ZMqxqSc/fgP8Fk8r4XVeZLoS3ZQEa9m8owT8rzd6vFa5w+SPUd/awe
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">5</span>JtHK+NSudviz7FNX2PTr9r09vvdmk3vtenXbXr756SF9l+P2HnlwoULFy5c
+</span></span><span style="display:flex;"><span>uHDh4v8T0sLffdJL3jf348MXlw1P6bq0cMV3udxeOvQ2birtuYXfA+<span style="color:#ff0;font-weight:bold">39</span>+IjI
+</span></span><span style="display:flex;"><span>ZNWPbq+UMPb8BsvTrzDxFvt+EcBL2Ou4uXvZjDcdaP+<span style="color:#ff0;font-weight:bold">22</span>d79bqx444xUfFta
+</span></span><span style="display:flex;"><span>uLU2mogveg/j5bC0uOWPxHmxb4nEbB7CMT8KtEdNVZHktuh9gdDj60YzTncn
+</span></span><span style="display:flex;"><span>TbehtBJoP0/iXqaM7U+Z9ofGCO3bkIpr0qX3jkqX1msk4TXpxobRhAPcEa0A
+</span></span><span style="display:flex;"><span>vtLKtNkP+H8Y2Pmv833N2BcVHh2XFvpeF0nU4jtGo/RS38dYWG3AGa6q+O01
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">77</span>tYFiawL+N/+yxupHL4qfhi33NfwgdPxopvhMdjxTvhRLh4d1xa7Mxh9Yn4
+</span></span><span style="display:flex;"><span>vntkzFbzG6WSdOlejbG9+<span style="color:#ff0;font-weight:bold">884</span>Xrz4Qbz4XrT413Cp6S1p4bIgPf5m4W9kLL8+
+</span></span><span style="display:flex;"><span>ET4dngifCctmvzDmzFVz4cKFCxcuXLhw4cKFCxcuWJDfwCQtlcqGzmb1lBqa
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">1</span>rPp0EDozBnStr3miV5Ef4NaK5XIE/xuzBcxH8R8BXMCcwJz9P1S6S+Yf4J5
+</span></span><span style="display:flex;"><span>t2D99mnGPzeGhLmgsL2x3veKUB8kevKb/vo/SqVHbXlUt8f9Ufs5bB8iBv7g
+</span></span><span style="display:flex;"><span>kL/lq4GHzvrOo6NtT3zxsd27wJ/<span style="color:#ff0;font-weight:bold">8</span>Rp3Ddj4u7mn8msX6R4gi6g+O+X2mrYFf
+</span></span><span style="display:flex;"><span>T+P8J4g+<span style="color:#ff0;font-weight:bold">4</span>g++<span style="color:#ff0;font-weight:bold">7</span>In5W75fM+gPLdYO+ju+<span style="color:#ff0;font-weight:bold">5436</span>u75TJ/l7F+qH/f3f8PeG/V1h
+</span></span><span style="display:flex;"><span>f0fEH4r4W7B9BMchvxsukfxwHPvvei5cuHDhwoULFy5cuHDxaQH2LcI+RXhW
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">2</span>Uu5EQzpRsgtVLxC7VupDPsht1MZnrXaKMO+yB1c+<span style="color:#ff0;font-weight:bold">52</span>NUpbwBbrJEfYu5ujm
+</span></span><span style="display:flex;"><span>RtizeJW2f4bKL1B+iHIL5WbEorx3st8i2OsI9vB8WU/<span style="color:#ff0;font-weight:bold">5</span>EcorXlYf8rJ5L1Nu
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">4</span>OL9u2SdD5hugEz9S1SGcV6j8gf0fP9JZfuez08DsK+cR0+QlWEf6/DAwOFQ
+</span></span><span style="display:flex;"><span>R1SbTCqZUHe3+JjY1dm9jx7dpx9rH/<span style="color:#ff0;font-weight:bold">37</span>JV7fYLbVom9y+<span style="color:#ff0;font-weight:bold">8</span>YfdrBvc9DvQeSa
+</span></span><span style="display:flex;"><span>B9AFLu+<span style="color:#ff0;font-weight:bold">9</span>VH+d0x+mevg8AEbNfNpQV38lb4LT5nFzeX4DFmicUS7Oy6Z9U/nz
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">8</span>qD8f2XaP4wSn+dbqtsvme9Nm/K5Zsb57Kbr+ga15/O5bb5vK++/B9w147RU
+</span></span><span style="display:flex;"><span>CjkoXhXI+TZWNkxTbBNIlABa5u4vu4Tq+<span style="color:#ff0;font-weight:bold">8</span>OfNfWtKMTFPyJU339+XCBdtpav
+</span></span><span style="display:flex;"><span>C2AHsfcEy/cpwJMOcQwah+/<span style="color:#ff0;font-weight:bold">3</span>eYc8yf+gtnpay/Mf8COix3/gBHu0L9JxeJrm
+</span></span><span style="display:flex;"><span>M0H1VxHptw31cnHOUXuot4H/iS0Jlj1/vlep/Si1h/vYNZonb/<span style="color:#ff0;font-weight:bold">8</span>nh/P6UHDY
+</span></span><span style="display:flex;"><span>n39iSje6xSySZWUyKRvKDDK0vCFOIazPG4XpaXxY2YIvG2l5iuytJ3v61aw8
+</span></span><span style="display:flex;"><span>k8pOKilZNbJ6XlYKc2gqm86lNENT8d2hqgWpAkjKiq4r87KWMfR5NK0raU1W
+</span></span><span style="display:flex;"><span>C+n0PHaxSTK2NBhTWR4aCx8blAdHomTPP2ugIjl6aiR8LDbAtpglAlg1PDIu
+</span></span><span style="display:flex;"><span>D0o0ghQdQ/Jw/HgkHJePDw2dGEzIiXAkPihDccJUvmCmet8iBFLc0M9ULGiq
+</span></span><span style="display:flex;"><span>YiibCxxYI5kYlfNi6xhkNZ+VZ5WMSmocYsdxg5rMyIW8ptozI6eH5cl8noYx
+</span></span><span style="display:flex;"><span>qyhkGWcHg+NYEMEWYzCZITE/nzaUScyGbvEsHCUzOFAOiZmsoYkzmYKY07M5
+</span></span><span style="display:flex;"><span>TTfmbarJQjKldiZVqgpHYp1kRplts0p+FonqfAZ3YbGhWy3Pano+mc0wgozb
+</span></span><span style="display:flex;"><span>dC2lEEN6lEsZJAt84uRQnMniA0Obw+/mdRL1rDn2ojZLJ9Gsqlcky9WaEpYH
+</span></span><span style="display:flex;"><span>HOMelHRyCpGIVidWHDy4SMTzOY3nXrVPzn8Fsn4i98jyOsWh/g3A/<span style="color:#ff0;font-weight:bold">2</span>/<span style="color:#ff0;font-weight:bold">5</span>C4it
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">6</span>XCqvwL4OLmH8+frvnZz9nzNXYzzh+<span style="color:#ff0;font-weight:bold">9</span>v/nvcyf8p/PoYr4HAH9aFF7j+YV3I
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">568</span>ga00I/rBuBP451ZMcBZs/rN+SiK21gnUoMKw7Afz4P4OsNR74w7oO2M/l
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">7</span>+H4W8haM5ZrcrwshxzyBywia0zBH9atwMtc//z5/<span style="color:#ff0;font-weight:bold">4</span>D6R6gM62BgsKujx7z/
+</span></span><span style="display:flex;"><span>j5G9Jg1tqqeE7yUAf/<span style="color:#ff0;font-weight:bold">1</span>/yPmHghxz9nzZ5s84//<span style="color:#ff0;font-weight:bold">4</span>gy/x4+Tj+NecP36fAz3AX
+</span></span><span style="display:flex;"><span>nFvuoFc5f1h/ADdw9vz5LyH2888XTLZx9rz/Fc7fqY7Syf91zv9kiGV+wvPj
+</span></span><span style="display:flex;"><span>SX7rI3Mcnl/KdZWd1e358V/Fr4DNH9axa5/Q/yPE1syV62SpP9TH1nN+cB1/
+</span></span><span style="display:flex;"><span>iaxTBH+oz7u53+KOB/R/j/Mvr5PpQ1DoAf51AusP69FQF5sn7w9oFCwd+MO6
+</span></span><span style="display:flex;"><span>r6uruj1//<span style="color:#ff0;font-weight:bold">9</span>pK++ef2cB/p4O/navVE45S/<span style="color:#ff0;font-weight:bold">2</span>Wa2OeQ9azO3z8aUPVn3+BBi/<span style="color:#ff0;font-weight:bold">1</span>c
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">8</span>E35O/jv7LG4jXPg/f8DwekbgQ==
+</span></span><span style="display:flex;"><span>DEFLATED
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exe = Zlib.inflate(Base64.decode64(exe))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>libc = Fiddle.dlopen(<span style="color:#0ff;font-weight:bold">&#39;/lib/x86_64-linux-gnu/libc.so.6&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># int memfd_create(const char *name, unsigned int flags)</span>
+</span></span><span style="display:flex;"><span>memfd_create = Fiddle::Function.new(
+</span></span><span style="display:flex;"><span>    libc[<span style="color:#0ff;font-weight:bold">&#39;memfd_create&#39;</span>],
+</span></span><span style="display:flex;"><span>    [Fiddle::TYPE_VOIDP, Fiddle::TYPE_INT],
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># ssize_t write(int fd, const void *buf, size_t count);</span>
+</span></span><span style="display:flex;"><span>write = Fiddle::Function.new(
+</span></span><span style="display:flex;"><span>    libc[<span style="color:#0ff;font-weight:bold">&#39;write&#39;</span>],
+</span></span><span style="display:flex;"><span>    [Fiddle::TYPE_INT, Fiddle::TYPE_VOIDP, Fiddle::TYPE_SIZE_T],
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_SSIZE_T
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># int fexecve(int fd, char *const argv[], char *const envp[]);</span>
+</span></span><span style="display:flex;"><span>fexecve = Fiddle::Function.new(
+</span></span><span style="display:flex;"><span>    libc[<span style="color:#0ff;font-weight:bold">&#39;fexecve&#39;</span>],
+</span></span><span style="display:flex;"><span>    [Fiddle::TYPE_INT, Fiddle::TYPE_VOIDP, Fiddle::TYPE_VOIDP],
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fd = memfd_create.call(<span style="color:#0ff;font-weight:bold">&#39;exec&#39;</span>, <span style="color:#ff0;font-weight:bold">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>written = write.call(fd, exe, exe.length)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>argv0 = Fiddle::Pointer.malloc(<span style="color:#ff0;font-weight:bold">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>argv0[<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">5</span>] = <span style="color:#0ff;font-weight:bold">&#39;exec&#39;</span> + <span style="color:#ff0;font-weight:bold">0</span>.chr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>argv = Fiddle::Pointer.malloc(<span style="color:#ff0;font-weight:bold">2</span>*Fiddle::SIZEOF_VOIDP)
+</span></span><span style="display:flex;"><span>argv[<span style="color:#ff0;font-weight:bold">0</span>,<span style="color:#ff0;font-weight:bold">8</span>] = [argv0.to_i].pack(<span style="color:#0ff;font-weight:bold">&#39;Q&#39;</span>)
+</span></span><span style="display:flex;"><span>argv[<span style="color:#ff0;font-weight:bold">8</span>,<span style="color:#ff0;font-weight:bold">8</span>] = <span style="color:#ff0;font-weight:bold">0</span>.chr * <span style="color:#ff0;font-weight:bold">8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>envp = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
+</span></span><span style="display:flex;"><span>envp[<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">8</span>] = <span style="color:#ff0;font-weight:bold">0</span>.chr * <span style="color:#ff0;font-weight:bold">8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ret = fexecve.call(fd, argv, envp)
+</span></span></code></pre></div><h4 id="hackerrank-2">Hackerrank</h4>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101413/cracking_the_coding_interview_literally/zakum1pvetkmrgwwwnkv.png" alt="hackerrank_result"></p>
+<h4 id="codingame-1">Codingame</h4>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101413/cracking_the_coding_interview_literally/creljybozifmj2jnkgp5.png" alt="codingame_result"></p>
+<h4 id="codechef-2">Codechef</h4>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101412/cracking_the_coding_interview_literally/mc61efflhpihew4tjkbk.png" alt="codechef_result"></p>
+<p>It didn&rsquo;t work in codechef right away. It looks like libc support for <code>memfd_create</code> is not available. We can still get to call it manually:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#007f7f"># void *mmap(void *addr, size_t length, int prot, int flags,</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">#            int fd, off_t offset);</span>
+</span></span><span style="display:flex;"><span>mmap = Fiddle::Function.new(
+</span></span><span style="display:flex;"><span>    libc[<span style="color:#0ff;font-weight:bold">&#39;mmap&#39;</span>],
+</span></span><span style="display:flex;"><span>    [Fiddle::TYPE_VOIDP, Fiddle::TYPE_SIZE_T, Fiddle::TYPE_INT, Fiddle::TYPE_INT,
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT, Fiddle::TYPE_INT],
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_VOIDP
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 7 = PROT_READ | PROT_WRITE | PROT_EXEC</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 0x22 = MAP_ANONYMOUS | MAP_PRIVATE</span>
+</span></span><span style="display:flex;"><span>mem = mmap.call(<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">0x1000</span>, <span style="color:#ff0;font-weight:bold">7</span>, <span style="color:#ff0;font-weight:bold">0x22</span>, -<span style="color:#ff0;font-weight:bold">1</span>, <span style="color:#ff0;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># write the shellcode:</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># mov eax, 0x13f</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># syscall</span>
+</span></span><span style="display:flex;"><span>shellcode = <span style="color:#0ff;font-weight:bold">%w[b8 3f 01 00 00 0f 05 c3]</span>.map{|byte| byte.to_i(<span style="color:#ff0;font-weight:bold">16</span>).chr }.join
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mem[<span style="color:#ff0;font-weight:bold">0</span>, shellcode.length] = shellcode;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>memfd_create = Fiddle::Function.new(
+</span></span><span style="display:flex;"><span>    mem,
+</span></span><span style="display:flex;"><span>    [Fiddle::TYPE_VOIDP, Fiddle::TYPE_INT],
+</span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659101412/cracking_the_coding_interview_literally/dhto4vgms4ykyipjjy9v.png" alt="codechef_result2"></p>
+<h1 id="impact-and-possible-mitigations">Impact, and possible mitigations</h1>
+<p>The impact of this isn&rsquo;t huge, because:</p>
+<ul>
+<li>Solutions that have a different time complexity are likely to take more than 5 times the duration of execution of the better ones (depending on the size of the inputs, and the time complexity), if the naive approach is an \(O(2^n)\) algorithm, and the optimized one \(O(n^2)\), the former could take thousands of times the duration of execution of the latter.</li>
+<li>If the code of the candidate gets reviewed, the deceit will be blatant (It&rsquo;s not always the case, on contests and some automated hiring processes, candidates might be able to run away with it).</li>
+</ul>
+<p>However, it can give a substantial advantage over the other contenders. More memory available, and a higher time-limit for a solution written in a low-level programming language like <code>C</code> or <code>C++</code>.</p>
+<p>Below are some possible mitigations that would solve this issue:</p>
+<ul>
+<li>A seccomp whitelist (why would a candidate call <code>memfd_create</code>, or <code>execve</code> ?!).</li>
+<li>Modified programming language runtimes to prevent unsafe operations (no <code>ctypes</code> module for python for example).</li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<p>This post did not demonstrate a vulnerability, but rather a logic flaw in the execution environments of the most popular competitive programming platforms. This post is intended for educational purpose only. You should not use the approach described in this article at your advantage, and I am not responsible of any misuse or damage related to that.</p>
+<p>I hope you&rsquo;ve enjoyed reading this article. Don&rsquo;t hesitate to follow me on <a href="https://twitter.com/red0xff">Twitter</a> and <a href="https://github.com/red0xff">Github</a>, or to ask me any kind of questions.</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="https://red0xff.github.io/posts/inverting_keccak_f/">
+          <span class="button__text">Inverting Keccak-f if the sponge leaks</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "red0xff" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2022 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Proudly hosted on Github</span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://red0xff.github.io/assets/main.js"></script>
+<script src="https://red0xff.github.io/assets/prism.js"></script>
+<script src="https://red0xff.github.io/assets/reminder.js"></script>
+<script src="https://red0xff.github.io/assets/codetyper.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

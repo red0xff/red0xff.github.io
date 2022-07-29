@@ -13,7 +13,7 @@
       <pubDate>Sat, 05 Feb 2022 11:15:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/inverting_keccak_f/</guid>
-      <description>Table of Contents  What is SHA3 Why another hash function in the SHA family? Deeper view of SHA-3  The sponge construction The internal state The Permutation function at the core of Keccak: Keccak-p  Theta: \(\theta\) Rho: \(\rho\) Pi: \(\pi\) Chi: \(\chi\) Iota: \(\iota\)   Inverting Keccak-p  \( \theta^{-1} \): Back to linear algebra \( \rho^{-1} \): Simplier than it looks \( \pi^{-1} \): Inverse transposition \( \chi^{-1} \): Non-linearity \( \iota^{-1} \): Xor again and it&amp;rsquo;ll be done   \(Keccak-p^{-1}\): Just perform the inverse operations in reverse order Example testing   Implications   What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.</description>
+      <description>Table of Contents What is SHA3 Why another hash function in the SHA family? Deeper view of SHA-3 The sponge construction The internal state The Permutation function at the core of Keccak: Keccak-p Theta: \(\theta\) Rho: \(\rho\) Pi: \(\pi\) Chi: \(\chi\) Iota: \(\iota\) Inverting Keccak-p \( \theta^{-1} \): Back to linear algebra \( \rho^{-1} \): Simplier than it looks \( \pi^{-1} \): Inverse transposition \( \chi^{-1} \): Non-linearity \( \iota^{-1} \): Xor again and it&amp;rsquo;ll be done \(Keccak-p^{-1}\): Just perform the inverse operations in reverse order Example testing Implications What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
       
       <guid>https://red0xff.github.io/writeups/richelieu_challenge_writeup/</guid>
-      <description>Table of Contents  The Challenge The Solution  Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free()   Conclusion  The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution.</description>
+      <description>Table of Contents The Challenge The Solution Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free() Conclusion The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution.</description>
     </item>
     
   </channel>

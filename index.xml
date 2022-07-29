@@ -8,12 +8,22 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 24 Apr 2019 09:27:58 +0200</lastBuildDate><atom:link href="https://red0xff.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Cracking the Coding Interview (literally)</title>
+      <link>https://red0xff.github.io/posts/cracking_the_coding_interview_literally/</link>
+      <pubDate>Fri, 29 Jul 2022 18:32:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/posts/cracking_the_coding_interview_literally/</guid>
+      <description>Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
+About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers.</description>
+    </item>
+    
+    <item>
       <title>Inverting Keccak-f if the sponge leaks</title>
       <link>https://red0xff.github.io/posts/inverting_keccak_f/</link>
       <pubDate>Sat, 05 Feb 2022 11:15:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/inverting_keccak_f/</guid>
-      <description>Table of Contents  What is SHA3 Why another hash function in the SHA family? Deeper view of SHA-3  The sponge construction The internal state The Permutation function at the core of Keccak: Keccak-p  Theta: \(\theta\) Rho: \(\rho\) Pi: \(\pi\) Chi: \(\chi\) Iota: \(\iota\)   Inverting Keccak-p  \( \theta^{-1} \): Back to linear algebra \( \rho^{-1} \): Simplier than it looks \( \pi^{-1} \): Inverse transposition \( \chi^{-1} \): Non-linearity \( \iota^{-1} \): Xor again and it&amp;rsquo;ll be done   \(Keccak-p^{-1}\): Just perform the inverse operations in reverse order Example testing   Implications   What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.</description>
+      <description>Table of Contents What is SHA3 Why another hash function in the SHA family? Deeper view of SHA-3 The sponge construction The internal state The Permutation function at the core of Keccak: Keccak-p Theta: \(\theta\) Rho: \(\rho\) Pi: \(\pi\) Chi: \(\chi\) Iota: \(\iota\) Inverting Keccak-p \( \theta^{-1} \): Back to linear algebra \( \rho^{-1} \): Simplier than it looks \( \pi^{-1} \): Inverse transposition \( \chi^{-1} \): Non-linearity \( \iota^{-1} \): Xor again and it&amp;rsquo;ll be done \(Keccak-p^{-1}\): Just perform the inverse operations in reverse order Example testing Implications What is SHA3 SHA3 is a family of standarised cryptographic hashing functions, it&amp;rsquo;s the winner of the 2012 NIST hash function contest.</description>
     </item>
     
     <item>
@@ -22,7 +32,7 @@
       <pubDate>Sat, 29 Aug 2020 16:45:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/google_summer_of_code_2020/</guid>
-      <description>Table of Contents  Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey  Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems   Conclusion  Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
+      <description>Table of Contents Introduction My Proposal Community-Bonding period Results of my contribution My Google Summer of Code journey Initial work SQLite support and specs for the library Support for PostgreSQL, and other database-management systems Conclusion Introduction Being interested in computer security, and being an opensource lover, I wanted to participate in Google Summer of Code this year, after checking out the list of organizations, I applied for Metasploit, because Ruby is my main programming language, and because I was very interested in contributing to a framework of this popularity.</description>
     </item>
     
     <item>
@@ -31,7 +41,7 @@
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0200</pubDate>
       
       <guid>https://red0xff.github.io/writeups/volgactf_fhash/</guid>
-      <description>Table of Contents  The Challenge Initial recon Algorithm Optimization  Dynamic programming (the Bottom-up approach) Memoization (Top-down approach)   Solution  Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command)    The Challenge We are given a binary file, and a short challenge description, you can download the file here</description>
+      <description>Table of Contents The Challenge Initial recon Algorithm Optimization Dynamic programming (the Bottom-up approach) Memoization (Top-down approach) Solution Allocating memory for our memoization code, and for our results array How we will add code at the beginning and end of recursive_fun First shellcode: checking if the result is already computed at the beginning of the function Second shellcode: cache results at the end of the function How to assemble shellcodes Other things to keep in mind Final gdb script that automates solving it (using the peda patch command) The Challenge We are given a binary file, and a short challenge description, you can download the file here</description>
     </item>
     
     <item>
@@ -73,7 +83,7 @@ Really enjoyed my time at Cairo.</description>
       <pubDate>Tue, 20 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>https://red0xff.github.io/search/</guid>
-      <description>Search the whole blog for keywords   </description>
+      <description>Search the whole blog for keywords </description>
     </item>
     
     <item>
@@ -82,7 +92,7 @@ Really enjoyed my time at Cairo.</description>
       <pubDate>Fri, 14 Jun 2019 14:55:32 +0200</pubDate>
       
       <guid>https://red0xff.github.io/writeups/richelieu_challenge_writeup/</guid>
-      <description>Table of Contents  The Challenge The Solution  Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free()   Conclusion  The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution.</description>
+      <description>Table of Contents The Challenge The Solution Initial Recon a bit of History The First Portrait The Crypto part The Second portrait Reverse Engineering Relative paths : a bad idea? Buffer overflow like in 1999 The best things in life are free() Conclusion The Challenge The French external intelligence agency, known as the DGSE, published a cybersecurity challenge, the challenge remained open till June 14th 2019, in this writeup, I will try to explain every step of its solution.</description>
     </item>
     
     <item>
@@ -104,7 +114,7 @@ HITB Cyberweek 2019 The event was held from October 14th to October 18th, at the
       <pubDate>Wed, 24 Apr 2019 09:27:58 +0200</pubDate>
       
       <guid>https://red0xff.github.io/posts/when_exploit_mitigations_are_disabled_on_modern_systems/</guid>
-      <description>Table of Contents  Introduction Prerequisites: Vulnerable program: Vulnerability Analysis of the executable Exploitation  Initial plan Searching for ROP gadgets in the application Implementing the exploit  Part1 - Initial Buffer overflow, stack pivoting Part2 - VirtualProtect the main module to ERW, scanf on ERW memory, and jump to it: Part3 - Final shellcode Putting it all together     Conclusion  Introduction While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.</description>
+      <description>Table of Contents Introduction Prerequisites: Vulnerable program: Vulnerability Analysis of the executable Exploitation Initial plan Searching for ROP gadgets in the application Implementing the exploit Part1 - Initial Buffer overflow, stack pivoting Part2 - VirtualProtect the main module to ERW, scanf on ERW memory, and jump to it: Part3 - Final shellcode Putting it all together Conclusion Introduction While experimenting with the Windows exploit mitigation policies, I noticed that MinGW-GCC does not enable most of the modern protections by default.</description>
     </item>
     
     <item>
@@ -124,7 +134,6 @@ It was a programming contests, ACM ACPC qualifier. I played with the team NerDz,
       
       <guid>https://red0xff.github.io/writeups/hackini18/</guid>
       <description>The Event HackINI (stands for Hack Initiation) is an event that is held once a year at the higher national school of computer science at Algiers, in a whole day, a CTF competition and workshops on various information security subdomains are held in parallel, this year, it was held on February 10th.
-
 The challenges of the CTF competition are mostly easy-medium, this post will contain some writeups on some of the tasks.</description>
     </item>
     
@@ -135,7 +144,6 @@ The challenges of the CTF competition are mostly easy-medium, this post will con
       
       <guid>https://red0xff.github.io/posts/nfsmw2012_making_opponents_fly/</guid>
       <description>This is a gamehacking tutorial targeting Need for Speed Most Wanted 2012.
-
 In this tutorial, I will register a hotkey that when pressed, will raise all the opponents by 20m to the sky (and by opponents I mean both cops and race opponents), lets start :D
 We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that indicates its height), we must keep in mind that the z axis might be inverted (ie.</description>
     </item>
@@ -148,7 +156,6 @@ We&amp;rsquo;ll start by searching for the z coordinate of our car (a value that
       <guid>https://red0xff.github.io/writeups/himayatic17_rev400/</guid>
       <description>Hello, today I&amp;rsquo;ll crack a .NET crackme, it was featured on Himayatic CTF, November 2nd 2017. Download link : https://drive.google.com/open?id=0B7U3AsTA9UVfRHdTY2hfQzZrQm8
 Let&amp;rsquo;s start :) First, we notice that it&amp;rsquo;s a .NET crackme, it asks for a serial, and displays &amp;quot;Wrong Serial ... !!!&amp;quot; when we enter a random one.
-
 We open it in a .NET decompiler (I used dnSpy, which is a fork of ILSpy), and we immediately locate this function :</description>
     </item>
     

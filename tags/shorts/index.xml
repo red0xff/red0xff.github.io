@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shorts on Redouane</title>
+    <link>https://red0xff.github.io/tags/shorts/</link>
+    <description>Recent content in shorts on Redouane</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Jul 2022 18:32:00 +0200</lastBuildDate><atom:link href="https://red0xff.github.io/tags/shorts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cracking the Coding Interview (literally)</title>
+      <link>https://red0xff.github.io/posts/cracking_the_coding_interview_literally/</link>
+      <pubDate>Fri, 29 Jul 2022 18:32:00 +0200</pubDate>
+      
+      <guid>https://red0xff.github.io/posts/cracking_the_coding_interview_literally/</guid>
+      <description>Introduction Competitive programming was my entry point into computer science. I joined Hackerrank, Codechef, Project Euler and more similar platforms around 2014, to practice and improve my skills, because I was having fun solving algorithmic problems, and because I was interested in mastering at least a few programming languages (for general scripting and low-level programming mainly).
+About competitive programming For those who are not familiar with this mind-sport, it&amp;rsquo;s about solving computer science problems with given constraints, for example, calculating the n-th Fibonacci number that is also prime, finding the shortest path in a graph, or finding all the ways to write a number as the sum of at least three positive numbers.</description>
+    </item>
+    
+  </channel>
+</rss>
