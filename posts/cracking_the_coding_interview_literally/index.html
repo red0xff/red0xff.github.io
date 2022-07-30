@@ -488,6 +488,7 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 <li>Decompress and decode the payload (<code>zlib</code> and <code>base64</code>), and write it to the anonymous file (using <code>write</code>).</li>
 <li>Execute the anonymous file from memory using <code>fexecve</code>.</li>
 </ul>
+<p>More details about these functions will be given below.</p>
 <p>We will avoid writing data on the disk, as different environments can have different configurations, and some might not allow writing data on the disk.</p>
 <h2 id="span-id52310a1a8adabc58b0df39e7774dbbc1implementing-the-stubspan"><span id='52310a1a8adabc58b0df39e7774dbbc1'>Implementing the stub</span></h2>
 <h3 id="span-id0d6f0596a96b53b273088a5bc9335903decompressing-the-native-executablespan"><span id='0d6f0596a96b53b273088a5bc9335903'>Decompressing the native executable</span></h3>
@@ -530,10 +531,14 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span>    Fiddle::TYPE_INT
 </span></span><span style="display:flex;"><span>);
 </span></span></code></pre></div><h3 id="span-idc4bceb8d0b2fed6978281df08032e4fdcreating-the-anonymous-file-and-writing-the-binary-to-itspan"><span id='c4bceb8d0b2fed6978281df08032e4fd'>Creating the anonymous file, and writing the binary to it</span></h3>
+<p>From the manual page of <code>memfd_create</code> (It&rsquo;s a system call in Linux).</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659218805/cracking_the_coding_interview_literally/hcafdgp5mft8s9jsy5yg.png" alt="memfd_create_man"></p>
+<p>It&rsquo;s exactly the function we need to create a pseudo-file that doesn&rsquo;t get written to the disk.</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>fd = memfd_create.call(<span style="color:#0ff;font-weight:bold">&#39;exec&#39;</span>, <span style="color:#ff0;font-weight:bold">0</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>written = write.call(fd, exe, exe.length)
-</span></span></code></pre></div><h3 id="span-idb8f5f3f6245c02368be4b47dedeb0f12preparing-a-fake-argv-and-envp-for-fexecvespan"><span id='b8f5f3f6245c02368be4b47dedeb0f12'>Preparing a fake <code>ARGV</code> and <code>ENVP</code> for <code>fexecve</code></span></h3>
+</span></span></code></pre></div><p><code>write</code> is the syscall that writes data to a file.</p>
+<h3 id="span-idb8f5f3f6245c02368be4b47dedeb0f12preparing-a-fake-argv-and-envp-for-fexecvespan"><span id='b8f5f3f6245c02368be4b47dedeb0f12'>Preparing a fake <code>ARGV</code> and <code>ENVP</code> for <code>fexecve</code></span></h3>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#007f7f"># set argv[0] = &#34;exec&#34;</span>
 </span></span><span style="display:flex;"><span>argv0 = Fiddle::Pointer.malloc(<span style="color:#ff0;font-weight:bold">5</span>)
 </span></span><span style="display:flex;"><span>
@@ -548,6 +553,8 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span>envp = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
 </span></span><span style="display:flex;"><span>envp[<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">8</span>] = <span style="color:#ff0;font-weight:bold">0</span>.chr * <span style="color:#ff0;font-weight:bold">8</span>
 </span></span></code></pre></div><h3 id="span-id3fd8fc54792153098b4b7c558025442bcalling-the-loaded-executablespan"><span id='3fd8fc54792153098b4b7c558025442b'>Calling the loaded executable</span></h3>
+<p><code>fexecve</code> Executes a program from a file descriptor. It works like the <code>execve</code> syscall, but instead of taking a file path, it takes the file descriptor of an open file.</p>
+<p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659219066/cracking_the_coding_interview_literally/gstcmnkw6vbvgmlhgmhs.png" alt="fexecve_man"></p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>ret = fexecve.call(fd, argv, envp)
 </span></span></code></pre></div><h2 id="span-idc6dff7ea9b9f521dbeb6cbdc0c9a4507testing-with-a-c-program-that-prints-hello-worldspan"><span id='c6dff7ea9b9f521dbeb6cbdc0c9a4507'>Testing with a C program that prints &ldquo;hello world&rdquo;</span></h2>
 <p>The program below runs the following C code:</p>
