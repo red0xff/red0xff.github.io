@@ -553,7 +553,7 @@ While the constraints are often picked in a way that makes naive or unoptimized 
 </span></span><span style="display:flex;"><span>envp = Fiddle::Pointer.malloc(Fiddle::SIZEOF_VOIDP)
 </span></span><span style="display:flex;"><span>envp[<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">8</span>] = <span style="color:#ff0;font-weight:bold">0</span>.chr * <span style="color:#ff0;font-weight:bold">8</span>
 </span></span></code></pre></div><h3 id="span-id3fd8fc54792153098b4b7c558025442bcalling-the-loaded-executablespan"><span id='3fd8fc54792153098b4b7c558025442b'>Calling the loaded executable</span></h3>
-<p><code>fexecve</code> Executes a program from a file descriptor. It works like the <code>execve</code> syscall, but instead of taking a file path, it takes the file descriptor of an open file.</p>
+<p><code>fexecve</code> Executes a program from a file descriptor. It works like the <code>execve</code> syscall, but instead of taking a file path, it takes the file descriptor of an open file.</p>
 <p><img src="https://res.cloudinary.com/dik00g2mh/image/upload/v1659219066/cracking_the_coding_interview_literally/gstcmnkw6vbvgmlhgmhs.png" alt="fexecve_man"></p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>ret = fexecve.call(fd, argv, envp)
 </span></span></code></pre></div><h2 id="span-idc6dff7ea9b9f521dbeb6cbdc0c9a4507testing-with-a-c-program-that-prints-hello-worldspan"><span id='c6dff7ea9b9f521dbeb6cbdc0c9a4507'>Testing with a C program that prints &ldquo;hello world&rdquo;</span></h2>
