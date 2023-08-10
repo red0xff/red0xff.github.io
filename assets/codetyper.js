@@ -1,6 +1,6 @@
 var div = document.getElementById('typingcode');
 
-code = [
+code_x64 = [
 "push \\reg{rdi}",
 "sub \\reg{rsp},\\num{240}",
 "mov \\reg{rax},\\reg{ds}:[\\num{7FFB6F15D0B0}]",
@@ -159,6 +159,157 @@ code = [
 "fld \\reg{st(0)},\\reg{ds}:[\\num{7FF65651FF80}]",
 "fstp \\reg{ds}:[\\reg{r12}],\\reg{st(0)}",
 ];
+
+code_aarch64 = [
+"paciasp",
+"dsb ishst",
+"mrs \\reg{x8}, \\reg{daifset}",
+"and \\reg{w9}, \\reg{w8}, \\num{#0x80}",
+"cbnz \\reg{w9}, \\num{#0xffffffc008112458}",
+"nop ",
+"mov \\reg{w9}, \\num{#0x60}",
+"msr \\reg{daifset}, \\num{#0x2}",
+"b \\num{#0xffffffc0081124ec}",
+"nop",
+"mov \\reg{x9}, \\reg{xzr}",
+"mov \\reg{x10}, \\reg{xzr}",
+"ldr \\reg{x11}, [\\reg{x0}, \\num{#0x28}]",
+"ldr \\reg{x11}, [\\reg{x11}, \\num{#0x30}]",
+"msr \\reg{vtcr_el2}, \\reg{x11}",
+"b \\num{#0xffffffc008112518}",
+"nop",
+"mov \\reg{x11}, \\reg{xzr}",
+"ldr \\reg{x14}, [\\reg{x0}, \\num{#0x10}]",
+"add \\reg{x13}, \\reg{x0}, \\num{#0x8}",
+"ldar \\reg{w13}, [\\reg{x13}]",
+"mov \\reg{x12}, \\reg{xzr}",
+"orr \\reg{x11}, \\reg{x14}, \\reg{x11}",
+"orr \\reg{x11}, \\reg{x11}, \\reg{x13}, lsl \\num{#0x30}",
+"msr \\reg{vttbr_el2}, \\reg{x11}",
+"nop ",
+"mrs \\reg{x11}, \\reg{hcr_el2}",
+"and \\reg{x11}, \\reg{x11}, \\num{#0xfffffffff7ffffff}",
+"mov \\reg{x13}, \\num{#0x88000000}",
+"msr \\reg{hcr_el2}, \\reg{x11}",
+"isb ",
+"tlbi vmalls12e1is",
+"nop ",
+"nop ",
+"dsb ish",
+"movk \\reg{x13}, \\num{#0x4}, lsl \\num{#0x20}",
+"isb ",
+"msr \\reg{vttbr_el2}, \\reg{x12}",
+"msr \\reg{hcr_el2}, \\reg{x13}",
+"isb ",
+"b \\num{#0xffffffc00811252c}",
+"nop",
+"msr \\reg{daifset}, \\reg{x8}",
+"autiasp ",
+"ret ",
+"bti j",
+"brk \\num{#0x800}",
+"bti j",
+"mov \\reg{w10}, \\num{#0x800080}",
+"mrs \\reg{x9}, \\reg{tcr_el1}",
+"orr \\reg{x10}, \\reg{x9}, \\reg{x10}",
+"msr \\reg{tcr_el1}, \\reg{x10}",
+"mrs \\reg{x10}, \\reg{sctlr_el1}",
+"orr \\reg{x11}, \\reg{x10}, \\num{#0x1}",
+"msr \\reg{sctlr_el1}, \\reg{x11}",
+"b \\num{#0xffffffc008112468}",
+"bti j",
+"brk \\num{#0x800}",
+"bti j",
+"mov \\reg{w11}, \\num{#0x1}",
+"b \\num{#0xffffffc008112480}",
+"bti j",
+"brk \\num{#0x800}",
+"bti j",
+"msr \\reg{tcr_el1}, \\reg{x9}",
+"msr \\reg{sctlr_el1}, \\reg{x10}",
+"b \\num{#0xffffffc0081124e0}",
+"bti j",
+"movz \\reg{w9}, \\num{#0xa0}",
+"mrs \\reg{x8}, \\reg{icc_pmr_el1}",
+"eor \\reg{w9}, \\reg{w8}, \\num{#0xe0}",
+"msr \\reg{icc_pmr_el1}, \\reg{x9}",
+"msr \\reg{daifset}, \\reg{x8}",
+"autiasp",
+"ret ",
+"mov \\reg{x30}, \\reg{x23}",
+"adrp \\reg{x8}, \\num{#0xffffffc00b139000}",
+"mov \\reg{x9}, \\num{#0xffffffffffffffff}",
+"add \\reg{x24}, \\reg{x0}, \\num{#0x1}",
+"mov \\reg{x0}, \\reg{x24}",
+"mov \\reg{w1}, \\num{#0xcc0}",
+"xpaclri ",
+"ldr \\reg{x8}, [\\reg{x8}, \\num{#0x10}]",
+"tst \\reg{x30}, \\num{#0x80000000000000}",
+"lsl \\reg{x8}, \\reg{x9}, \\reg{x8}",
+"mvn \\reg{x9}, \\reg{x8}",
+"orr \\reg{x8}, \\reg{x8}, \\reg{x30}",
+"orr \\reg{x9}, \\reg{x9}, \\num{#0xff80000000000000}",
+"and \\reg{x9}, \\reg{x9}, \\reg{x30}",
+"csel \\reg{x2}, \\reg{x9}, \\reg{x8}, eq",
+"bl \\num{__kmalloc_track_caller}",
+"cbz \\reg{x0}, \\num{#0xffffffc00889f388}",
+"mov \\reg{x1}, \\reg{x22}",
+"mov \\reg{x2}, \\reg{x24}",
+"mov \\reg{x23}, \\reg{x0}",
+"bl \\num{memcpy}",
+"b \\num{#0xffffffc00889f354}",
+"mov \\reg{x23}, \\reg{xzr}",
+"mov \\reg{x0}, \\reg{x21}",
+"mov \\reg{w1}, \\num{#0xa124}",
+"mov \\reg{x2}, \\reg{x20}",
+"mov \\reg{x3}, \\reg{x23}",
+"mov \\reg{x4}, \\reg{xzr}",
+"mov \\reg{x5}, \\reg{x19}",
+"bl \\num{securityfs_create_dentry}",
+"mov \\reg{x19}, \\reg{x0}",
+"cmn \\reg{x0}, \\num{#0xfff}",
+"blo \\num{#0xffffffc00889f38c}",
+"mov \\reg{x0}, \\reg{x23}",
+"bl \\num{kfree}",
+"b \\num{#0xffffffc00889f38c}",
+"mov \\reg{x19}, \\num{#0xfffffffffffffff4}",
+"mov \\reg{x0}, \\reg{x19}",
+"ldp \\reg{x20}, \\reg{x19}, [\\reg{sp}, \\num{#0x30}]",
+"ldp \\reg{x22}, \\reg{x21}, [\\reg{sp}, \\num{#0x20}]",
+"ldp \\reg{x24}, \\reg{x23}, [\\reg{sp}, \\num{#0x10}]",
+"ldp \\reg{x29}, \\reg{x30}, [\\reg{sp}], \\num{#0x40}",
+"ldr \\reg{x30}, [\\reg{x18}, \\num{#-0x8}]!",
+"autiasp",
+"ret ",
+"bti c",
+"sub \\reg{w3}, \\reg{w3}, \\num{#0x2}",
+"ld1 {\\reg{v0.16b}}, [\\reg{x2}]",
+"ld1 {\\reg{v1.4s}}, [\\reg{x0}], \\num{#0x10}",
+"cmp \\reg{w3}, \\num{#0xa}",
+"bmi \\num{#0xffffffc008019a8c}",
+"bne \\num{#0xffffffc008019aa8}",
+"mov \\reg{v3.16b}, \\reg{v1.16b}",
+"b \\num{#0xffffffc008019a9c}",
+"mov \\reg{v2.16b}, \\reg{v1.16b}",
+"ld1 {\\reg{v3.4s}}, [\\reg{x0}], \\num{#0x10}",
+"aese \\reg{v0.16b}, \\reg{v2.16b}",
+"aesmc \\reg{v0.16b}, \\reg{v0.16b}",
+"ld1 {\\reg{v1.4s}}, [\\reg{x0}], \\num{#0x10}",
+"aese \\reg{v0.16b}, \\reg{v3.16b}",
+"aesmc \\reg{v0.16b}, \\reg{v0.16b}",
+"ld1 {\\reg{v2.4s}}, [\\reg{x0}], \\num{#0x10}",
+"subs \\reg{w3}, \\reg{w3}, \\num{#0x3}",
+"aese \\reg{v0.16b}, \\reg{v1.16b}",
+"aesmc \\reg{v0.16b}, \\reg{v0.16b}",
+"ld1 {\\reg{v3.4s}}, [\\reg{x0}], \\num{#0x10}",
+"bpl \\num{#0xffffffc008019a94}",
+"aese \\reg{v0.16b}, \\reg{v2.16b}",
+"eor \\reg{v0.16b}, \\reg{v0.16b}, \\reg{v3.16b}",
+"st1 {\\reg{v0.16b}}, [\\reg{x1}]",
+"ret"
+];
+
+var code = [ code_x64, code_aarch64 ];
 var line_char = 0; // index of character in the line
 var lines_written = 0;
 var color_open = false;
@@ -193,7 +344,8 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var code_line = getRandomInt(0, code.length-1); // index of line
+var code_arch = getRandomInt(0, code.length-1);
+var code_line = getRandomInt(0, code[code_arch].length-1); // index of line
 
 function write_newline()
 {
@@ -216,15 +368,15 @@ function type_code()
 		div.classList.toggle('hidden');
 		return;
 	}
-	if (line_char >= code[code_line].length)
+	if (line_char >= code[code_arch][code_line].length)
 	{
-		code_line = (code_line + 1) % code.length;
+		code_line = (code_line + 1) % code[code_arch].length;
 		line_char = 0;
 		if (color_open) throw 'Close the color tag before returning to newline';
 		write_newline();
 		return;
 	}
-	var slc = code[code_line].slice(line_char, -1);
+	var slc = code[code_arch][code_line].slice(line_char, -1);
 	if (/^\\reg\{/.test(slc))
 	{
 		//console.log("[+] opening : slc = " + slc);
@@ -245,30 +397,30 @@ function type_code()
 	}
 	else
 	{
-		if (code[code_line].charAt(line_char) === "\\")
+		if (code[code_arch][code_line].charAt(line_char) === "\\")
 		{
 			if (is_atomic)
 			{
-				div.innerHTML = div.innerHTML.slice(0,-7) + htmlescape(code[code_line].charAt(line_char+1)) + '</span>';
+				div.innerHTML = div.innerHTML.slice(0,-7) + htmlescape(code[code_arch][code_line].charAt(line_char+1)) + '</span>';
 			}
 			else
 			{
-				div.innerHTML += htmlescape(code[code_line].charAt(line_char+1));
+				div.innerHTML += htmlescape(code[code_arch][code_line].charAt(line_char+1));
 			}
 			line_char += 2;
 		}
 		else
 		{
 			if (is_atomic)
-				div.innerHTML = div.innerHTML.slice(0,-7) + htmlescape(code[code_line].charAt(line_char)) + '</span>';
+				div.innerHTML = div.innerHTML.slice(0,-7) + htmlescape(code[code_arch][code_line].charAt(line_char)) + '</span>';
 			else
-				div.innerHTML += htmlescape(code[code_line].charAt(line_char));			
+				div.innerHTML += htmlescape(code[code_arch][code_line].charAt(line_char));			
 			line_char++;
 		}
-		if (color_open && line_char < code[code_line].length && code[code_line].charAt(line_char) === '}')
+		if (color_open && line_char < code[code_arch][code_line].length && code[code_arch][code_line].charAt(line_char) === '}')
 		{
 			if (!is_atomic)
-				div.innerHTML = div.innerHTML.replace(new RegExp(htmlescape(code[code_line].slice(color_open_ind, line_char)).replace(/[\(\)]/g, (c) => "\\"+c ) + '$'), (x) => { return '<span class="register">' + x + '</span>' });
+				div.innerHTML = div.innerHTML.replace(new RegExp(htmlescape(code[code_arch][code_line].slice(color_open_ind, line_char)).replace(/[\(\)]/g, (c) => "\\"+c ) + '$'), (x) => { return '<span class="register">' + x + '</span>' });
 			line_char++;
 			color_open = false;
 			is_atomic = false;
